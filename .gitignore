@@ -30,3 +30,4 @@ replay_pid*
 /BibliotecaJavaEE-ear/target/
 /BibliotecaJavaEE-log/target/
 /BibliotecaJavaEE-db/target/
+.DS_Store

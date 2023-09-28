@@ -22,3 +22,11 @@
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 replay_pid*
+/BibliotecaJavaEE-common/target/
+/BibliotecaJavaEE-ejb/target/
+/BibliotecaJavaEE-client/target/
+/BibliotecaJavaEE-server/target/
+/BibliotecaJavaEE-web/target/
+/BibliotecaJavaEE-ear/target/
+/BibliotecaJavaEE-log/target/
+/BibliotecaJavaEE-db/target/

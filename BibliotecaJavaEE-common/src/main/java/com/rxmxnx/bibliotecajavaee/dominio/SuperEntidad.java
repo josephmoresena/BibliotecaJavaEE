@@ -15,7 +15,7 @@ import javax.persistence.*;
  */
 @MappedSuperclass
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-public abstract class SuperEntidad<T extends Number> implements Serializable {
+public abstract class SuperEntidad<T extends Number & Comparable<T>> implements Serializable {
     private static final long serialVersionUID = 1L;
     
     @Id
@@ -48,7 +48,7 @@ public abstract class SuperEntidad<T extends Number> implements Serializable {
         return !((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id)));
     }
     
-    public static <U extends Number> U getId(SuperEntidad<U> entidad) {
+    public static <U extends Number & Comparable<U>> U getId(SuperEntidad<U> entidad) {
         if (entidad == null)
             return null;
         return entidad.getId();

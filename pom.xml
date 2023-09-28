@@ -6,7 +6,8 @@
   <version>1.0</version>
   <packaging>pom</packaging>
   <name>BibliotecaJavaEE</name>
-<modules>  <module>BibliotecaJavaEE-ear</module>
+  <modules>  
+    <module>BibliotecaJavaEE-ear</module>
     <module>BibliotecaJavaEE-web</module>
     <module>BibliotecaJavaEE-ejb</module>
     <module>BibliotecaJavaEE-db</module>
@@ -14,5 +15,5 @@
     <module>BibliotecaJavaEE-common</module>
     <module>BibliotecaJavaEE-client</module>
     <module>BibliotecaJavaEE-server</module>
-</modules>
+  </modules>
 </project>

@@ -38,11 +38,19 @@ public class Usuario extends SuperEntidad<Integer> implements Serializable {
     public Usuario(Integer id) {
         super(id);
     }
-
     public Usuario(String nombre, Date fechaRegistro, String email) {
         this.nombre = nombre;
         this.fechaRegistro = fechaRegistro;
         this.email = email;
+    }
+    public Usuario(Usuario usuario, boolean tienePrestamos) {
+        super(usuario.getId());
+        this.nombre = usuario.getNombre();
+        this.apellido = usuario.getApellido();
+        this.fechaRegistro = usuario.getFechaRegistro();
+        this.email = usuario.getEmail();
+        if(tienePrestamos)
+            this.prestamoSet = usuario.getPrestamoSet();
     }
 
     @Override

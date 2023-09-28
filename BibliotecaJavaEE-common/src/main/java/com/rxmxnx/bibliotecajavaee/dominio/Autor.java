@@ -43,6 +43,14 @@ public class Autor extends SuperEntidad<Integer> implements Serializable {
         this.nombre = nombre;
         this.apellido = apellido;
     }
+    public Autor(Autor autor, boolean tieneLibros) {
+        super(autor.getId());
+        this.nombre = autor.getNombre();
+        this.apellido = autor.getApellido();
+        this.pais = autor.getPais();
+        if (tieneLibros)
+            this.libroSet = autor.getLibroSet();
+    }
 
     @Override
     public Integer getId() {

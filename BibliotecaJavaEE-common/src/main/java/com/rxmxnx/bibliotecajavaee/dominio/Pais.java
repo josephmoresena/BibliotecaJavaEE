@@ -36,6 +36,15 @@ public class Pais extends SuperEntidad<Short> implements Serializable {
     public Pais(String nombre) {
         this.nombre = nombre;
     }
+    public Pais(Pais pais, boolean tieneAutores, boolean tieneLibros) {
+        super(pais.getId());
+        this.nombre = pais.getNombre();
+        
+        if (tieneAutores)
+            this.autorSet = pais.getAutorSet();
+        if (tieneLibros)
+            this.libroSet = pais.getLibroSet();
+    }
 
     @Override
     public Short getId() {

@@ -44,6 +44,14 @@ public class Prestamo extends SuperEntidad<Long> implements Serializable {
     public Prestamo(Date fechaPrestamo) {
         this.fechaPrestamo = fechaPrestamo;
     }
+    public Prestamo(Prestamo prestamo){
+        super(prestamo.getId());
+        this.devuelto = prestamo.getDevuelto();
+        this.fechaDevolucion = prestamo.getFechaDevolucion();
+        this.fechaPrestamo = prestamo.getFechaPrestamo();
+        this.libro = prestamo.getLibro();
+        this.usuario = prestamo.getUsuario();
+    }
 
     @Override
     public Long getId() {

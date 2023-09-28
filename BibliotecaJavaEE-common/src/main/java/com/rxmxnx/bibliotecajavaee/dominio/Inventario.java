@@ -5,16 +5,9 @@
  */
 package com.rxmxnx.bibliotecajavaee.dominio;
 
-import java.io.Serializable;
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.MappedSuperclass;
-import javax.xml.bind.annotation.XmlRootElement;
+import java.io.*;
+import javax.persistence.*;
+import javax.xml.bind.annotation.*;
 
 /**
  *
@@ -37,6 +30,11 @@ public class Inventario extends SuperEntidad<Integer> implements Serializable {
     }
     public Inventario(Integer id) {
         super(id);
+    }
+    public Inventario(Inventario inventario) {
+        super(inventario.getId());
+        this.estante = inventario.getEstante();
+        this.libro = inventario.getLibro();
     }
 
     @Override

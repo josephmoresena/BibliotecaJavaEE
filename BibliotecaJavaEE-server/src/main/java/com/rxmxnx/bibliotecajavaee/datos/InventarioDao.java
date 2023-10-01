@@ -6,8 +6,9 @@
 package com.rxmxnx.bibliotecajavaee.datos;
 
 import com.rxmxnx.bibliotecajavaee.dominio.*;
-import com.speedment.jpastreamer.field.predicate.SpeedmentPredicate;
+import com.speedment.jpastreamer.field.predicate.*;
 import java.util.*;
+import java.util.function.*;
 import javax.ejb.*;
 
 /**
@@ -18,12 +19,17 @@ import javax.ejb.*;
 public interface InventarioDao extends SuperEntidadDao<Integer, Inventario> {
     @Override
     List<Inventario> listar();
-    @Override
-    List<Inventario> listar(SpeedmentPredicate<Inventario> predicado);
+    List<Inventario> listarInventario(Function<? extends InventarioDefinicion, SpeedmentPredicate<? extends Inventario>> funcionPredicado);
     @Override
     Optional<Inventario> encontrar(Integer id);
     @Override
     Inventario guardar(Inventario entidad);
     @Override
     boolean eliminar(Integer id);
+    
+    @Override
+    default List<Inventario> listar(Function<? extends SuperDefinicion<Integer, ? extends Inventario>, SpeedmentPredicate<? extends Inventario>> funcionPredicado) {
+        Function<? extends InventarioDefinicion, SpeedmentPredicate<? extends Inventario>> funcion = (Function)funcionPredicado;
+        return this.listarInventario(funcion);
+    }
 }

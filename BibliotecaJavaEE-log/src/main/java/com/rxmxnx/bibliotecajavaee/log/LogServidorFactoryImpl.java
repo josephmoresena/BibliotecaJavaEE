@@ -11,12 +11,12 @@ import javax.ejb.*;
  *
  * @author atem94
  */
-@EJB
+//@EJB(beanName="com.rxmxnx.bibliotecajavaee.log.LogServidorFactory")
 @Stateless
 public class LogServidorFactoryImpl implements LogServidorFactory {
 
     @Override
-    public <T> LogServidor createLog(Class<T> clase) {
+    public LogServidor createLog(Class<?> clase) {
         return new LogServidorImpl().init(clase);
     }
 }

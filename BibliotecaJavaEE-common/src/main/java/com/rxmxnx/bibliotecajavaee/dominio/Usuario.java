@@ -52,9 +52,8 @@ public class Usuario extends SuperEntidad<Integer> implements Serializable {
         if(tienePrestamos)
             this.prestamoSet = usuario.getPrestamoSet();
     }
-
-    @Override
-    public Integer getId() {
+    
+    public Integer getUsuarioId() {
         return super.getId();
     }
     public String getNombre() {

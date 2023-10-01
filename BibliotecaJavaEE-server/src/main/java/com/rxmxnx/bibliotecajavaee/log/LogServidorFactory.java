@@ -13,5 +13,5 @@ import javax.ejb.Remote;
  */
 @Remote
 public interface LogServidorFactory {
-    <T> LogServidor createLog(Class<T> clase);
+    LogServidor createLog(Class<?> clase);
 }

@@ -6,8 +6,9 @@
 package com.rxmxnx.bibliotecajavaee.datos;
 
 import com.rxmxnx.bibliotecajavaee.dominio.*;
-import com.speedment.jpastreamer.field.predicate.SpeedmentPredicate;
+import com.speedment.jpastreamer.field.predicate.*;
 import java.util.*;
+import java.util.function.*;
 import javax.ejb.*;
 
 /**
@@ -18,12 +19,17 @@ import javax.ejb.*;
 public interface PrestamoDao extends SuperEntidadDao<Long, Prestamo> {
     @Override
     List<Prestamo> listar();
-    @Override
-    List<Prestamo> listar(SpeedmentPredicate<Prestamo> predicado);
+    List<Prestamo> listarPrestamo(Function<? extends PrestamoDefinicion, SpeedmentPredicate<? extends Prestamo>> funcionPredicado);
     @Override
     Optional<Prestamo> encontrar(Long id);
     @Override
     Prestamo guardar(Prestamo entidad);
     @Override
     boolean eliminar(Long id);
+    
+    @Override
+    default List<Prestamo> listar(Function<? extends SuperDefinicion<Long, ? extends Prestamo>, SpeedmentPredicate<? extends Prestamo>> funcionPredicado) {
+        Function<? extends PrestamoDefinicion, SpeedmentPredicate<? extends Prestamo>> funcion = (Function)funcionPredicado;
+        return this.listarPrestamo(funcion);
+    }
 }

@@ -41,8 +41,7 @@ public class Genero extends SuperEntidad<Short> implements Serializable {
             this.libroSet = genero.getLibroSet();
     }
 
-    @Override
-    public Short getId() {
+    public Short getGeneroId() {
         return super.getId();
     }
     public String getNombre() {

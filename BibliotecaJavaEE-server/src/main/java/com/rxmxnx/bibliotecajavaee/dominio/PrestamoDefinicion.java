@@ -11,14 +11,15 @@ import java.util.*;
 /**
  *
  * @author atem94
+ * @param <T>
  */
-public interface PrestamoDefinicion extends SuperDefinicion<Prestamo> {
+public interface PrestamoDefinicion<T extends Prestamo> extends SuperDefinicion<Long, T> {
     @Override
-    LongField<Prestamo> id();
-    ComparableField<Prestamo, Date> fechaPrestamo();
-    ComparableField<Prestamo, Date> fechaDevolucion();
-    BooleanField<Prestamo> devuelto();
+    LongField<T> id();
+    ComparableField<T, Date> fechaPrestamo();
+    ComparableField<T, Date> fechaDevolucion();
+    BooleanField<T> devuelto();
     
-    ReferenceField<Prestamo, Libro> libro();
-    ReferenceField<Prestamo, Usuario> usuario();
+    ReferenceField<T, Libro> libro();
+    ReferenceField<T, Usuario> usuario();
 }

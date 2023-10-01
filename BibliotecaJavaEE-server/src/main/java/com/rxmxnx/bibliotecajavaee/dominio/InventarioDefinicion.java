@@ -10,12 +10,13 @@ import com.speedment.jpastreamer.field.*;
 /**
  *
  * @author atem94
+ * @param <T>
  */
-public interface InventarioDefinicion extends SuperDefinicion<Inventario> {
+public interface InventarioDefinicion<T extends Inventario> extends SuperDefinicion<Integer, T> {
     @Override
-    LongField<Inventario> id();
-    StringField<Inventario> estante();
-    IntField<Inventario> cantidadEjemplares();
+    IntField<T> id();
+    StringField<T> estante();
+    IntField<T> cantidadEjemplares();
     
-    ReferenceField<Inventario, Libro> libro();
+    ReferenceField<T, Libro> libro();
 }

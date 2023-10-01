@@ -53,8 +53,7 @@ public class Prestamo extends SuperEntidad<Long> implements Serializable {
         this.usuario = prestamo.getUsuario();
     }
 
-    @Override
-    public Long getId() {
+    public Long getPrestamoId() {
         return super.getId();
     }
     public Date getFechaPrestamo() {

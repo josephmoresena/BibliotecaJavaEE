@@ -11,12 +11,13 @@ import java.util.*;
 /**
  *
  * @author atem94
+ * @param <T>
  */
-public interface UsuarioDefinicion extends SuperDefinicion<Usuario> {
+public interface UsuarioDefinicion<T extends Usuario> extends SuperDefinicion<Integer, T> {
     @Override
-    IntField<Usuario> id();
-    StringField<Usuario> nombre();
-    StringField<Usuario> email();
+    IntField<T> id();
+    StringField<T> nombre();
+    StringField<T> email();
     
-    ReferenceField<Usuario, Set<Prestamo>> prestamoSet();
+    ReferenceField<T, Set<Prestamo>> prestamoSet();
 }

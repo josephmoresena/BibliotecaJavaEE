@@ -36,6 +36,9 @@ public class Pais extends SuperEntidad<Short> implements Serializable {
     public Pais(String nombre) {
         this.nombre = nombre;
     }
+    public Pais(Pais pais) {
+        this(pais, false, false);
+    }
     public Pais(Pais pais, boolean tieneAutores, boolean tieneLibros) {
         super(pais.getId());
         this.nombre = pais.getNombre();
@@ -46,8 +49,7 @@ public class Pais extends SuperEntidad<Short> implements Serializable {
             this.libroSet = pais.getLibroSet();
     }
 
-    @Override
-    public Short getId() {
+    public Short getPaisId() {
         return super.getId();
     }
     public String getNombre() {

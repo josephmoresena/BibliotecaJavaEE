@@ -10,10 +10,9 @@ import javax.ejb.Remote;
 /**
  *
  * @author atem94
- * @param <TClase>
  */
 @Remote
-public interface LogServidor<TClase> {
+public interface LogServidor {
     void info(String string, Object... os);
     void error(String string, Object... os);
     void error(String string, Throwable thrwbl);

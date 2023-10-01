@@ -57,11 +57,13 @@
             <groupId>${project.groupId}</groupId>
             <artifactId>BibliotecaJavaEE-db</artifactId>
             <version>${project.version}</version>
+            <type>ejb</type>
         </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>BibliotecaJavaEE-log</artifactId>
             <version>${project.version}</version>
+            <type>ejb</type>
         </dependency>
     </dependencies>
 </project>

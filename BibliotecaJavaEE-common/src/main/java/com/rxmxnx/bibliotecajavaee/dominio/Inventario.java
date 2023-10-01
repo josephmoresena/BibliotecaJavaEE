@@ -36,9 +36,8 @@ public class Inventario extends SuperEntidad<Integer> implements Serializable {
         this.estante = inventario.getEstante();
         this.libro = inventario.getLibro();
     }
-
-    @Override
-    public Integer getId() {
+    
+    public Integer getInventarioId() {
         return super.getId();
     }
     

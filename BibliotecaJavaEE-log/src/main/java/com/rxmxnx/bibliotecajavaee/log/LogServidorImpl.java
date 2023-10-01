@@ -14,9 +14,7 @@ import org.apache.logging.log4j.Logger;
  * @author atem94
  * @param <TClase>
  */
-@EJB
-@Stateless
-public class LogServidorImpl<TClase> implements LogServidor<TClase> {
+public class LogServidorImpl<TClase> implements LogServidor {
     private Logger log;
     
     protected LogServidorImpl<TClase> init(Class<TClase> clase) {

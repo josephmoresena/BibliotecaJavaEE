@@ -10,15 +10,16 @@ import com.speedment.jpastreamer.field.*;
 /**
  *
  * @author atem94
+ * @param <T>
  */
-public interface LibroDefinicion extends SuperDefinicion<Libro> {
+public interface LibroDefinicion<T extends Libro> extends SuperDefinicion<Integer, T> {
     @Override
-    IntField<Libro> id();
-    StringField<Libro> titulo();
+    IntField<T> id();
+    StringField<T> titulo();
     StringField<Libro> isbn();
-    ReferenceField<Libro, String> sinopsis();
+    ReferenceField<T, String> sinopsis();
     
-    ReferenceField<Libro, Autor> autor();
-    ReferenceField<Libro, Genero> genero();
-    ReferenceField<Libro, Pais> paisPublicacion(); 
+    ReferenceField<T, Autor> autor();
+    ReferenceField<T, Genero> genero();
+    ReferenceField<T, Pais> paisPublicacion(); 
 }

@@ -52,8 +52,7 @@ public class Autor extends SuperEntidad<Integer> implements Serializable {
             this.libroSet = autor.getLibroSet();
     }
 
-    @Override
-    public Integer getId() {
+    public Integer getAutorId() {
         return super.getId();
     }
 

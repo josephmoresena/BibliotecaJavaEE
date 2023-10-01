@@ -67,8 +67,7 @@ public class Libro extends SuperEntidad<Integer> implements Serializable {
             this.inventarioSet = libro.getInventarioSet();
     }
 
-    @Override
-    public Integer getId() {
+    public Integer getLibroId() {
         return super.getId();
     }
     public String getTitulo() {

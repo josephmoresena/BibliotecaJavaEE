@@ -6,8 +6,9 @@
 package com.rxmxnx.bibliotecajavaee.datos;
 
 import com.rxmxnx.bibliotecajavaee.dominio.*;
-import com.speedment.jpastreamer.field.predicate.SpeedmentPredicate;
+import com.speedment.jpastreamer.field.predicate.*;
 import java.util.*;
+import java.util.function.*;
 import javax.ejb.*;
 
 /**
@@ -18,12 +19,17 @@ import javax.ejb.*;
 public interface AutorDao extends SuperEntidadDao<Integer, Autor> {
     @Override
     List<Autor> listar();
-    @Override
-    List<Autor> listar(SpeedmentPredicate<Autor> predicado);
+    List<Autor> listarAutor(Function<? extends AutorDefinicion, SpeedmentPredicate<? extends Autor>> funcionPredicado);
     @Override
     Optional<Autor> encontrar(Integer id);
     @Override
     Autor guardar(Autor entidad);
     @Override
     boolean eliminar(Integer id);
+    
+    @Override
+    default List<Autor> listar(Function<? extends SuperDefinicion<Integer, ? extends Autor>, SpeedmentPredicate<? extends Autor>> funcionPredicado) {
+        Function<? extends AutorDefinicion, SpeedmentPredicate<? extends Autor>> funcion = (Function)funcionPredicado;
+        return this.listarAutor(funcion);
+    }
 }

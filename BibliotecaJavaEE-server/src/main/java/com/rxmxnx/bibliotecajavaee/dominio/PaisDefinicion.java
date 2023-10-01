@@ -11,12 +11,15 @@ import java.util.*;
 /**
  *
  * @author atem94
+ * @param <TPais>
+ * @param <TLibro>
+ * @param <TAutor>
  */
-public interface PaisDefinicion extends SuperDefinicion<Pais> {
+public interface PaisDefinicion<TPais extends Pais, TLibro extends Libro, TAutor extends Autor> extends SuperDefinicion<Short, TPais> {
     @Override
-    ShortField<Pais> id();
-    StringField<Pais> nombre();
+    ShortField<TPais> id();
+    StringField<TPais> nombre();
     
-    ReferenceField<Pais, Set<Libro>> libroSet();
-    ReferenceField<Pais, Set<Autor>> autorSet();
+    ReferenceField<TPais, Set<TLibro>> libroSet();
+    ReferenceField<TPais, Set<TAutor>> autorSet();
 }

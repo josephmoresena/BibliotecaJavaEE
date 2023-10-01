@@ -5,13 +5,15 @@
  */
 package com.rxmxnx.bibliotecajavaee.dominio;
 
-import com.speedment.jpastreamer.field.comparator.FieldComparator;
+import com.speedment.jpastreamer.field.trait.HasComparableOperators;
 
 /**
  *
  * @author atem94
+ * @param <U>
  * @param <TEntidad>
  */
-public interface SuperDefinicion<TEntidad extends SuperEntidad> {
-    FieldComparator<TEntidad> id();
+public interface SuperDefinicion<U extends Number & Comparable<U>, TEntidad extends SuperEntidad<U>> {
+    Class<? extends TEntidad> clase();
+    HasComparableOperators<TEntidad, U> id();
 }

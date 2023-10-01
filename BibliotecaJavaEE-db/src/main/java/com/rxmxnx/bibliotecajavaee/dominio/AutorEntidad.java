@@ -5,10 +5,9 @@
  */
 package com.rxmxnx.bibliotecajavaee.dominio;
 
-import java.io.Serializable;
-import javax.persistence.Entity;
-import javax.persistence.Table;
-import javax.xml.bind.annotation.XmlRootElement;
+import java.io.*;
+import javax.persistence.*;
+import javax.xml.bind.annotation.*;
 
 /**
  *
@@ -18,4 +17,10 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "AUTORES", catalog = "BIBLIOTECA_JEE", schema = "")
 @XmlRootElement
 public class AutorEntidad extends Autor implements Serializable {
+    public AutorEntidad() {
+        super();
+    }
+    public AutorEntidad(Autor autor, boolean tieneLibros) {
+        super(autor, tieneLibros);
+    }
 }

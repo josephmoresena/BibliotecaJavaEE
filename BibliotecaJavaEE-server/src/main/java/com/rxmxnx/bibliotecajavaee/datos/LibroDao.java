@@ -6,8 +6,9 @@
 package com.rxmxnx.bibliotecajavaee.datos;
 
 import com.rxmxnx.bibliotecajavaee.dominio.*;
-import com.speedment.jpastreamer.field.predicate.SpeedmentPredicate;
+import com.speedment.jpastreamer.field.predicate.*;
 import java.util.*;
+import java.util.function.*;
 import javax.ejb.*;
 
 /**
@@ -18,12 +19,17 @@ import javax.ejb.*;
 public interface LibroDao extends SuperEntidadDao<Integer, Libro> {
     @Override
     List<Libro> listar();
-    @Override
-    List<Libro> listar(SpeedmentPredicate<Libro> predicado);
+    List<Libro> listarLibro(Function<? extends LibroDefinicion, SpeedmentPredicate<? extends Libro>> funcionPredicado);
     @Override
     Optional<Libro> encontrar(Integer id);
     @Override
     Libro guardar(Libro entidad);
     @Override
     boolean eliminar(Integer id);
+    
+    @Override
+    default List<Libro> listar(Function<? extends SuperDefinicion<Integer, ? extends Libro>, SpeedmentPredicate<? extends Libro>> funcionPredicado) {
+        Function<? extends LibroDefinicion, SpeedmentPredicate<? extends Libro>> funcion = (Function)funcionPredicado;
+        return this.listarLibro(funcion);
+    }
 }

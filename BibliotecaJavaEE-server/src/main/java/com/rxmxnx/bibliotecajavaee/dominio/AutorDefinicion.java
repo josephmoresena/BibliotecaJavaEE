@@ -11,13 +11,14 @@ import java.util.*;
 /**
  *
  * @author atem94
+ * @param <T>
  */
-public interface AutorDefinicion extends SuperDefinicion<Autor> {
+public interface AutorDefinicion<T extends Autor> extends SuperDefinicion<Integer, T> {
     @Override
-    IntField<Autor> id();
-    StringField<Autor> nombre();
-    StringField<Autor> apellido();
-    ComparableField<Autor, Date> fechaNacimiento();
+    IntField<T> id();
+    StringField<T> nombre();
+    StringField<T> apellido();
+    ComparableField<T, Date> fechaNacimiento();
     
     ReferenceField<Autor, Pais> pais();
     ReferenceField<Autor, Set<Libro>> libroSet();

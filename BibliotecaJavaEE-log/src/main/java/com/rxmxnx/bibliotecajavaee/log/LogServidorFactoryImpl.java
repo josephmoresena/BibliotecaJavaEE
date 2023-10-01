@@ -15,6 +15,10 @@ import javax.ejb.*;
 @Stateless
 public class LogServidorFactoryImpl implements LogServidorFactory {
 
+    static {
+        System.out.println("Loaded LogServidorFactoryImp class.");
+    }
+    
     @Override
     public LogServidor createLog(Class<?> clase) {
         return new LogServidorImpl().init(clase);

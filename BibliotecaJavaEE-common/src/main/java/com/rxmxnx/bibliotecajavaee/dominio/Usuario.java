@@ -15,8 +15,8 @@ import javax.xml.bind.annotation.*;
  * @author atem94
  */
 @MappedSuperclass
-@Table(name = "USUARIOS")
 @XmlRootElement
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public class Usuario extends SuperEntidad<Integer> implements Serializable {
 
     private static final long serialVersionUID = 1L;

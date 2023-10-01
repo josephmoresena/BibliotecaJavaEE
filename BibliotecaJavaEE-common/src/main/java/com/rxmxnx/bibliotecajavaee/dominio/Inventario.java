@@ -15,6 +15,7 @@ import javax.xml.bind.annotation.*;
  */
 @MappedSuperclass
 @XmlRootElement
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public class Inventario extends SuperEntidad<Integer> implements Serializable {
 
     private static final long serialVersionUID = 1L;

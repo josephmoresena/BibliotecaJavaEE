@@ -7,6 +7,7 @@ package com.rxmxnx.bibliotecajavaee.datos;
 
 import com.rxmxnx.bibliotecajavaee.dominio.*;
 import com.rxmxnx.bibliotecajavaee.log.*;
+import com.rxmxnx.bibliotecajavaee.utilidades.*;
 import com.speedment.jpastreamer.field.*;
 import com.speedment.jpastreamer.field.predicate.*;
 import java.util.*;
@@ -72,7 +73,7 @@ public class PaisDaoImpl extends SuperEntidadDaoImpl<Short, Pais> implements Pai
     public Pais guardar(Pais entidad) {
         this.initialize(false);
         PaisEntidad resultado = PaisEntidad.crearEntidad(entidad);
-        if (entidad.getPaisId() != null) {
+        if (this.esActualizacion(entidad)) {
             return this.entityManager().merge(resultado);
         }
         this.entityManager().persist(resultado);

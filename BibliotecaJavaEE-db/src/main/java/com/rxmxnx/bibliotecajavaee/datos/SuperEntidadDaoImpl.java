@@ -48,6 +48,9 @@ abstract class SuperEntidadDaoImpl<U extends Number & Comparable<U>, TEntidad ex
     protected final JPAStreamer streamer() {
         return this.jpaStreamer;
     }
+    protected boolean esActualizacion(TEntidad entidad) {
+        return SuperEntidad.getId(entidad) != null;
+    }
     
     protected final void initialize() {
         this.initialize(true);

@@ -19,7 +19,7 @@ public interface LibroDefinicion<TLibro extends Libro, TAutor extends Autor, TPa
     @Override
     IntField<TLibro> id();
     StringField<TLibro> titulo();
-    StringField<Libro> isbn();
+    StringField<TLibro> isbn();
     ReferenceField<TLibro, String> sinopsis();
     IntField<TLibro> autorId();
     ShortField<TLibro> generoId();

@@ -36,8 +36,6 @@ abstract class SuperEntidadDaoImpl<U extends Number & Comparable<U>, T extends S
         this.jpaStreamer = JPAStreamer.of(emf);
     }
     
-    protected abstract T map(TEntidad entidad);
-    protected abstract TDetallado mapDetallado(TEntidad entidad);
     protected abstract Class<TEntidad> claseEntidad();
     protected abstract HasComparableOperators<TEntidad, U> campoId();
     protected abstract LogServidorFactory logFactory();

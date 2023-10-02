@@ -30,14 +30,6 @@ public class PaisDaoImpl extends SuperEntidadDaoImpl<Short, Pais, PaisReferencia
     }
     
     @Override
-    protected Pais map(PaisEntidad entidad) {
-        return new Pais(entidad);
-    }
-    @Override
-    protected PaisReferencia mapDetallado(PaisEntidad entidad) {
-        return new PaisReferencia(entidad);
-    }
-    @Override
     protected Class<PaisEntidad> claseEntidad() {
         return Definicion.INSTANCIA.clase();
     }

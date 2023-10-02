@@ -6,18 +6,20 @@
 package com.rxmxnx.bibliotecajavaee.datos;
 
 import com.rxmxnx.bibliotecajavaee.dominio.*;
-import com.rxmxnx.bibliotecajavaee.log.LogServidorFactory;
+import com.rxmxnx.bibliotecajavaee.log.*;
 import com.speedment.jpastreamer.application.*;
 import javax.persistence.*;
-import com.rxmxnx.bibliotecajavaee.log.LogServidor;
+import com.speedment.jpastreamer.field.predicate.*;
+import com.speedment.jpastreamer.field.trait.*;
+import java.util.stream.*;
 
 /**
  *
  * @author atem94
  * @param <U>
- * @param <TEntidad>
+ * @param <T>
  */
-abstract class SuperEntidadDaoImpl<U extends Number & Comparable<U>, TEntidad extends SuperEntidad<U>> {
+abstract class SuperEntidadDaoImpl<U extends Number & Comparable<U>, T extends SuperEntidad<U>, TDetallado extends T, TEntidad extends TDetallado> {
     private static final String UNIDAD_BASE_DATOS = "BibliotecaJavaEE_PU";
     
     private LogServidor log;
@@ -34,8 +36,12 @@ abstract class SuperEntidadDaoImpl<U extends Number & Comparable<U>, TEntidad ex
         this.jpaStreamer = JPAStreamer.of(emf);
     }
     
-    protected abstract Class<? extends TEntidad> claseEntidad();
+    protected abstract T map(TEntidad entidad);
+    protected abstract TDetallado mapDetallado(TEntidad entidad);
+    protected abstract Class<TEntidad> claseEntidad();
+    protected abstract HasComparableOperators<TEntidad, U> campoId();
     protected abstract LogServidorFactory logFactory();
+    
     protected final EntityManager entityManager() {
         return this.em;
     }
@@ -48,10 +54,23 @@ abstract class SuperEntidadDaoImpl<U extends Number & Comparable<U>, TEntidad ex
     protected final JPAStreamer streamer() {
         return this.jpaStreamer;
     }
-    protected boolean esActualizacion(TEntidad entidad) {
+    protected final boolean esActualizacion(T entidad) {
         return SuperEntidad.getId(entidad) != null;
     }
-    
+    protected final Stream<TEntidad> streamListado() {
+        return this.streamListado(null);
+    }
+    protected final Stream<TEntidad> streamListado(SpeedmentPredicate<TEntidad> predicado) {
+        this.initialize();
+        Stream<TEntidad> resultado = this.streamer().stream(this.claseEntidad());
+        return predicado != null ? resultado.filter(predicado) : resultado;
+    }
+    protected final Stream<TEntidad> streamEncontrar(U id) {
+        this.initialize();
+        return this.streamer()
+                .stream(this.claseEntidad())
+                .filter(this.campoId().equal(id));
+    }
     protected final void initialize() {
         this.initialize(true);
     }

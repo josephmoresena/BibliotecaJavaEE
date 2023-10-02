@@ -5,11 +5,11 @@
  */
 package com.rxmxnx.bibliotecajavaee.datos;
 
-import com.rxmxnx.bibliotecajavaee.dominio.PaisReferencia;
 import com.rxmxnx.bibliotecajavaee.dominio.*;
 import com.rxmxnx.bibliotecajavaee.log.*;
 import com.speedment.jpastreamer.field.*;
 import com.speedment.jpastreamer.field.predicate.*;
+import com.speedment.jpastreamer.field.trait.*;
 import java.util.*;
 import java.util.function.*;
 import java.util.stream.*;
@@ -22,7 +22,7 @@ import javax.transaction.Transactional.*;
  * @author atem94
  */
 @Stateless
-public class PaisDaoImpl extends SuperEntidadDaoImpl<Short, Pais> implements PaisDao  {
+public class PaisDaoImpl extends SuperEntidadDaoImpl<Short, Pais, PaisReferencia, PaisEntidad> implements PaisDao  {
     @EJB
     private LogServidorFactory logFactory;
     
@@ -30,8 +30,20 @@ public class PaisDaoImpl extends SuperEntidadDaoImpl<Short, Pais> implements Pai
     }
     
     @Override
-    protected Class<? extends Pais> claseEntidad() {
+    protected Pais map(PaisEntidad entidad) {
+        return new Pais(entidad);
+    }
+    @Override
+    protected PaisReferencia mapDetallado(PaisEntidad entidad) {
+        return new PaisReferencia(entidad);
+    }
+    @Override
+    protected Class<PaisEntidad> claseEntidad() {
         return Definicion.INSTANCIA.clase();
+    }
+    @Override
+    protected HasComparableOperators<PaisEntidad, Short> campoId() {
+        return Definicion.INSTANCIA.id();
     }
     @Override
     protected LogServidorFactory logFactory() {
@@ -48,7 +60,7 @@ public class PaisDaoImpl extends SuperEntidadDaoImpl<Short, Pais> implements Pai
     @Override
     @Transactional(TxType.SUPPORTS)
     public List<Pais> listarPais(Function<? extends PaisDefinicion, SpeedmentPredicate<? extends Pais>> funcionPredicado) {
-        return this.streamListado(funcionPredicado)
+        return this.streamListado(PaisDaoImpl.predicado(funcionPredicado))
                 .map(p -> new Pais(p))
                 .collect(Collectors.toList());
     }
@@ -93,7 +105,7 @@ public class PaisDaoImpl extends SuperEntidadDaoImpl<Short, Pais> implements Pai
     }
     @Override
     public List<PaisReferencia> listarPaisDetallado(Function<? extends PaisDefinicion, SpeedmentPredicate<? extends Pais>> funcionPredicado) {
-        return this.streamListado(funcionPredicado)
+        return this.streamListado(PaisDaoImpl.predicado(funcionPredicado))
                 .map(p -> new PaisReferencia(p))
                 .collect(Collectors.toList());
     }
@@ -104,20 +116,9 @@ public class PaisDaoImpl extends SuperEntidadDaoImpl<Short, Pais> implements Pai
                 .findAny();
     }
     
-    private Stream<PaisEntidad> streamListado() {
-        return this.streamListado(null);
-    }
-    private Stream<PaisEntidad> streamListado(Function<? extends PaisDefinicion, SpeedmentPredicate<? extends Pais>> funcionPredicado) {
-        this.initialize();
-        Stream<PaisEntidad> resultado = this.streamer().stream(Definicion.INSTANCIA.clase());
+    private static SpeedmentPredicate<PaisEntidad> predicado(Function<? extends PaisDefinicion, SpeedmentPredicate<? extends Pais>> funcionPredicado) {
         Function<Definicion, SpeedmentPredicate<PaisEntidad>> predicado = (Function)funcionPredicado;
-        return predicado != null ? resultado.filter(predicado.apply(Definicion.INSTANCIA)) : resultado;
-    }
-    private Stream<PaisEntidad> streamEncontrar(Short id) {
-        this.initialize();
-        return this.streamer()
-                .stream(Definicion.INSTANCIA.clase())
-                .filter(Definicion.INSTANCIA.id().equal(id));
+        return predicado.apply(Definicion.INSTANCIA);
     }
 
     private static final class Definicion implements PaisDefinicion<PaisEntidad, LibroEntidad, AutorEntidad> {

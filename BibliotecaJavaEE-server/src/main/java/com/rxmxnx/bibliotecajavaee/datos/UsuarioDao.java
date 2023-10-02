@@ -21,15 +21,26 @@ public interface UsuarioDao extends SuperEntidadDao<Integer, Usuario> {
     List<Usuario> listar();
     List<Usuario> listarUsuario(Function<? extends UsuarioDefinicion, SpeedmentPredicate<? extends Usuario>> funcionPredicado);
     @Override
-    Optional<UsuarioReferencia> encontrar(Integer id);
+    Optional<Usuario> encontrar(Integer id);
     @Override
     Usuario guardar(Usuario entidad);
     @Override
     boolean eliminar(Integer id);
     
     @Override
+    List<UsuarioReferencia> listarDetallado();
+    List<UsuarioReferencia> listarUsuarioDetallado(Function<? extends UsuarioDefinicion, SpeedmentPredicate<? extends Usuario>> funcionPredicado);
+    @Override
+    Optional<UsuarioReferencia> encontrarDetallado(Integer id);
+    
+    @Override
     default List<Usuario> listar(Function<? extends SuperDefinicion<Integer, ? extends Usuario>, SpeedmentPredicate<? extends Usuario>> funcionPredicado) {
         Function<? extends UsuarioDefinicion, SpeedmentPredicate<? extends Usuario>> funcion = (Function)funcionPredicado;
         return this.listarUsuario(funcion);
+    }
+    @Override
+    default List<UsuarioReferencia> listarDetallado(Function<? extends SuperDefinicion<Integer, ? extends Usuario>, SpeedmentPredicate<? extends Usuario>> funcionPredicado) {
+        Function<? extends UsuarioDefinicion, SpeedmentPredicate<? extends Usuario>> funcion = (Function)funcionPredicado;
+        return this.listarUsuarioDetallado(funcion);
     }
 }

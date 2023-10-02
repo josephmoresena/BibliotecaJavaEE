@@ -21,15 +21,26 @@ public interface PaisDao extends SuperEntidadDao<Short, Pais> {
     List<Pais> listar();
     List<Pais> listarPais(Function<? extends PaisDefinicion, SpeedmentPredicate<? extends Pais>> funcionPredicado);
     @Override
-    Optional<PaisReferencia> encontrar(Short id);
+    Optional<Pais> encontrar(Short id);
     @Override
     Pais guardar(Pais entidad);
     @Override
     boolean eliminar(Short id);
     
     @Override
+    List<PaisReferencia> listarDetallado();
+    List<PaisReferencia> listarPaisDetallado(Function<? extends PaisDefinicion, SpeedmentPredicate<? extends Pais>> funcionPredicado);
+    @Override
+    Optional<PaisReferencia> encontrarDetallado(Short id);
+    
+    @Override
     default List<Pais> listar(Function<? extends SuperDefinicion<Short, ? extends Pais>, SpeedmentPredicate<? extends Pais>> funcionPredicado) {
         Function<? extends PaisDefinicion, SpeedmentPredicate<? extends Pais>> funcion = (Function)funcionPredicado;
         return this.listarPais(funcion);
+    }
+    @Override
+    default List<PaisReferencia> listarDetallado(Function<? extends SuperDefinicion<Short, ? extends Pais>, SpeedmentPredicate<? extends Pais>> funcionPredicado) {
+        Function<? extends PaisDefinicion, SpeedmentPredicate<? extends Pais>> funcion = (Function)funcionPredicado;
+        return this.listarPaisDetallado(funcion);
     }
 }

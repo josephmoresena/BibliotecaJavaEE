@@ -21,15 +21,26 @@ public interface LibroDao extends SuperEntidadDao<Integer, Libro> {
     List<Libro> listar();
     List<Libro> listarLibro(Function<? extends LibroDefinicion, SpeedmentPredicate<? extends Libro>> funcionPredicado);
     @Override
-    Optional<LibroReferencia> encontrar(Integer id);
+    Optional<Libro> encontrar(Integer id);
     @Override
     Libro guardar(Libro entidad);
     @Override
     boolean eliminar(Integer id);
     
     @Override
+    List<LibroReferencia> listarDetallado();
+    List<LibroReferencia> listarLibroDetallado(Function<? extends LibroDefinicion, SpeedmentPredicate<? extends Libro>> funcionPredicado);
+    @Override
+    Optional<LibroReferencia> encontrarDetallado(Integer id);
+    
+    @Override
     default List<Libro> listar(Function<? extends SuperDefinicion<Integer, ? extends Libro>, SpeedmentPredicate<? extends Libro>> funcionPredicado) {
         Function<? extends LibroDefinicion, SpeedmentPredicate<? extends Libro>> funcion = (Function)funcionPredicado;
         return this.listarLibro(funcion);
+    }
+    @Override
+    default List<LibroReferencia> listarDetallado(Function<? extends SuperDefinicion<Integer, ? extends Libro>, SpeedmentPredicate<? extends Libro>> funcionPredicado) {
+        Function<? extends LibroDefinicion, SpeedmentPredicate<? extends Libro>> funcion = (Function)funcionPredicado;
+        return this.listarLibroDetallado(funcion);
     }
 }

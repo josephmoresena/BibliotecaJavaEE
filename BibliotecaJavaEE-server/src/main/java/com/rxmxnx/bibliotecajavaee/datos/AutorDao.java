@@ -21,15 +21,26 @@ public interface AutorDao extends SuperEntidadDao<Integer, Autor> {
     List<Autor> listar();
     List<Autor> listarAutor(Function<? extends AutorDefinicion, SpeedmentPredicate<? extends Autor>> funcionPredicado);
     @Override
-    Optional<AutorReferencia> encontrar(Integer id);
+    Optional<Autor> encontrar(Integer id);
     @Override
     Autor guardar(Autor entidad);
     @Override
     boolean eliminar(Integer id);
     
     @Override
+    List<AutorReferencia> listarDetallado();
+    List<AutorReferencia> listarAutorDetallado(Function<? extends AutorDefinicion, SpeedmentPredicate<? extends Autor>> funcionPredicado);
+    @Override
+    Optional<AutorReferencia> encontrarDetallado(Integer id);
+    
+    @Override
     default List<Autor> listar(Function<? extends SuperDefinicion<Integer, ? extends Autor>, SpeedmentPredicate<? extends Autor>> funcionPredicado) {
         Function<? extends AutorDefinicion, SpeedmentPredicate<? extends Autor>> funcion = (Function)funcionPredicado;
         return this.listarAutor(funcion);
+    }
+    @Override
+    default List<AutorReferencia> listarDetallado(Function<? extends SuperDefinicion<Integer, ? extends Autor>, SpeedmentPredicate<? extends Autor>> funcionPredicado) {
+        Function<? extends AutorDefinicion, SpeedmentPredicate<? extends Autor>> funcion = (Function)funcionPredicado;
+        return this.listarAutorDetallado(funcion);
     }
 }

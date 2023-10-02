@@ -21,15 +21,26 @@ public interface PrestamoDao extends SuperEntidadDao<Long, Prestamo> {
     List<Prestamo> listar();
     List<Prestamo> listarPrestamo(Function<? extends PrestamoDefinicion, SpeedmentPredicate<? extends Prestamo>> funcionPredicado);
     @Override
-    Optional<PrestamoReferencia> encontrar(Long id);
+    Optional<Prestamo> encontrar(Long id);
     @Override
     Prestamo guardar(Prestamo entidad);
     @Override
     boolean eliminar(Long id);
     
     @Override
+    List<PrestamoReferencia> listarDetallado();
+    List<PrestamoReferencia> listarPrestamoDetallado(Function<? extends PrestamoDefinicion, SpeedmentPredicate<? extends Prestamo>> funcionPredicado);
+    @Override
+    Optional<PrestamoReferencia> encontrarDetallado(Long id);
+    
+    @Override
     default List<Prestamo> listar(Function<? extends SuperDefinicion<Long, ? extends Prestamo>, SpeedmentPredicate<? extends Prestamo>> funcionPredicado) {
         Function<? extends PrestamoDefinicion, SpeedmentPredicate<? extends Prestamo>> funcion = (Function)funcionPredicado;
         return this.listarPrestamo(funcion);
+    }
+    @Override
+    default List<PrestamoReferencia> listarDetallado(Function<? extends SuperDefinicion<Long, ? extends Prestamo>, SpeedmentPredicate<? extends Prestamo>> funcionPredicado) {
+        Function<? extends PrestamoDefinicion, SpeedmentPredicate<? extends Prestamo>> funcion = (Function)funcionPredicado;
+        return this.listarPrestamoDetallado(funcion);
     }
 }

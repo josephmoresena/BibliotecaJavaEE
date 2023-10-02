@@ -21,15 +21,26 @@ public interface GeneroDao extends SuperEntidadDao<Short, Genero> {
     List<Genero> listar();
     List<Genero> listarGenero(Function<? extends GeneroDefinicion, SpeedmentPredicate<? extends Genero>> funcionPredicado);
     @Override
-    Optional<GeneroReferencia> encontrar(Short id);
+    Optional<Genero> encontrar(Short id);
     @Override
     Genero guardar(Genero entidad);
     @Override
     boolean eliminar(Short id);
     
     @Override
+    List<GeneroReferencia> listarDetallado();
+    List<GeneroReferencia> listarGeneroDetallado(Function<? extends GeneroDefinicion, SpeedmentPredicate<? extends Genero>> funcionPredicado);
+    @Override
+    Optional<GeneroReferencia> encontrarDetallado(Short id);
+    
+    @Override
     default List<Genero> listar(Function<? extends SuperDefinicion<Short, ? extends Genero>, SpeedmentPredicate<? extends Genero>> funcionPredicado) {
         Function<? extends GeneroDefinicion, SpeedmentPredicate<? extends Genero>> funcion = (Function)funcionPredicado;
         return this.listarGenero(funcion);
+    }
+    @Override
+    default List<GeneroReferencia> listarDetallado(Function<? extends SuperDefinicion<Short, ? extends Genero>, SpeedmentPredicate<? extends Genero>> funcionPredicado) {
+        Function<? extends GeneroDefinicion, SpeedmentPredicate<? extends Genero>> funcion = (Function)funcionPredicado;
+        return this.listarGeneroDetallado(funcion);
     }
 }

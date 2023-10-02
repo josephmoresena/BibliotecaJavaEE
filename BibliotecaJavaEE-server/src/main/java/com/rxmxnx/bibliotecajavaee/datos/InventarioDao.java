@@ -21,15 +21,26 @@ public interface InventarioDao extends SuperEntidadDao<Integer, Inventario> {
     List<Inventario> listar();
     List<Inventario> listarInventario(Function<? extends InventarioDefinicion, SpeedmentPredicate<? extends Inventario>> funcionPredicado);
     @Override
-    Optional<InventarioReferencia> encontrar(Integer id);
+    Optional<Inventario> encontrar(Integer id);
     @Override
     Inventario guardar(Inventario entidad);
     @Override
     boolean eliminar(Integer id);
     
     @Override
+    List<InventarioReferencia> listarDetallado();
+    List<InventarioReferencia> listarInventarioDetallado(Function<? extends InventarioDefinicion, SpeedmentPredicate<? extends Inventario>> funcionPredicado);
+    @Override
+    Optional<InventarioReferencia> encontrarDetallado(Integer id);
+    
+    @Override
     default List<Inventario> listar(Function<? extends SuperDefinicion<Integer, ? extends Inventario>, SpeedmentPredicate<? extends Inventario>> funcionPredicado) {
         Function<? extends InventarioDefinicion, SpeedmentPredicate<? extends Inventario>> funcion = (Function)funcionPredicado;
         return this.listarInventario(funcion);
+    }
+    @Override
+    default List<InventarioReferencia> listarDetallado(Function<? extends SuperDefinicion<Integer, ? extends Inventario>, SpeedmentPredicate<? extends Inventario>> funcionPredicado) {
+        Function<? extends InventarioDefinicion, SpeedmentPredicate<? extends Inventario>> funcion = (Function)funcionPredicado;
+        return this.listarInventarioDetallado(funcion);
     }
 }

@@ -41,31 +41,22 @@ public class PaisDaoImpl extends SuperEntidadDaoImpl<Short, Pais> implements Pai
     @Override
     @Transactional(TxType.SUPPORTS)
     public List<Pais> listar() {
-        this.initialize();
-        return this.streamer()
-                .stream(Definicion.INSTANCIA.clase())
+        return this.streamListado()
                 .map(p -> new Pais(p))
                 .collect(Collectors.toList());
     }
     @Override
     @Transactional(TxType.SUPPORTS)
     public List<Pais> listarPais(Function<? extends PaisDefinicion, SpeedmentPredicate<? extends Pais>> funcionPredicado) {
-        this.initialize();
-        Function<Definicion, SpeedmentPredicate<PaisEntidad>> predicado = (Function)funcionPredicado;
-        return this.streamer()
-                .stream(Definicion.INSTANCIA.clase())
-                .filter(predicado.apply(Definicion.INSTANCIA))
+        return this.streamListado(funcionPredicado)
                 .map(p -> new Pais(p))
                 .collect(Collectors.toList());
     }
     @Override
     @Transactional(TxType.SUPPORTS)
-    public Optional<PaisReferencia> encontrar(Short id) {
-        this.initialize();
-        return this.streamer()
-                .stream(Definicion.INSTANCIA.clase())
-                .filter(Definicion.INSTANCIA.id().equal(id))
-                .map(p -> new PaisReferencia(p))
+    public Optional<Pais> encontrar(Short id) {
+        return this.streamEncontrar(id)
+                .map(p -> new Pais(p))
                 .findAny();
     }
     @Override
@@ -92,6 +83,41 @@ public class PaisDaoImpl extends SuperEntidadDaoImpl<Short, Pais> implements Pai
             return true;
         }
         return false;
+    }
+
+    @Override
+    public List<PaisReferencia> listarDetallado() {
+        return this.streamListado()
+                .map(p -> new PaisReferencia(p))
+                .collect(Collectors.toList());
+    }
+    @Override
+    public List<PaisReferencia> listarPaisDetallado(Function<? extends PaisDefinicion, SpeedmentPredicate<? extends Pais>> funcionPredicado) {
+        return this.streamListado(funcionPredicado)
+                .map(p -> new PaisReferencia(p))
+                .collect(Collectors.toList());
+    }
+    @Override
+    public Optional<PaisReferencia> encontrarDetallado(Short id) {
+        return this.streamEncontrar(id)
+                .map(p -> new PaisReferencia(p))
+                .findAny();
+    }
+    
+    private Stream<PaisEntidad> streamListado() {
+        return this.streamListado(null);
+    }
+    private Stream<PaisEntidad> streamListado(Function<? extends PaisDefinicion, SpeedmentPredicate<? extends Pais>> funcionPredicado) {
+        this.initialize();
+        Stream<PaisEntidad> resultado = this.streamer().stream(Definicion.INSTANCIA.clase());
+        Function<Definicion, SpeedmentPredicate<PaisEntidad>> predicado = (Function)funcionPredicado;
+        return predicado != null ? resultado.filter(predicado.apply(Definicion.INSTANCIA)) : resultado;
+    }
+    private Stream<PaisEntidad> streamEncontrar(Short id) {
+        this.initialize();
+        return this.streamer()
+                .stream(Definicion.INSTANCIA.clase())
+                .filter(Definicion.INSTANCIA.id().equal(id));
     }
 
     private static final class Definicion implements PaisDefinicion<PaisEntidad, LibroEntidad, AutorEntidad> {

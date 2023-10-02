@@ -32,4 +32,10 @@ public class InventarioEntidad extends InventarioReferencia implements Serializa
     public void setLibro(LibroEntidad libro) {
         super.setLibro(libro);
     }
+    
+    public static InventarioEntidad crearEntidad(Inventario inventario) {
+        if (inventario instanceof InventarioEntidad)
+            return (InventarioEntidad)inventario;
+        return new InventarioEntidad(inventario);
+    }
 }

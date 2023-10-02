@@ -6,6 +6,7 @@
 package com.rxmxnx.bibliotecajavaee.dominio;
 
 import java.io.*;
+import java.util.*;
 import javax.persistence.*;
 import javax.xml.bind.annotation.*;
 
@@ -20,7 +21,7 @@ public class AutorEntidad extends AutorReferencia implements Serializable {
     public AutorEntidad() {
         super();
     }
-    public AutorEntidad(Autor autor, boolean tieneLibros) {
+    public AutorEntidad(Autor autor) {
         super(autor);
     }
     
@@ -29,7 +30,19 @@ public class AutorEntidad extends AutorReferencia implements Serializable {
         return (PaisEntidad)super.getPais();
     }
     
+    @Override
+    @XmlTransient
+    public Set<LibroEntidad> getLibroSet() {
+        return (Set<LibroEntidad>)super.getLibroSet();
+    }
+    
     public void setPais(PaisEntidad pais) {
         super.setPais(pais);
+    }
+    
+    public static AutorEntidad crearEntidad(Autor autor) {
+        if (autor instanceof AutorEntidad)
+            return (AutorEntidad)autor;
+        return new AutorEntidad(autor);
     }
 }

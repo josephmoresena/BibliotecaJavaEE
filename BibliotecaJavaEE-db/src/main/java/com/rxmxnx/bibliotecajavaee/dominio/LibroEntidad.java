@@ -58,4 +58,10 @@ public class LibroEntidad extends LibroReferencia implements Serializable {
     public void setPais(PaisEntidad pais) {
         super.setPais(pais);
     }
+    
+    public static LibroEntidad crearEntidad(Libro libro) {
+        if (libro instanceof LibroEntidad)
+            return (LibroEntidad)libro;
+        return new LibroEntidad(libro);
+    }
 }

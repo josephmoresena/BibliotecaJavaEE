@@ -21,7 +21,7 @@ public class GeneroEntidad extends GeneroReferencia implements Serializable {
     public GeneroEntidad() {
         super();
     }
-    public GeneroEntidad(Genero autor, boolean tieneLibros) {
+    public GeneroEntidad(Genero autor) {
         super(autor);
     }
     
@@ -29,5 +29,11 @@ public class GeneroEntidad extends GeneroReferencia implements Serializable {
     @XmlTransient
     public Set<LibroEntidad> getLibroSet() {
         return (Set<LibroEntidad>)super.getLibroSet();
+    }
+    
+    public static GeneroEntidad crearEntidad(Genero genero) {
+        if (genero instanceof GeneroEntidad)
+            return (GeneroEntidad)genero;
+        return new GeneroEntidad(genero);
     }
 }

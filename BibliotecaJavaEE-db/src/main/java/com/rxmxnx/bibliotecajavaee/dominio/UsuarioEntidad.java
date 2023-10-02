@@ -21,7 +21,7 @@ public class UsuarioEntidad extends UsuarioReferencia implements Serializable {
     public UsuarioEntidad(){
         super();
     }
-    public UsuarioEntidad(Usuario usuario, boolean tienePrestamos) {
+    public UsuarioEntidad(Usuario usuario) {
         super(usuario);
     }
     
@@ -29,5 +29,11 @@ public class UsuarioEntidad extends UsuarioReferencia implements Serializable {
     @XmlTransient
     public Set<PrestamoEntidad> getPrestamoSet() {
         return (Set<PrestamoEntidad>)super.getPrestamoSet();
+    }
+    
+    public static UsuarioEntidad crearEntidad(Usuario usuario) {
+        if (usuario instanceof UsuarioEntidad)
+            return (UsuarioEntidad)usuario;
+        return new UsuarioEntidad(usuario);
     }
 }

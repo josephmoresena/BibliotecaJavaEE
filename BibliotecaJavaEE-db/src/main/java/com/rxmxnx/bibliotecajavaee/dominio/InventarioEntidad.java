@@ -16,11 +16,20 @@ import javax.xml.bind.annotation.*;
 @Entity
 @Table(name = "INVENTARIO", catalog = "BIBLIOTECA_JEE", schema = "")
 @XmlRootElement
-public class InventarioEntidad extends Inventario implements Serializable {
+public class InventarioEntidad extends InventarioReferencia implements Serializable {
     public InventarioEntidad() {
         super();
     }
     public InventarioEntidad(Inventario inventario) {
         super(inventario);
+    }
+    
+    @Override
+    public LibroEntidad getLibro() {
+        return (LibroEntidad)super.getLibro();
+    }
+    
+    public void setLibro(LibroEntidad libro) {
+        super.setLibro(libro);
     }
 }

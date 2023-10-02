@@ -17,6 +17,7 @@ public interface InventarioDefinicion<T extends Inventario> extends SuperDefinic
     IntField<T> id();
     StringField<T> estante();
     IntField<T> cantidadEjemplares();
+    IntField<T> libroId();
     
     ReferenceField<T, Libro> libro();
 }

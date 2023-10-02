@@ -21,7 +21,7 @@ public interface PaisDao extends SuperEntidadDao<Short, Pais> {
     List<Pais> listar();
     List<Pais> listarPais(Function<? extends PaisDefinicion, SpeedmentPredicate<? extends Pais>> funcionPredicado);
     @Override
-    Optional<Pais> encontrar(Short id);
+    Optional<PaisReferencia> encontrar(Short id);
     @Override
     Pais guardar(Pais entidad);
     @Override

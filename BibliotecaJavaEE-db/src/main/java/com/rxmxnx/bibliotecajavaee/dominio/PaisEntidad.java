@@ -18,23 +18,22 @@ import javax.xml.bind.annotation.*;
 @Entity
 @Table(name = "PAISES", catalog = "BIBLIOTECA_JEE", schema = "")
 @XmlRootElement
-public class PaisEntidad extends Pais implements Serializable {
+public class PaisEntidad extends PaisReferencia implements Serializable {
     public PaisEntidad() {
         super();
     }
     private PaisEntidad(Pais pais) {
-        super(pais, false, false);
-    }
-    private PaisEntidad(Pais pais, boolean tieneAutores, boolean tieneLibros) {
-        super(pais, tieneAutores, tieneLibros);
+        super(pais);
     }
     
+    @Override
     @XmlTransient
-    public Set<AutorEntidad> getAutorEntidadSet() {
+    public Set<AutorEntidad> getAutorSet() {
         return super.getAutorSet().stream().map(a -> (AutorEntidad)a).collect(Collectors.toSet());
     }
+    @Override
     @XmlTransient
-    public Set<LibroEntidad> getLibroEntidadSet() {
+    public Set<LibroEntidad> getLibroSet() {
         return super.getLibroSet().stream().map(l -> (LibroEntidad)l).collect(Collectors.toSet());
     }
     

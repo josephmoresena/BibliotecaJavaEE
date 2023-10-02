@@ -6,7 +6,6 @@
 package com.rxmxnx.bibliotecajavaee.dominio;
 
 import java.io.*;
-import java.util.*;
 import javax.persistence.*;
 import javax.xml.bind.annotation.*;
 
@@ -18,15 +17,11 @@ import javax.xml.bind.annotation.*;
 @XmlRootElement
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public class Pais extends SuperEntidad<Short> implements Serializable {
-
-    private static final long serialVersionUID = 1L;
+    protected static final long ENTIDAD_VERSION = 1L;
+    private static final long serialVersionUID = ENTIDAD_VERSION;
     
     @Basic(optional = false)
     private String nombre;
-    @OneToMany(mappedBy = "pais")
-    private Set<Autor> autorSet;
-    @OneToMany(mappedBy = "pais")
-    private Set<Libro> libroSet;
 
     public Pais() {
     }
@@ -37,16 +32,8 @@ public class Pais extends SuperEntidad<Short> implements Serializable {
         this.nombre = nombre;
     }
     public Pais(Pais pais) {
-        this(pais, false, false);
-    }
-    public Pais(Pais pais, boolean tieneAutores, boolean tieneLibros) {
         super(pais.getId());
         this.nombre = pais.getNombre();
-        
-        if (tieneAutores)
-            this.autorSet = pais.getAutorSet();
-        if (tieneLibros)
-            this.libroSet = pais.getLibroSet();
     }
 
     public Short getPaisId() {
@@ -55,25 +42,9 @@ public class Pais extends SuperEntidad<Short> implements Serializable {
     public String getNombre() {
         return nombre;
     }
-
-    @XmlTransient
-    public Set<Autor> getAutorSet() {
-        return autorSet;
-    }
-    @XmlTransient
-    public Set<Libro> getLibroSet() {
-        return libroSet;
-    }
     
     public void setNombre(String nombre) {
         this.nombre = nombre;
-    }
-    
-    protected void setAutorSet(Set<Autor> autorSet) {
-        this.autorSet = autorSet;
-    }
-    protected void setLibroSet(Set<Libro> libroSet) {
-        this.libroSet = libroSet;
     }
 
     @Override

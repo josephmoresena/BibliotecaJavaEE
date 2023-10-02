@@ -18,8 +18,8 @@ import javax.xml.bind.annotation.*;
 @XmlRootElement
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public class Prestamo extends SuperEntidad<Long> implements Serializable {
-
-    private static final long serialVersionUID = 1L;
+    protected static final long ENTIDAD_VERSION = 1L;
+    private static final long serialVersionUID = ENTIDAD_VERSION;
     
     @Basic(optional = false)
     @Column(name = "fecha_prestamo")
@@ -29,12 +29,10 @@ public class Prestamo extends SuperEntidad<Long> implements Serializable {
     @Temporal(TemporalType.DATE)
     private Date fechaDevolucion;
     private Boolean devuelto;
-    @JoinColumn(name = "id_libro", referencedColumnName = "id")
-    @ManyToOne
-    private Libro libro;
-    @JoinColumn(name = "id_usuario", referencedColumnName = "id")
-    @ManyToOne
-    private Usuario usuario;
+    @Column(name="id_libro")
+    private Integer libroId;
+    @Column(name="id_usuario")
+    private Integer usuarioId;
 
     public Prestamo() {
     }
@@ -49,8 +47,8 @@ public class Prestamo extends SuperEntidad<Long> implements Serializable {
         this.devuelto = prestamo.getDevuelto();
         this.fechaDevolucion = prestamo.getFechaDevolucion();
         this.fechaPrestamo = prestamo.getFechaPrestamo();
-        this.libro = prestamo.getLibro();
-        this.usuario = prestamo.getUsuario();
+        this.libroId = prestamo.getLibroId();
+        this.usuarioId = prestamo.getUsuarioId();
     }
 
     public Long getPrestamoId() {
@@ -65,11 +63,11 @@ public class Prestamo extends SuperEntidad<Long> implements Serializable {
     public Boolean getDevuelto() {
         return devuelto;
     }
-    public Libro getLibro() {
-        return libro;
+    public Integer getLibroId() {
+        return libroId;
     }
-    public Usuario getUsuario() {
-        return usuario;
+    public Integer getUsuarioId() {
+        return usuarioId;
     }
     
     public void setFechaPrestamo(Date fechaPrestamo) {
@@ -81,11 +79,11 @@ public class Prestamo extends SuperEntidad<Long> implements Serializable {
     public void setDevuelto(Boolean devuelto) {
         this.devuelto = devuelto;
     }
-    public void setLibro(Libro libro) {
-        this.libro = libro;
+    public void setLibroId(Integer libroId) {
+        this.libroId = libroId;
     }
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
+    public void setUsuarioId(Integer usuarioId) {
+        this.usuarioId = usuarioId;
     }
     
     @Override
@@ -103,6 +101,6 @@ public class Prestamo extends SuperEntidad<Long> implements Serializable {
     }
     @Override
     public String toString() {
-        return "Prestamo{" + "id=" + this.getId() + ", fechaPrestamo=" + fechaPrestamo + ", fechaDevolucion=" + fechaDevolucion + ", devuelto=" + devuelto + ", libro=" + getId(libro) + ", usuario=" + getId(usuario) + '}';
+        return "Prestamo{" + "id=" + this.getId() + ", fechaPrestamo=" + fechaPrestamo + ", fechaDevolucion=" + fechaDevolucion + ", devuelto=" + devuelto + ", libro=" + this.libroId + ", usuario=" + this.usuarioId + '}';
     }
 }

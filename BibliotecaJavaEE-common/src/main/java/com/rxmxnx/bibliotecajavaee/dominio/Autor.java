@@ -18,8 +18,8 @@ import javax.xml.bind.annotation.*;
 @XmlRootElement
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public class Autor extends SuperEntidad<Integer> implements Serializable {
-
-    private static final long serialVersionUID = 1L;
+    protected static final long ENTIDAD_VERSION = 1L;
+    private static final long serialVersionUID = ENTIDAD_VERSION;
     
     @Basic(optional = false)
     private String nombre;
@@ -28,11 +28,8 @@ public class Autor extends SuperEntidad<Integer> implements Serializable {
     @Column(name = "fecha_nacimiento")
     @Temporal(TemporalType.DATE)
     private Date fechaNacimiento;
-    @JoinColumn(name = "id_pais", referencedColumnName = "id")
-    @ManyToOne
-    private Pais pais;
-    @OneToMany(mappedBy = "autor")
-    private Set<Libro> libroSet;
+    @Column(name = "id_pais")
+    private Short paisId;
 
     public Autor() {
     }
@@ -43,13 +40,11 @@ public class Autor extends SuperEntidad<Integer> implements Serializable {
         this.nombre = nombre;
         this.apellido = apellido;
     }
-    public Autor(Autor autor, boolean tieneLibros) {
+    public Autor(Autor autor) {
         super(autor.getId());
         this.nombre = autor.getNombre();
         this.apellido = autor.getApellido();
-        this.pais = autor.getPais();
-        if (tieneLibros)
-            this.libroSet = autor.getLibroSet();
+        this.paisId = autor.paisId;
     }
 
     public Integer getAutorId() {
@@ -65,13 +60,8 @@ public class Autor extends SuperEntidad<Integer> implements Serializable {
     public Date getFechaNacimiento() {
         return this.fechaNacimiento;
     }
-    public Pais getPais() {
-        return this.pais;
-    }
-
-    @XmlTransient
-    public Set<Libro> getLibroSet() {
-        return this.libroSet;
+    public Short getPaisId() {
+        return this.paisId;
     }
 
     public void setNombre(String nombre) {
@@ -83,12 +73,8 @@ public class Autor extends SuperEntidad<Integer> implements Serializable {
     public void setFechaNacimiento(Date fechaNacimiento) {
         this.fechaNacimiento = fechaNacimiento;
     }
-    public void setPais(Pais pais) {
-        this.pais = pais;
-    }
-
-    protected void setLibroSet(Set<Libro> libroSet) {
-        this.libroSet = libroSet;
+    public void setPaisId(Short paisId) {
+        this.paisId = paisId;
     }
 
     @Override
@@ -105,6 +91,6 @@ public class Autor extends SuperEntidad<Integer> implements Serializable {
     }
     @Override
     public String toString() {
-        return "Autor{" + "id=" + this.getId() + ", nombre=" + this.nombre + ", apellido=" + this.apellido + ", this.fechaNacimiento=" + fechaNacimiento + ", pais=" + getId(this.pais) + '}';
+        return "Autor{" + "id=" + this.getId() + ", nombre=" + this.nombre + ", apellido=" + this.apellido + ", this.fechaNacimiento=" + fechaNacimiento + ", pais=" + this.paisId + '}';
     }
 }

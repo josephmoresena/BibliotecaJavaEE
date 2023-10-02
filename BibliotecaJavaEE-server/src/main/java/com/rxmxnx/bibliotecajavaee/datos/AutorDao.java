@@ -21,7 +21,7 @@ public interface AutorDao extends SuperEntidadDao<Integer, Autor> {
     List<Autor> listar();
     List<Autor> listarAutor(Function<? extends AutorDefinicion, SpeedmentPredicate<? extends Autor>> funcionPredicado);
     @Override
-    Optional<Autor> encontrar(Integer id);
+    Optional<AutorReferencia> encontrar(Integer id);
     @Override
     Autor guardar(Autor entidad);
     @Override

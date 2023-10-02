@@ -21,7 +21,7 @@ import javax.ejb.Remote;
 public interface SuperEntidadDao<U extends Number & Comparable<U>, TEntidad extends SuperEntidad<U>> {
     List<TEntidad> listar();
     List<TEntidad> listar(Function<? extends SuperDefinicion<U, ? extends TEntidad>, SpeedmentPredicate<? extends TEntidad>> funcionPredicado);
-    Optional<TEntidad> encontrar(U id);
+    Optional<? extends TEntidad> encontrar(U id);
     TEntidad guardar(TEntidad entidad);
     boolean eliminar(U id);
 }

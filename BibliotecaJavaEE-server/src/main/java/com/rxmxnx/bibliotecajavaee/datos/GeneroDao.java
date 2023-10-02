@@ -21,7 +21,7 @@ public interface GeneroDao extends SuperEntidadDao<Short, Genero> {
     List<Genero> listar();
     List<Genero> listarGenero(Function<? extends GeneroDefinicion, SpeedmentPredicate<? extends Genero>> funcionPredicado);
     @Override
-    Optional<Genero> encontrar(Short id);
+    Optional<GeneroReferencia> encontrar(Short id);
     @Override
     Genero guardar(Genero entidad);
     @Override

@@ -6,6 +6,7 @@
 package com.rxmxnx.bibliotecajavaee.dominio;
 
 import java.io.*;
+import java.util.*;
 import javax.persistence.*;
 import javax.xml.bind.annotation.*;
 
@@ -16,11 +17,17 @@ import javax.xml.bind.annotation.*;
 @Entity
 @Table(name = "USUARIOS", catalog = "BIBLIOTECA_JEE", schema = "")
 @XmlRootElement
-public class UsuarioEntidad extends Usuario implements Serializable {
+public class UsuarioEntidad extends UsuarioReferencia implements Serializable {
     public UsuarioEntidad(){
         super();
     }
     public UsuarioEntidad(Usuario usuario, boolean tienePrestamos) {
-        super(usuario, tienePrestamos);
+        super(usuario);
+    }
+    
+    @Override
+    @XmlTransient
+    public Set<PrestamoEntidad> getPrestamoSet() {
+        return (Set<PrestamoEntidad>)super.getPrestamoSet();
     }
 }

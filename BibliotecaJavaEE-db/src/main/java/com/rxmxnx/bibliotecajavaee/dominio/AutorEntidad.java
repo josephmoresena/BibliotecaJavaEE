@@ -16,11 +16,20 @@ import javax.xml.bind.annotation.*;
 @Entity
 @Table(name = "AUTORES", catalog = "BIBLIOTECA_JEE", schema = "")
 @XmlRootElement
-public class AutorEntidad extends Autor implements Serializable {
+public class AutorEntidad extends AutorReferencia implements Serializable {
     public AutorEntidad() {
         super();
     }
     public AutorEntidad(Autor autor, boolean tieneLibros) {
-        super(autor, tieneLibros);
+        super(autor);
+    }
+    
+    @Override
+    public PaisEntidad getPais() {
+        return (PaisEntidad)super.getPais();
+    }
+    
+    public void setPais(PaisEntidad pais) {
+        super.setPais(pais);
     }
 }

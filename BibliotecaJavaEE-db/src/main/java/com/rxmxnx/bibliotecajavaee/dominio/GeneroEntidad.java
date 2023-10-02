@@ -6,6 +6,7 @@
 package com.rxmxnx.bibliotecajavaee.dominio;
 
 import java.io.*;
+import java.util.Set;
 import javax.persistence.*;
 import javax.xml.bind.annotation.*;
 
@@ -16,11 +17,17 @@ import javax.xml.bind.annotation.*;
 @Entity
 @Table(name = "GENEROS", catalog = "BIBLIOTECA_JEE", schema = "")
 @XmlRootElement
-public class GeneroEntidad extends Genero implements Serializable {
+public class GeneroEntidad extends GeneroReferencia implements Serializable {
     public GeneroEntidad() {
         super();
     }
     public GeneroEntidad(Genero autor, boolean tieneLibros) {
-        super(autor, tieneLibros);
+        super(autor);
+    }
+    
+    @Override
+    @XmlTransient
+    public Set<LibroEntidad> getLibroSet() {
+        return (Set<LibroEntidad>)super.getLibroSet();
     }
 }

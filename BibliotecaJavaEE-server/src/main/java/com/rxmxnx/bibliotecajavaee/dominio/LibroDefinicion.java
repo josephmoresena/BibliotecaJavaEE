@@ -18,6 +18,9 @@ public interface LibroDefinicion<T extends Libro> extends SuperDefinicion<Intege
     StringField<T> titulo();
     StringField<Libro> isbn();
     ReferenceField<T, String> sinopsis();
+    IntField<T> autorId();
+    ShortField<T> generoId();
+    ShortField<T> PaisId();
     
     ReferenceField<T, Autor> autor();
     ReferenceField<T, Genero> genero();

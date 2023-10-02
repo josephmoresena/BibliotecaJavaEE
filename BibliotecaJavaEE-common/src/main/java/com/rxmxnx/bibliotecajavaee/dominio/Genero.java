@@ -6,7 +6,6 @@
 package com.rxmxnx.bibliotecajavaee.dominio;
 
 import java.io.*;
-import java.util.*;
 import javax.persistence.*;
 import javax.xml.bind.annotation.*;
 
@@ -18,13 +17,11 @@ import javax.xml.bind.annotation.*;
 @XmlRootElement
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public class Genero extends SuperEntidad<Short> implements Serializable {
-
-    private static final long serialVersionUID = 1L;
+    protected static final long ENTIDAD_VERSION = 1L;
+    private static final long serialVersionUID = ENTIDAD_VERSION;
     
     @Basic(optional = false)
     private String nombre;
-    @OneToMany(mappedBy = "genero")
-    private Set<Libro> libroSet;
 
     public Genero() {
     }
@@ -34,11 +31,9 @@ public class Genero extends SuperEntidad<Short> implements Serializable {
     public Genero(String nombre) {
         this.nombre = nombre;
     }
-    public Genero(Genero genero, boolean tieneLibros) {
+    public Genero(Genero genero) {
         super(genero.getId());
         this.nombre = genero.getNombre();
-        if (tieneLibros)
-            this.libroSet = genero.getLibroSet();
     }
 
     public Short getGeneroId() {
@@ -47,18 +42,9 @@ public class Genero extends SuperEntidad<Short> implements Serializable {
     public String getNombre() {
         return nombre;
     }
-    
-    @XmlTransient
-    public Set<Libro> getLibroSet() {
-        return libroSet;
-    }
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
-    }
-    
-    protected void setLibroSet(Set<Libro> libroSet) {
-        this.libroSet = libroSet;
     }
 
     @Override

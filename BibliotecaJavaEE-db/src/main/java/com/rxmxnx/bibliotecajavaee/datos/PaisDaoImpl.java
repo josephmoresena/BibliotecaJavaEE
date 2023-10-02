@@ -5,9 +5,9 @@
  */
 package com.rxmxnx.bibliotecajavaee.datos;
 
+import com.rxmxnx.bibliotecajavaee.dominio.PaisReferencia;
 import com.rxmxnx.bibliotecajavaee.dominio.*;
 import com.rxmxnx.bibliotecajavaee.log.*;
-import com.rxmxnx.bibliotecajavaee.utilidades.*;
 import com.speedment.jpastreamer.field.*;
 import com.speedment.jpastreamer.field.predicate.*;
 import java.util.*;
@@ -60,12 +60,12 @@ public class PaisDaoImpl extends SuperEntidadDaoImpl<Short, Pais> implements Pai
     }
     @Override
     @Transactional(TxType.SUPPORTS)
-    public Optional<Pais> encontrar(Short id) {
+    public Optional<PaisReferencia> encontrar(Short id) {
         this.initialize();
         return this.streamer()
                 .stream(Definicion.INSTANCIA.clase())
                 .filter(Definicion.INSTANCIA.id().equal(id))
-                .map(p -> new Pais(p, true, true))
+                .map(p -> new PaisReferencia(p))
                 .findAny();
     }
     @Override
@@ -99,8 +99,8 @@ public class PaisDaoImpl extends SuperEntidadDaoImpl<Short, Pais> implements Pai
         
         private static final ShortField<PaisEntidad> ID = ShortField.create(PaisEntidad.class, "id", PaisEntidad::getPaisId, true);
         private static final StringField<PaisEntidad> NOMBRE = StringField.create(PaisEntidad.class, "nombre", PaisEntidad::getNombre, false);
-        private static final ReferenceField<PaisEntidad, Set<LibroEntidad>> LIBROS = ReferenceField.create(PaisEntidad.class, "libroSet", PaisEntidad::getLibroEntidadSet, false);
-        private static final ReferenceField<PaisEntidad, Set<AutorEntidad>> AUTORES = ReferenceField.create(PaisEntidad.class, "autorSet", PaisEntidad::getAutorEntidadSet, false);
+        private static final ReferenceField<PaisEntidad, Set<LibroEntidad>> LIBROS = ReferenceField.create(PaisEntidad.class, "libroSet", PaisEntidad::getLibroSet, false);
+        private static final ReferenceField<PaisEntidad, Set<AutorEntidad>> AUTORES = ReferenceField.create(PaisEntidad.class, "autorSet", PaisEntidad::getAutorSet, false);
 
         private Definicion() {}
         @Override

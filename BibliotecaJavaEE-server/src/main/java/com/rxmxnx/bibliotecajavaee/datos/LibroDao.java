@@ -21,7 +21,7 @@ public interface LibroDao extends SuperEntidadDao<Integer, Libro> {
     List<Libro> listar();
     List<Libro> listarLibro(Function<? extends LibroDefinicion, SpeedmentPredicate<? extends Libro>> funcionPredicado);
     @Override
-    Optional<Libro> encontrar(Integer id);
+    Optional<LibroReferencia> encontrar(Integer id);
     @Override
     Libro guardar(Libro entidad);
     @Override

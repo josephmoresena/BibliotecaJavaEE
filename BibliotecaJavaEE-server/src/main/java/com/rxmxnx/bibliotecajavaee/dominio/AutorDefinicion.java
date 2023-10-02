@@ -19,6 +19,7 @@ public interface AutorDefinicion<T extends Autor> extends SuperDefinicion<Intege
     StringField<T> nombre();
     StringField<T> apellido();
     ComparableField<T, Date> fechaNacimiento();
+    ShortField<T> paisId();
     
     ReferenceField<Autor, Pais> pais();
     ReferenceField<Autor, Set<Libro>> libroSet();

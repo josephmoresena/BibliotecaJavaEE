@@ -21,7 +21,7 @@ public interface UsuarioDao extends SuperEntidadDao<Integer, Usuario> {
     List<Usuario> listar();
     List<Usuario> listarUsuario(Function<? extends UsuarioDefinicion, SpeedmentPredicate<? extends Usuario>> funcionPredicado);
     @Override
-    Optional<Usuario> encontrar(Integer id);
+    Optional<UsuarioReferencia> encontrar(Integer id);
     @Override
     Usuario guardar(Usuario entidad);
     @Override

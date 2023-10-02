@@ -18,8 +18,8 @@ import javax.xml.bind.annotation.*;
 @XmlRootElement
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public class Libro extends SuperEntidad<Integer> implements Serializable {
-
-    private static final long serialVersionUID = 1L;
+    protected static final long ENTIDAD_VERSION = 1L;
+    private static final long serialVersionUID = ENTIDAD_VERSION;
     
     @Basic(optional = false)
     private String titulo;
@@ -29,19 +29,12 @@ public class Libro extends SuperEntidad<Integer> implements Serializable {
     private String isbn;
     @Lob
     private String sinopsis;
-    @JoinColumn(name = "id_autor", referencedColumnName = "id")
-    @ManyToOne
-    private Autor autor;
-    @JoinColumn(name = "id_genero", referencedColumnName = "id")
-    @ManyToOne
-    private Genero genero;
-    @JoinColumn(name = "id_pais_publicacion", referencedColumnName = "id")
-    @ManyToOne
-    private Pais pais;
-    @OneToMany(mappedBy = "libro")
-    private Set<Prestamo> prestamoSet;
-    @OneToMany(mappedBy = "libro")
-    private Set<Inventario> inventarioSet;
+    @Column(name="id_autor")
+    private Integer autorId;
+    @Column(name="id_genero")
+    private Short generoId;
+    @Column(name="id_pais_publicacion")
+    private Short paisId;
 
     public Libro() {
     }
@@ -51,20 +44,15 @@ public class Libro extends SuperEntidad<Integer> implements Serializable {
     public Libro(String titulo) {
         this.titulo = titulo;
     }
-    public Libro(Libro libro, boolean tienePrestamos, boolean tieneInventarios) {
+    public Libro(Libro libro) {
         super(libro.getId());
         this.titulo = libro.getTitulo();
-        this.autor = libro.getAutor();
         this.fechaPublicacion = libro.getFechaPublicacion();
-        this.genero = libro.getGenero();
         this.isbn = libro.getIsbn();
         this.sinopsis = libro.getSinopsis();
-        this.pais = libro.getPais();
-        
-        if (tienePrestamos)
-            this.prestamoSet = libro.getPrestamoSet();
-        if (tieneInventarios)
-            this.inventarioSet = libro.getInventarioSet();
+        this.autorId = libro.getAutorId();
+        this.paisId = libro.getPaisId();
+        this.generoId = libro.getGeneroId();
     }
 
     public Integer getLibroId() {
@@ -82,23 +70,14 @@ public class Libro extends SuperEntidad<Integer> implements Serializable {
     public String getSinopsis() {
         return sinopsis;
     }
-    public Autor getAutor() {
-        return autor;
+    public Integer getAutorId() {
+        return this.autorId;
     }
-    public Genero getGenero() {
-        return genero;
+    public Short getGeneroId() {
+        return generoId;
     }
-    public Pais getPais() {
-        return pais;
-    }
-
-    @XmlTransient
-    public Set<Prestamo> getPrestamoSet() {
-        return prestamoSet;
-    }
-    @XmlTransient
-    public Set<Inventario> getInventarioSet() {
-        return inventarioSet;
+    public Short getPaisId() {
+        return paisId;
     }
     
     public void setTitulo(String titulo) {
@@ -113,21 +92,14 @@ public class Libro extends SuperEntidad<Integer> implements Serializable {
     public void setSinopsis(String sinopsis) {
         this.sinopsis = sinopsis;
     }
-    public void setAutor(Autor autor) {
-        this.autor = autor;
+    public void setAutorId(Integer autorId) {
+        this.autorId = autorId;
     }
-    public void setGenero(Genero genero) {
-        this.genero = genero;
+    public void setGeneroId(Short generoId) {
+        this.generoId = generoId;
     }
-    public void setPais(Pais pais) {
-        this.pais = pais;
-    }
-
-    protected void setPrestamoSet(Set<Prestamo> prestamoSet) {
-        this.prestamoSet = prestamoSet;
-    }
-    protected void setInventarioSet(Set<Inventario> inventarioSet) {
-        this.inventarioSet = inventarioSet;
+    public void setPaisId(Short paisId) {
+        this.paisId = paisId;
     }
 
     @Override
@@ -144,6 +116,6 @@ public class Libro extends SuperEntidad<Integer> implements Serializable {
     }
     @Override
     public String toString() {
-        return "Libro{" + "id=" + this.getId() + ", titulo=" + titulo + ", fechaPublicacion=" + fechaPublicacion + ", isbn=" + isbn + ", sinopsis=" + sinopsis + ", autor=" + getId(autor) + ", genero=" + getId(genero) + ", pais=" + getId(pais) + '}';
+        return "Libro{" + "id=" + this.getId() + ", titulo=" + titulo + ", fechaPublicacion=" + fechaPublicacion + ", isbn=" + isbn + ", sinopsis=" + sinopsis + ", autor=" + this.autorId + ", genero=" + this.generoId + ", pais=" + this.paisId + '}';
     }
 }

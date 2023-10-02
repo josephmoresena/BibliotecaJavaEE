@@ -6,6 +6,7 @@
 package com.rxmxnx.bibliotecajavaee.dominio;
 
 import java.io.*;
+import java.util.*;
 import javax.persistence.*;
 import javax.xml.bind.annotation.*;
 
@@ -16,11 +17,45 @@ import javax.xml.bind.annotation.*;
 @Entity
 @Table(name = "LIBROS", catalog = "BIBLIOTECA_JEE", schema = "")
 @XmlRootElement
-public class LibroEntidad extends Libro implements Serializable {
+public class LibroEntidad extends LibroReferencia implements Serializable {
     public LibroEntidad() {
         super();
     }
-    public LibroEntidad(Libro libro, boolean tienePrestamos, boolean tieneInventarios) {
-        super(libro, tienePrestamos, tieneInventarios);
+    public LibroEntidad(Libro libro) {
+        super(libro);
+    }
+    
+    @Override
+    public AutorEntidad getAutor() {
+        return (AutorEntidad)super.getAutor();
+    }
+    @Override
+    public GeneroEntidad getGenero() {
+        return (GeneroEntidad)super.getGenero();
+    }
+    @Override
+    public PaisEntidad getPais() {
+        return (PaisEntidad)super.getPais();
+    }
+    
+    @Override
+    @XmlTransient
+    public Set<PrestamoEntidad> getPrestamoSet() {
+        return (Set<PrestamoEntidad>)super.getPrestamoSet();
+    }
+    @Override
+    @XmlTransient
+    public Set<InventarioEntidad> getInventarioSet() {
+        return (Set<InventarioEntidad>)super.getInventarioSet();
+    }
+    
+    public void setAutor(AutorEntidad autor) {
+        super.setAutor(autor);
+    }
+    public void setGenero(GeneroEntidad genero) {
+        super.setGenero(genero);
+    }
+    public void setPais(PaisEntidad pais) {
+        super.setPais(pais);
     }
 }

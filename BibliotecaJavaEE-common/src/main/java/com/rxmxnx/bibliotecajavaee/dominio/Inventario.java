@@ -17,15 +17,14 @@ import javax.xml.bind.annotation.*;
 @XmlRootElement
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public class Inventario extends SuperEntidad<Integer> implements Serializable {
-
-    private static final long serialVersionUID = 1L;
+    protected static final long ENTIDAD_VERSION = 1L;
+    private static final long serialVersionUID = ENTIDAD_VERSION;
     
     @Column(name = "cantidad_ejemplares")
     private Integer cantidadEjemplares;
     private String estante;
-    @JoinColumn(name = "id_libro", referencedColumnName = "id")
-    @ManyToOne
-    private Libro libro;
+    @Column(name="id_libro")
+    private Integer libroId;
 
     public Inventario() {
     }
@@ -35,7 +34,6 @@ public class Inventario extends SuperEntidad<Integer> implements Serializable {
     public Inventario(Inventario inventario) {
         super(inventario.getId());
         this.estante = inventario.getEstante();
-        this.libro = inventario.getLibro();
     }
     
     public Integer getInventarioId() {
@@ -48,8 +46,8 @@ public class Inventario extends SuperEntidad<Integer> implements Serializable {
     public String getEstante() {
         return estante;
     }
-    public Libro getLibro() {
-        return libro;
+    public Integer getLibroId() {
+        return this.libroId;
     }
     
     public void setCantidadEjemplares(Integer cantidadEjemplares) {
@@ -58,8 +56,8 @@ public class Inventario extends SuperEntidad<Integer> implements Serializable {
     public void setEstante(String estante) {
         this.estante = estante;
     }
-    public void setLibro(Libro libro) {
-        this.libro = libro;
+    public void setLibroId(Integer libroId) {
+        this.libroId = libroId;
     }
 
     @Override
@@ -76,6 +74,6 @@ public class Inventario extends SuperEntidad<Integer> implements Serializable {
     }
     @Override
     public String toString() {
-        return "Inventario{" + "id=" + this.getId() + ", cantidadEjemplares=" + this.cantidadEjemplares + ", estante=" + this.estante + ", libro=" + getId(this.libro) + '}';
+        return "Inventario{" + "id=" + this.getId() + ", cantidadEjemplares=" + this.cantidadEjemplares + ", estante=" + this.estante + ", libro=" + this.libroId + '}';
     }
 }

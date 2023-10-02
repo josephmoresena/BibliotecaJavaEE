@@ -19,6 +19,8 @@ public interface PrestamoDefinicion<T extends Prestamo> extends SuperDefinicion<
     ComparableField<T, Date> fechaPrestamo();
     ComparableField<T, Date> fechaDevolucion();
     BooleanField<T> devuelto();
+    IntField<T> libroId();
+    IntField<T> usuarioId();
     
     ReferenceField<T, Libro> libro();
     ReferenceField<T, Usuario> usuario();

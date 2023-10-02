@@ -18,8 +18,8 @@ import javax.xml.bind.annotation.*;
 @XmlRootElement
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public class Usuario extends SuperEntidad<Integer> implements Serializable {
-
-    private static final long serialVersionUID = 1L;
+    protected static final long ENTIDAD_VERSION = 1L;
+    private static final long serialVersionUID = ENTIDAD_VERSION;
     
     @Basic(optional = false)
     private String nombre;
@@ -30,8 +30,6 @@ public class Usuario extends SuperEntidad<Integer> implements Serializable {
     private Date fechaRegistro;
     @Basic(optional = false)
     private String email;
-    @OneToMany(mappedBy = "usuario")
-    private Set<Prestamo> prestamoSet;
 
     public Usuario() {
     }
@@ -43,14 +41,12 @@ public class Usuario extends SuperEntidad<Integer> implements Serializable {
         this.fechaRegistro = fechaRegistro;
         this.email = email;
     }
-    public Usuario(Usuario usuario, boolean tienePrestamos) {
+    public Usuario(Usuario usuario) {
         super(usuario.getId());
         this.nombre = usuario.getNombre();
         this.apellido = usuario.getApellido();
         this.fechaRegistro = usuario.getFechaRegistro();
         this.email = usuario.getEmail();
-        if(tienePrestamos)
-            this.prestamoSet = usuario.getPrestamoSet();
     }
     
     public Integer getUsuarioId() {
@@ -69,11 +65,6 @@ public class Usuario extends SuperEntidad<Integer> implements Serializable {
         return email;
     }
 
-    @XmlTransient
-    public Set<Prestamo> getPrestamoSet() {
-        return prestamoSet;
-    }
-
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
@@ -85,10 +76,6 @@ public class Usuario extends SuperEntidad<Integer> implements Serializable {
     }
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    protected void setPrestamoSet(Set<Prestamo> prestamoSet) {
-        this.prestamoSet = prestamoSet;
     }
 
     @Override

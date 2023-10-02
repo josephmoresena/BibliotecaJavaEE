@@ -15,17 +15,17 @@ import javax.ejb.Remote;
  *
  * @author atem94
  * @param <U>
- * @param <TEntidad>
+ * @param <T>
  */
 @Remote
-public interface SuperEntidadDao<U extends Number & Comparable<U>, TEntidad extends SuperEntidad<U>> {
-    List<TEntidad> listar();
-    List<TEntidad> listar(Function<? extends SuperDefinicion<U, ? extends TEntidad>, SpeedmentPredicate<? extends TEntidad>> funcionPredicado);
-    Optional<TEntidad> encontrar(U id);
-    TEntidad guardar(TEntidad entidad);
+public interface SuperEntidadDao<U extends Number & Comparable<U>, T extends SuperEntidad<U>> {
+    List<T> listar();
+    List<T> listar(Function<? extends SuperDefinicion<U, ? extends T>, SpeedmentPredicate<? extends T>> funcionPredicado);
+    Optional<T> encontrar(U id);
+    T guardar(T entidad);
     boolean eliminar(U id);
     
-    List<? extends TEntidad> listarDetallado();
-    List<? extends TEntidad> listarDetallado(Function<? extends SuperDefinicion<U, ? extends TEntidad>, SpeedmentPredicate<? extends TEntidad>> funcionPredicado);
-    Optional<? extends TEntidad> encontrarDetallado(U id);
+    List<? extends T> listarDetallado();
+    List<? extends T> listarDetallado(Function<? extends SuperDefinicion<U, ? extends T>, SpeedmentPredicate<? extends T>> funcionPredicado);
+    Optional<? extends T> encontrarDetallado(U id);
 }

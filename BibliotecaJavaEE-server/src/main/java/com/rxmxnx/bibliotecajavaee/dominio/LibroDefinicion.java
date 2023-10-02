@@ -10,19 +10,22 @@ import com.speedment.jpastreamer.field.*;
 /**
  *
  * @author atem94
- * @param <T>
+ * @param <TLibro>
+ * @param <TAutor>
+ * @param <TPais>
+ * @param <TGenero>
  */
-public interface LibroDefinicion<T extends Libro> extends SuperDefinicion<Integer, T> {
+public interface LibroDefinicion<TLibro extends Libro, TAutor extends Autor, TPais extends Pais, TGenero extends Genero> extends SuperDefinicion<Integer, TLibro> {
     @Override
-    IntField<T> id();
-    StringField<T> titulo();
+    IntField<TLibro> id();
+    StringField<TLibro> titulo();
     StringField<Libro> isbn();
-    ReferenceField<T, String> sinopsis();
-    IntField<T> autorId();
-    ShortField<T> generoId();
-    ShortField<T> PaisId();
+    ReferenceField<TLibro, String> sinopsis();
+    IntField<TLibro> autorId();
+    ShortField<TLibro> generoId();
+    ShortField<TLibro> PaisId();
     
-    ReferenceField<T, Autor> autor();
-    ReferenceField<T, Genero> genero();
-    ReferenceField<T, Pais> paisPublicacion(); 
+    ReferenceField<TLibro, TAutor> autor();
+    ReferenceField<TLibro, TGenero> genero();
+    ReferenceField<TLibro, TPais> paisPublicacion(); 
 }

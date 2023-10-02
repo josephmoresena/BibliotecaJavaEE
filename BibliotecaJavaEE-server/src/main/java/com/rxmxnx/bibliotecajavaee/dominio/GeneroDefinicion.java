@@ -11,12 +11,13 @@ import java.util.Set;
 /**
  *
  * @author atem94
- * @param <T>
+ * @param <TGenero>
+ * @param <TLibro>
  */
-public interface GeneroDefinicion<T extends Genero> extends SuperDefinicion<Short, T> {
+public interface GeneroDefinicion<TGenero extends Genero, TLibro extends Libro> extends SuperDefinicion<Short, TGenero> {
     @Override
-    ShortField<T> id();
-    StringField<T> nombre();
+    ShortField<TGenero> id();
+    StringField<TGenero> nombre();
     
-    ReferenceField<T, Set<Libro>> libroSet();
+    ReferenceField<TGenero, Set<TLibro>> libroSet();
 }

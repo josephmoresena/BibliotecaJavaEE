@@ -15,8 +15,6 @@ import javax.persistence.*;
 @MappedSuperclass
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public abstract class SuperEntidad<T extends Number & Comparable<T>> {
-    private static final long serialVersionUID = 1L;
-    
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Basic(optional = false)

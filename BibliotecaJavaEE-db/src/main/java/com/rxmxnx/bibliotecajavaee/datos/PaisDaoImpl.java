@@ -128,7 +128,6 @@ public class PaisDaoImpl extends SuperEntidadDaoImpl<Short, Pais, PaisReferencia
         }
         @Override
         public ShortField<PaisEntidad> id() {
-            ID.equal(Short.MIN_VALUE);
             return ID;
         }
         @Override

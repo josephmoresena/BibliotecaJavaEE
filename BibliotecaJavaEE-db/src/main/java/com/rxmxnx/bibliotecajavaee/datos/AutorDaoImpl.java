@@ -132,7 +132,6 @@ public class AutorDaoImpl extends SuperEntidadDaoImpl<Integer, Autor, AutorRefer
         }
         @Override
         public IntField<AutorEntidad> id() {
-            ID.equal(Integer.MIN_VALUE);
             return ID;
         }
         @Override

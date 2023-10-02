@@ -127,7 +127,6 @@ public class GeneroDaoImpl extends SuperEntidadDaoImpl<Short, Genero, GeneroRefe
         }
         @Override
         public ShortField<GeneroEntidad> id() {
-            ID.equal(Short.MIN_VALUE);
             return ID;
         }
         @Override

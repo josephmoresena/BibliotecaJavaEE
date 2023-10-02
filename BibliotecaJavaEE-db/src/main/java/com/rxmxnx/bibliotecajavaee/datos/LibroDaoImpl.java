@@ -119,7 +119,7 @@ public class LibroDaoImpl extends SuperEntidadDaoImpl<Integer, Libro, LibroRefer
         private static final IntField<LibroEntidad> ID = IntField.create(LibroEntidad.class, "id", LibroEntidad::getLibroId, true);
         private static final StringField<LibroEntidad> TITULO = StringField.create(LibroEntidad.class, "titulo", LibroEntidad::getTitulo, false);
         private static final StringField<LibroEntidad> ISBN = StringField.create(LibroEntidad.class, "isbn", LibroEntidad::getIsbn, false);
-        private static final ReferenceField<LibroEntidad, String> SINOPSIS = StringField.create(LibroEntidad.class, "sinopsis", LibroEntidad::getSinopsis, false);
+        private static final ReferenceField<LibroEntidad, String> SINOPSIS = ReferenceField.create(LibroEntidad.class, "sinopsis", LibroEntidad::getSinopsis, false);
         private static final IntField<LibroEntidad> AUTOR_ID = IntField.create(LibroEntidad.class, "id_autor", LibroEntidad::getAutorId, false);
         private static final ShortField<LibroEntidad> GENERO_ID = ShortField.create(LibroEntidad.class, "id_genero", LibroEntidad::getGeneroId, false);
         private static final ShortField<LibroEntidad> PAIS_ID = ShortField.create(LibroEntidad.class, "id_pais", LibroEntidad::getPaisId, false);
@@ -136,7 +136,6 @@ public class LibroDaoImpl extends SuperEntidadDaoImpl<Integer, Libro, LibroRefer
         }
         @Override
         public IntField<LibroEntidad> id() {
-            ID.equal(Integer.MIN_VALUE);
             return ID;
         }
         @Override

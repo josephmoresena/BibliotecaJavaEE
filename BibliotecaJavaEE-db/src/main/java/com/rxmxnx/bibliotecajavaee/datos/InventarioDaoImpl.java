@@ -129,7 +129,6 @@ public class InventarioDaoImpl extends SuperEntidadDaoImpl<Integer, Inventario, 
         }
         @Override
         public IntField<InventarioEntidad> id() {
-            ID.equal(Integer.MIN_VALUE);
             return ID;
         }
         @Override

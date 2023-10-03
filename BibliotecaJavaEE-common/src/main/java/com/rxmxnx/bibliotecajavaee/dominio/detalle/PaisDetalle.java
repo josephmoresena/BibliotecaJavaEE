@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.rxmxnx.bibliotecajavaee.dominio;
+package com.rxmxnx.bibliotecajavaee.dominio.detalle;
 
+import com.rxmxnx.bibliotecajavaee.dominio.*;
 import java.io.*;
 import java.util.*;
 import javax.persistence.*;
@@ -17,19 +18,19 @@ import javax.xml.bind.annotation.*;
 @MappedSuperclass
 @XmlRootElement
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-public class PaisReferencia extends Pais implements Serializable {
+public class PaisDetalle extends Pais implements Serializable {
     private static final long serialVersionUID = ENTIDAD_VERSION;
     
     private Set<? extends Autor> autorSet;
     private Set<? extends Libro> libroSet;
     
-    public PaisReferencia(){
+    public PaisDetalle(){
         super();
     }
-    public PaisReferencia(Pais pais) {
+    public PaisDetalle(Pais pais) {
         super(pais);
-        if (pais instanceof PaisReferencia) {
-            PaisReferencia referencia = (PaisReferencia)pais;
+        if (pais instanceof PaisDetalle) {
+            PaisDetalle referencia = (PaisDetalle)pais;
             this.autorSet = referencia.getAutorSet();
             this.libroSet = referencia.getLibroSet();
         }

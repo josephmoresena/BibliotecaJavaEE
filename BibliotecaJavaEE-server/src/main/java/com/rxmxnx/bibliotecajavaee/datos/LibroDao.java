@@ -5,6 +5,8 @@
  */
 package com.rxmxnx.bibliotecajavaee.datos;
 
+import com.rxmxnx.bibliotecajavaee.datos.definiciones.*;
+import com.rxmxnx.bibliotecajavaee.dominio.detalle.*;
 import com.rxmxnx.bibliotecajavaee.dominio.*;
 import com.speedment.jpastreamer.field.predicate.*;
 import java.util.*;
@@ -16,7 +18,7 @@ import javax.ejb.*;
  * @author atem94
  */
 @Remote
-public interface LibroDao extends SuperEntidadDao<Integer, Libro> {
+public interface LibroDao extends SuperEntidadDao<Integer, Libro, LibroDetalle> {
     @Override
     List<Libro> listar();
     List<Libro> listarLibro(Function<? extends LibroDefinicion, SpeedmentPredicate<? extends Libro>> funcionPredicado);
@@ -28,10 +30,10 @@ public interface LibroDao extends SuperEntidadDao<Integer, Libro> {
     boolean eliminar(Integer id);
     
     @Override
-    List<LibroReferencia> listarDetallado();
-    List<LibroReferencia> listarLibroDetallado(Function<? extends LibroDefinicion, SpeedmentPredicate<? extends Libro>> funcionPredicado);
+    List<LibroDetalle> listarDetallado();
+    List<LibroDetalle> listarLibroDetallado(Function<? extends LibroDefinicion, SpeedmentPredicate<? extends Libro>> funcionPredicado);
     @Override
-    Optional<LibroReferencia> encontrarDetallado(Integer id);
+    Optional<LibroDetalle> encontrarDetallado(Integer id);
     
     @Override
     default List<Libro> listar(Function<? extends SuperDefinicion<Integer, ? extends Libro>, SpeedmentPredicate<? extends Libro>> funcionPredicado) {
@@ -39,7 +41,7 @@ public interface LibroDao extends SuperEntidadDao<Integer, Libro> {
         return this.listarLibro(funcion);
     }
     @Override
-    default List<LibroReferencia> listarDetallado(Function<? extends SuperDefinicion<Integer, ? extends Libro>, SpeedmentPredicate<? extends Libro>> funcionPredicado) {
+    default List<LibroDetalle> listarDetallado(Function<? extends SuperDefinicion<Integer, ? extends Libro>, SpeedmentPredicate<? extends Libro>> funcionPredicado) {
         Function<? extends LibroDefinicion, SpeedmentPredicate<? extends Libro>> funcion = (Function)funcionPredicado;
         return this.listarLibroDetallado(funcion);
     }

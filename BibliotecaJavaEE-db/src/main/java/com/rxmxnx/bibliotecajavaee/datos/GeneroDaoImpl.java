@@ -5,6 +5,9 @@
  */
 package com.rxmxnx.bibliotecajavaee.datos;
 
+import com.rxmxnx.bibliotecajavaee.datos.definiciones.*;
+import com.rxmxnx.bibliotecajavaee.datos.entidades.*;
+import com.rxmxnx.bibliotecajavaee.dominio.detalle.*;
 import com.rxmxnx.bibliotecajavaee.dominio.*;
 import com.rxmxnx.bibliotecajavaee.log.*;
 import com.speedment.jpastreamer.field.*;
@@ -22,7 +25,7 @@ import javax.transaction.Transactional.*;
  * @author atem94
  */
 @Stateless
-public class GeneroDaoImpl extends SuperEntidadDaoImpl<Short, Genero, GeneroReferencia, GeneroEntidad> implements GeneroDao  {
+public class GeneroDaoImpl extends SuperEntidadDaoImpl<Short, Genero, GeneroDetalle, GeneroEntidad> implements GeneroDao  {
     @EJB
     private LogServidorFactory logFactory;
     
@@ -90,21 +93,21 @@ public class GeneroDaoImpl extends SuperEntidadDaoImpl<Short, Genero, GeneroRefe
     }
 
     @Override
-    public List<GeneroReferencia> listarDetallado() {
+    public List<GeneroDetalle> listarDetallado() {
         return this.streamListado()
-                .map(p -> new GeneroReferencia(p))
+                .map(p -> new GeneroDetalle(p))
                 .collect(Collectors.toList());
     }
     @Override
-    public List<GeneroReferencia> listarGeneroDetallado(Function<? extends GeneroDefinicion, SpeedmentPredicate<? extends Genero>> funcionPredicado) {
+    public List<GeneroDetalle> listarGeneroDetallado(Function<? extends GeneroDefinicion, SpeedmentPredicate<? extends Genero>> funcionPredicado) {
         return this.streamListado(GeneroDaoImpl.predicado(funcionPredicado))
-                .map(p -> new GeneroReferencia(p))
+                .map(p -> new GeneroDetalle(p))
                 .collect(Collectors.toList());
     }
     @Override
-    public Optional<GeneroReferencia> encontrarDetallado(Short id) {
+    public Optional<GeneroDetalle> encontrarDetallado(Short id) {
         return this.streamEncontrar(id)
-                .map(p -> new GeneroReferencia(p))
+                .map(p -> new GeneroDetalle(p))
                 .findAny();
     }
     

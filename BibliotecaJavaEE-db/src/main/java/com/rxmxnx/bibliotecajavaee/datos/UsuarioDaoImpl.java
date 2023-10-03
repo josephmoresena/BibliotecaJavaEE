@@ -5,6 +5,9 @@
  */
 package com.rxmxnx.bibliotecajavaee.datos;
 
+import com.rxmxnx.bibliotecajavaee.datos.definiciones.*;
+import com.rxmxnx.bibliotecajavaee.datos.entidades.*;
+import com.rxmxnx.bibliotecajavaee.dominio.detalle.*;
 import com.rxmxnx.bibliotecajavaee.dominio.*;
 import com.rxmxnx.bibliotecajavaee.log.*;
 import com.speedment.jpastreamer.field.*;
@@ -22,7 +25,7 @@ import javax.transaction.Transactional.*;
  * @author atem94
  */
 @Stateless
-public class UsuarioDaoImpl extends SuperEntidadDaoImpl<Integer, Usuario, UsuarioReferencia, UsuarioEntidad> implements UsuarioDao  {
+public class UsuarioDaoImpl extends SuperEntidadDaoImpl<Integer, Usuario, UsuarioDetalle, UsuarioEntidad> implements UsuarioDao  {
     @EJB
     private LogServidorFactory logFactory;
     
@@ -90,21 +93,21 @@ public class UsuarioDaoImpl extends SuperEntidadDaoImpl<Integer, Usuario, Usuari
     }
 
     @Override
-    public List<UsuarioReferencia> listarDetallado() {
+    public List<UsuarioDetalle> listarDetallado() {
         return this.streamListado()
-                .map(p -> new UsuarioReferencia(p))
+                .map(p -> new UsuarioDetalle(p))
                 .collect(Collectors.toList());
     }
     @Override
-    public List<UsuarioReferencia> listarUsuarioDetallado(Function<? extends UsuarioDefinicion, SpeedmentPredicate<? extends Usuario>> funcionPredicado) {
+    public List<UsuarioDetalle> listarUsuarioDetallado(Function<? extends UsuarioDefinicion, SpeedmentPredicate<? extends Usuario>> funcionPredicado) {
         return this.streamListado(UsuarioDaoImpl.predicado(funcionPredicado))
-                .map(p -> new UsuarioReferencia(p))
+                .map(p -> new UsuarioDetalle(p))
                 .collect(Collectors.toList());
     }
     @Override
-    public Optional<UsuarioReferencia> encontrarDetallado(Integer id) {
+    public Optional<UsuarioDetalle> encontrarDetallado(Integer id) {
         return this.streamEncontrar(id)
-                .map(p -> new UsuarioReferencia(p))
+                .map(p -> new UsuarioDetalle(p))
                 .findAny();
     }
     

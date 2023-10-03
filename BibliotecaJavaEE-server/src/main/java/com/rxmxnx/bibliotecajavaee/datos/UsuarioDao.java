@@ -5,8 +5,10 @@
  */
 package com.rxmxnx.bibliotecajavaee.datos;
 
+import com.rxmxnx.bibliotecajavaee.datos.definiciones.*;
+import com.rxmxnx.bibliotecajavaee.dominio.detalle.*;
 import com.rxmxnx.bibliotecajavaee.dominio.*;
-import com.speedment.jpastreamer.field.predicate.SpeedmentPredicate;
+import com.speedment.jpastreamer.field.predicate.*;
 import java.util.*;
 import java.util.function.Function;
 import javax.ejb.*;
@@ -16,7 +18,7 @@ import javax.ejb.*;
  * @author atem94
  */
 @Remote
-public interface UsuarioDao extends SuperEntidadDao<Integer, Usuario> {
+public interface UsuarioDao extends SuperEntidadDao<Integer, Usuario, UsuarioDetalle> {
     @Override
     List<Usuario> listar();
     List<Usuario> listarUsuario(Function<? extends UsuarioDefinicion, SpeedmentPredicate<? extends Usuario>> funcionPredicado);
@@ -28,10 +30,10 @@ public interface UsuarioDao extends SuperEntidadDao<Integer, Usuario> {
     boolean eliminar(Integer id);
     
     @Override
-    List<UsuarioReferencia> listarDetallado();
-    List<UsuarioReferencia> listarUsuarioDetallado(Function<? extends UsuarioDefinicion, SpeedmentPredicate<? extends Usuario>> funcionPredicado);
+    List<UsuarioDetalle> listarDetallado();
+    List<UsuarioDetalle> listarUsuarioDetallado(Function<? extends UsuarioDefinicion, SpeedmentPredicate<? extends Usuario>> funcionPredicado);
     @Override
-    Optional<UsuarioReferencia> encontrarDetallado(Integer id);
+    Optional<UsuarioDetalle> encontrarDetallado(Integer id);
     
     @Override
     default List<Usuario> listar(Function<? extends SuperDefinicion<Integer, ? extends Usuario>, SpeedmentPredicate<? extends Usuario>> funcionPredicado) {
@@ -39,7 +41,7 @@ public interface UsuarioDao extends SuperEntidadDao<Integer, Usuario> {
         return this.listarUsuario(funcion);
     }
     @Override
-    default List<UsuarioReferencia> listarDetallado(Function<? extends SuperDefinicion<Integer, ? extends Usuario>, SpeedmentPredicate<? extends Usuario>> funcionPredicado) {
+    default List<UsuarioDetalle> listarDetallado(Function<? extends SuperDefinicion<Integer, ? extends Usuario>, SpeedmentPredicate<? extends Usuario>> funcionPredicado) {
         Function<? extends UsuarioDefinicion, SpeedmentPredicate<? extends Usuario>> funcion = (Function)funcionPredicado;
         return this.listarUsuarioDetallado(funcion);
     }

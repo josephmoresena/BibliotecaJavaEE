@@ -5,6 +5,8 @@
  */
 package com.rxmxnx.bibliotecajavaee.datos;
 
+import com.rxmxnx.bibliotecajavaee.datos.definiciones.*;
+import com.rxmxnx.bibliotecajavaee.dominio.detalle.*;
 import com.rxmxnx.bibliotecajavaee.dominio.*;
 import com.speedment.jpastreamer.field.predicate.*;
 import java.util.*;
@@ -16,7 +18,7 @@ import javax.ejb.*;
  * @author atem94
  */
 @Remote
-public interface PrestamoDao extends SuperEntidadDao<Long, Prestamo> {
+public interface PrestamoDao extends SuperEntidadDao<Long, Prestamo, PrestamoDetalle> {
     @Override
     List<Prestamo> listar();
     List<Prestamo> listarPrestamo(Function<? extends PrestamoDefinicion, SpeedmentPredicate<? extends Prestamo>> funcionPredicado);
@@ -28,10 +30,10 @@ public interface PrestamoDao extends SuperEntidadDao<Long, Prestamo> {
     boolean eliminar(Long id);
     
     @Override
-    List<PrestamoReferencia> listarDetallado();
-    List<PrestamoReferencia> listarPrestamoDetallado(Function<? extends PrestamoDefinicion, SpeedmentPredicate<? extends Prestamo>> funcionPredicado);
+    List<PrestamoDetalle> listarDetallado();
+    List<PrestamoDetalle> listarPrestamoDetallado(Function<? extends PrestamoDefinicion, SpeedmentPredicate<? extends Prestamo>> funcionPredicado);
     @Override
-    Optional<PrestamoReferencia> encontrarDetallado(Long id);
+    Optional<PrestamoDetalle> encontrarDetallado(Long id);
     
     @Override
     default List<Prestamo> listar(Function<? extends SuperDefinicion<Long, ? extends Prestamo>, SpeedmentPredicate<? extends Prestamo>> funcionPredicado) {
@@ -39,7 +41,7 @@ public interface PrestamoDao extends SuperEntidadDao<Long, Prestamo> {
         return this.listarPrestamo(funcion);
     }
     @Override
-    default List<PrestamoReferencia> listarDetallado(Function<? extends SuperDefinicion<Long, ? extends Prestamo>, SpeedmentPredicate<? extends Prestamo>> funcionPredicado) {
+    default List<PrestamoDetalle> listarDetallado(Function<? extends SuperDefinicion<Long, ? extends Prestamo>, SpeedmentPredicate<? extends Prestamo>> funcionPredicado) {
         Function<? extends PrestamoDefinicion, SpeedmentPredicate<? extends Prestamo>> funcion = (Function)funcionPredicado;
         return this.listarPrestamoDetallado(funcion);
     }

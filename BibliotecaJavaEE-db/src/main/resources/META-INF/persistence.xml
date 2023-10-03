@@ -2,13 +2,13 @@
 <persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
   <persistence-unit name="BibliotecaJavaEE_PU" transaction-type="JTA">
     <jta-data-source>java:app/jdbc/BIBLIOTECA_JEE</jta-data-source>
-    <class>com.rxmxnx.bibliotecajavaee.dominio.AutorEntidad</class>
-    <class>com.rxmxnx.bibliotecajavaee.dominio.GeneroEntidad</class>
-    <class>com.rxmxnx.bibliotecajavaee.dominio.InventarioEntidad</class>
-    <class>com.rxmxnx.bibliotecajavaee.dominio.LibroEntidad</class>
-    <class>com.rxmxnx.bibliotecajavaee.dominio.PaisEntidad</class>
-    <class>com.rxmxnx.bibliotecajavaee.dominio.PrestamoEntidad</class>
-    <class>com.rxmxnx.bibliotecajavaee.dominio.UsuarioEntidad</class>
+    <class>com.rxmxnx.bibliotecajavaee.datos.entidades.GeneroEntidad</class>
+    <class>com.rxmxnx.bibliotecajavaee.datos.entidades.InventarioEntidad</class>
+    <class>com.rxmxnx.bibliotecajavaee.datos.entidades.UsuarioEntidad</class>
+    <class>com.rxmxnx.bibliotecajavaee.datos.entidades.LibroEntidad</class>
+    <class>com.rxmxnx.bibliotecajavaee.datos.entidades.PrestamoEntidad</class>
+    <class>com.rxmxnx.bibliotecajavaee.datos.entidades.AutorEntidad</class>
+    <class>com.rxmxnx.bibliotecajavaee.datos.entidades.PaisEntidad</class>
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
     <properties/>
   </persistence-unit>

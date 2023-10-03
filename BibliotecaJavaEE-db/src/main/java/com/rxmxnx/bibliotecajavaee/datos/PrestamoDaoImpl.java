@@ -5,6 +5,9 @@
  */
 package com.rxmxnx.bibliotecajavaee.datos;
 
+import com.rxmxnx.bibliotecajavaee.datos.definiciones.*;
+import com.rxmxnx.bibliotecajavaee.datos.entidades.*;
+import com.rxmxnx.bibliotecajavaee.dominio.detalle.*;
 import com.rxmxnx.bibliotecajavaee.dominio.*;
 import com.rxmxnx.bibliotecajavaee.log.*;
 import com.speedment.jpastreamer.field.*;
@@ -22,7 +25,7 @@ import javax.transaction.Transactional.*;
  * @author atem94
  */
 @Stateless
-public class PrestamoDaoImpl extends SuperEntidadDaoImpl<Long, Prestamo, PrestamoReferencia, PrestamoEntidad> implements PrestamoDao  {
+public class PrestamoDaoImpl extends SuperEntidadDaoImpl<Long, Prestamo, PrestamoDetalle, PrestamoEntidad> implements PrestamoDao  {
     @EJB
     private LogServidorFactory logFactory;
     
@@ -90,21 +93,21 @@ public class PrestamoDaoImpl extends SuperEntidadDaoImpl<Long, Prestamo, Prestam
     }
 
     @Override
-    public List<PrestamoReferencia> listarDetallado() {
+    public List<PrestamoDetalle> listarDetallado() {
         return this.streamListado()
-                .map(p -> new PrestamoReferencia(p))
+                .map(p -> new PrestamoDetalle(p))
                 .collect(Collectors.toList());
     }
     @Override
-    public List<PrestamoReferencia> listarPrestamoDetallado(Function<? extends PrestamoDefinicion, SpeedmentPredicate<? extends Prestamo>> funcionPredicado) {
+    public List<PrestamoDetalle> listarPrestamoDetallado(Function<? extends PrestamoDefinicion, SpeedmentPredicate<? extends Prestamo>> funcionPredicado) {
         return this.streamListado(PrestamoDaoImpl.predicado(funcionPredicado))
-                .map(p -> new PrestamoReferencia(p))
+                .map(p -> new PrestamoDetalle(p))
                 .collect(Collectors.toList());
     }
     @Override
-    public Optional<PrestamoReferencia> encontrarDetallado(Long id) {
+    public Optional<PrestamoDetalle> encontrarDetallado(Long id) {
         return this.streamEncontrar(id)
-                .map(p -> new PrestamoReferencia(p))
+                .map(p -> new PrestamoDetalle(p))
                 .findAny();
     }
     

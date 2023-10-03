@@ -5,6 +5,8 @@
  */
 package com.rxmxnx.bibliotecajavaee.datos;
 
+import com.rxmxnx.bibliotecajavaee.datos.definiciones.*;
+import com.rxmxnx.bibliotecajavaee.dominio.detalle.*;
 import com.rxmxnx.bibliotecajavaee.dominio.*;
 import com.speedment.jpastreamer.field.predicate.*;
 import java.util.*;
@@ -16,7 +18,7 @@ import javax.ejb.*;
  * @author atem94
  */
 @Remote
-public interface AutorDao extends SuperEntidadDao<Integer, Autor> {
+public interface AutorDao extends SuperEntidadDao<Integer, Autor, AutorDetalle> {
     @Override
     List<Autor> listar();
     List<Autor> listarAutor(Function<? extends AutorDefinicion, SpeedmentPredicate<? extends Autor>> funcionPredicado);
@@ -28,10 +30,10 @@ public interface AutorDao extends SuperEntidadDao<Integer, Autor> {
     boolean eliminar(Integer id);
     
     @Override
-    List<AutorReferencia> listarDetallado();
-    List<AutorReferencia> listarAutorDetallado(Function<? extends AutorDefinicion, SpeedmentPredicate<? extends Autor>> funcionPredicado);
+    List<AutorDetalle> listarDetallado();
+    List<AutorDetalle> listarAutorDetallado(Function<? extends AutorDefinicion, SpeedmentPredicate<? extends Autor>> funcionPredicado);
     @Override
-    Optional<AutorReferencia> encontrarDetallado(Integer id);
+    Optional<AutorDetalle> encontrarDetallado(Integer id);
     
     @Override
     default List<Autor> listar(Function<? extends SuperDefinicion<Integer, ? extends Autor>, SpeedmentPredicate<? extends Autor>> funcionPredicado) {
@@ -39,7 +41,7 @@ public interface AutorDao extends SuperEntidadDao<Integer, Autor> {
         return this.listarAutor(funcion);
     }
     @Override
-    default List<AutorReferencia> listarDetallado(Function<? extends SuperDefinicion<Integer, ? extends Autor>, SpeedmentPredicate<? extends Autor>> funcionPredicado) {
+    default List<AutorDetalle> listarDetallado(Function<? extends SuperDefinicion<Integer, ? extends Autor>, SpeedmentPredicate<? extends Autor>> funcionPredicado) {
         Function<? extends AutorDefinicion, SpeedmentPredicate<? extends Autor>> funcion = (Function)funcionPredicado;
         return this.listarAutorDetallado(funcion);
     }

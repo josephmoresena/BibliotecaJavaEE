@@ -5,6 +5,9 @@
  */
 package com.rxmxnx.bibliotecajavaee.datos;
 
+import com.rxmxnx.bibliotecajavaee.datos.definiciones.*;
+import com.rxmxnx.bibliotecajavaee.datos.entidades.*;
+import com.rxmxnx.bibliotecajavaee.dominio.detalle.*;
 import com.rxmxnx.bibliotecajavaee.dominio.*;
 import com.rxmxnx.bibliotecajavaee.log.*;
 import com.speedment.jpastreamer.field.*;
@@ -22,7 +25,7 @@ import javax.transaction.Transactional.*;
  * @author atem94
  */
 @Stateless
-public class PaisDaoImpl extends SuperEntidadDaoImpl<Short, Pais, PaisReferencia, PaisEntidad> implements PaisDao  {
+public class PaisDaoImpl extends SuperEntidadDaoImpl<Short, Pais, PaisDetalle, PaisEntidad> implements PaisDao  {
     @EJB
     private LogServidorFactory logFactory;
     
@@ -90,21 +93,21 @@ public class PaisDaoImpl extends SuperEntidadDaoImpl<Short, Pais, PaisReferencia
     }
 
     @Override
-    public List<PaisReferencia> listarDetallado() {
+    public List<PaisDetalle> listarDetallado() {
         return this.streamListado()
-                .map(p -> new PaisReferencia(p))
+                .map(p -> new PaisDetalle(p))
                 .collect(Collectors.toList());
     }
     @Override
-    public List<PaisReferencia> listarPaisDetallado(Function<? extends PaisDefinicion, SpeedmentPredicate<? extends Pais>> funcionPredicado) {
+    public List<PaisDetalle> listarPaisDetallado(Function<? extends PaisDefinicion, SpeedmentPredicate<? extends Pais>> funcionPredicado) {
         return this.streamListado(PaisDaoImpl.predicado(funcionPredicado))
-                .map(p -> new PaisReferencia(p))
+                .map(p -> new PaisDetalle(p))
                 .collect(Collectors.toList());
     }
     @Override
-    public Optional<PaisReferencia> encontrarDetallado(Short id) {
+    public Optional<PaisDetalle> encontrarDetallado(Short id) {
         return this.streamEncontrar(id)
-                .map(p -> new PaisReferencia(p))
+                .map(p -> new PaisDetalle(p))
                 .findAny();
     }
     

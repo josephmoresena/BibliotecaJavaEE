@@ -3,8 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.rxmxnx.bibliotecajavaee.dominio;
+package com.rxmxnx.bibliotecajavaee.datos.entidades;
 
+import com.rxmxnx.bibliotecajavaee.dominio.*;
+import com.rxmxnx.bibliotecajavaee.dominio.detalle.*;
 import java.io.*;
 import java.util.*;
 import java.util.stream.*;
@@ -18,7 +20,7 @@ import javax.xml.bind.annotation.*;
 @Entity
 @Table(name = "PAISES", catalog = "BIBLIOTECA_JEE", schema = "")
 @XmlRootElement
-public class PaisEntidad extends PaisReferencia implements Serializable {
+public class PaisEntidad extends PaisDetalle implements Serializable {
     public PaisEntidad() {
         super();
     }

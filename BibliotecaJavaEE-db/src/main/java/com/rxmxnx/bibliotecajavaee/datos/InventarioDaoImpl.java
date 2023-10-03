@@ -5,6 +5,9 @@
  */
 package com.rxmxnx.bibliotecajavaee.datos;
 
+import com.rxmxnx.bibliotecajavaee.datos.definiciones.*;
+import com.rxmxnx.bibliotecajavaee.datos.entidades.*;
+import com.rxmxnx.bibliotecajavaee.dominio.detalle.*;
 import com.rxmxnx.bibliotecajavaee.dominio.*;
 import com.rxmxnx.bibliotecajavaee.log.*;
 import com.speedment.jpastreamer.field.*;
@@ -22,7 +25,7 @@ import javax.transaction.Transactional.*;
  * @author atem94
  */
 @Stateless
-public class InventarioDaoImpl extends SuperEntidadDaoImpl<Integer, Inventario, InventarioReferencia, InventarioEntidad> implements InventarioDao  {
+public class InventarioDaoImpl extends SuperEntidadDaoImpl<Integer, Inventario, InventarioDetalle, InventarioEntidad> implements InventarioDao  {
     @EJB
     private LogServidorFactory logFactory;
     
@@ -90,21 +93,21 @@ public class InventarioDaoImpl extends SuperEntidadDaoImpl<Integer, Inventario, 
     }
 
     @Override
-    public List<InventarioReferencia> listarDetallado() {
+    public List<InventarioDetalle> listarDetallado() {
         return this.streamListado()
-                .map(p -> new InventarioReferencia(p))
+                .map(p -> new InventarioDetalle(p))
                 .collect(Collectors.toList());
     }
     @Override
-    public List<InventarioReferencia> listarInventarioDetallado(Function<? extends InventarioDefinicion, SpeedmentPredicate<? extends Inventario>> funcionPredicado) {
+    public List<InventarioDetalle> listarInventarioDetallado(Function<? extends InventarioDefinicion, SpeedmentPredicate<? extends Inventario>> funcionPredicado) {
         return this.streamListado(InventarioDaoImpl.predicado(funcionPredicado))
-                .map(p -> new InventarioReferencia(p))
+                .map(p -> new InventarioDetalle(p))
                 .collect(Collectors.toList());
     }
     @Override
-    public Optional<InventarioReferencia> encontrarDetallado(Integer id) {
+    public Optional<InventarioDetalle> encontrarDetallado(Integer id) {
         return this.streamEncontrar(id)
-                .map(p -> new InventarioReferencia(p))
+                .map(p -> new InventarioDetalle(p))
                 .findAny();
     }
     

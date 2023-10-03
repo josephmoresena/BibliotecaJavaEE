@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.rxmxnx.bibliotecajavaee.dominio;
+package com.rxmxnx.bibliotecajavaee.dominio.detalle;
 
+import com.rxmxnx.bibliotecajavaee.dominio.*;
 import java.io.*;
 import java.util.*;
 import javax.persistence.*;
@@ -17,17 +18,17 @@ import javax.xml.bind.annotation.*;
 @MappedSuperclass
 @XmlRootElement
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-public class GeneroReferencia extends Genero implements Serializable {
+public class GeneroDetalle extends Genero implements Serializable {
     private static final long serialVersionUID = ENTIDAD_VERSION;
     
     private Set<? extends Libro> libroSet;
     
-    public GeneroReferencia() {
+    public GeneroDetalle() {
     }
-    public GeneroReferencia(Genero genero) {
+    public GeneroDetalle(Genero genero) {
         super(genero);
-        if (genero instanceof GeneroReferencia) {
-            GeneroReferencia referencia = (GeneroReferencia)genero;
+        if (genero instanceof GeneroDetalle) {
+            GeneroDetalle referencia = (GeneroDetalle)genero;
             this.libroSet = referencia.getLibroSet();
         }
     }

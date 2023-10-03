@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.rxmxnx.bibliotecajavaee.dominio;
+package com.rxmxnx.bibliotecajavaee.dominio.detalle;
 
+import com.rxmxnx.bibliotecajavaee.dominio.*;
 import java.io.*;
 import java.util.*;
 import javax.persistence.*;
@@ -17,7 +18,7 @@ import javax.xml.bind.annotation.*;
 @MappedSuperclass
 @XmlRootElement
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-public class LibroReferencia extends Libro implements Serializable {
+public class LibroDetalle extends Libro implements Serializable {
     private static final long serialVersionUID = ENTIDAD_VERSION;
     
     private Autor autor;
@@ -26,13 +27,13 @@ public class LibroReferencia extends Libro implements Serializable {
     private Set<? extends Prestamo> prestamoSet;
     private Set<? extends Inventario> inventarioSet;
     
-    public LibroReferencia() {
+    public LibroDetalle() {
         super();
     }
-    public LibroReferencia(Libro libro){
+    public LibroDetalle(Libro libro){
         super(libro);
-        if (libro instanceof LibroReferencia) {
-            LibroReferencia referencia = (LibroReferencia)libro;
+        if (libro instanceof LibroDetalle) {
+            LibroDetalle referencia = (LibroDetalle)libro;
             this.autor = referencia.getAutor();
             this.genero = referencia.getGenero();
             this.pais = referencia.getPais();
@@ -71,21 +72,21 @@ public class LibroReferencia extends Libro implements Serializable {
     protected void setAutor(Autor autor) {
         this.autor = autor;
         if (autor != null)
-            super.setAutorId(autor.getId());
+            super.setAutorId(autor.getAutorId());
         else
             super.setAutorId(null);
     }
     protected void setGenero(Genero genero) {
         this.genero = genero;
         if (genero != null)
-            super.setGeneroId(genero.getId());
+            super.setGeneroId(genero.getGeneroId());
         else
             super.setGeneroId(null);
     }
     protected void setPais(Pais pais) {
         this.pais = pais;
         if (pais != null)
-            super.setPaisId(pais.getId());
+            super.setPaisId(pais.getPaisId());
         else
             super.setPaisId(null);
     }
@@ -94,7 +95,7 @@ public class LibroReferencia extends Libro implements Serializable {
     public void setAutorId(Integer autorId) {
         if (autorId == null)
             this.autor = null;
-        else if (this.autor != null && !autorId.equals(this.autor.getId()))
+        else if (this.autor != null && !autorId.equals(this.autor.getAutorId()))
             this.autor = null;
         super.setAutorId(autorId);
     }
@@ -102,7 +103,7 @@ public class LibroReferencia extends Libro implements Serializable {
     public void setGeneroId(Short generoId) {
         if (generoId == null)
             this.genero = null;
-        else if (this.genero != null && !generoId.equals(this.genero.getId()))
+        else if (this.genero != null && !generoId.equals(this.genero.getGeneroId()))
             this.genero = null;
         super.setGeneroId(generoId);
     }
@@ -110,7 +111,7 @@ public class LibroReferencia extends Libro implements Serializable {
     public void setPaisId(Short paisId) {
         if (paisId == null)
             this.pais = null;
-        else if (this.pais != null && !paisId.equals(this.pais.getId()))
+        else if (this.pais != null && !paisId.equals(this.pais.getPaisId()))
             this.pais = null;
         super.setPaisId(paisId);
     }

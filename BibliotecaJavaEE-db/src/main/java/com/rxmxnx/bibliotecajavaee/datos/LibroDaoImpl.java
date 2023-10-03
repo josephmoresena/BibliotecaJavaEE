@@ -5,6 +5,9 @@
  */
 package com.rxmxnx.bibliotecajavaee.datos;
 
+import com.rxmxnx.bibliotecajavaee.datos.definiciones.*;
+import com.rxmxnx.bibliotecajavaee.datos.entidades.*;
+import com.rxmxnx.bibliotecajavaee.dominio.detalle.*;
 import com.rxmxnx.bibliotecajavaee.dominio.*;
 import com.rxmxnx.bibliotecajavaee.log.*;
 import com.speedment.jpastreamer.field.*;
@@ -22,7 +25,7 @@ import javax.transaction.Transactional.*;
  * @author atem94
  */
 @Stateless
-public class LibroDaoImpl extends SuperEntidadDaoImpl<Integer, Libro, LibroReferencia, LibroEntidad> implements LibroDao  {
+public class LibroDaoImpl extends SuperEntidadDaoImpl<Integer, Libro, LibroDetalle, LibroEntidad> implements LibroDao  {
     @EJB
     private LogServidorFactory logFactory;
     
@@ -90,21 +93,21 @@ public class LibroDaoImpl extends SuperEntidadDaoImpl<Integer, Libro, LibroRefer
     }
 
     @Override
-    public List<LibroReferencia> listarDetallado() {
+    public List<LibroDetalle> listarDetallado() {
         return this.streamListado()
-                .map(p -> new LibroReferencia(p))
+                .map(p -> new LibroDetalle(p))
                 .collect(Collectors.toList());
     }
     @Override
-    public List<LibroReferencia> listarLibroDetallado(Function<? extends LibroDefinicion, SpeedmentPredicate<? extends Libro>> funcionPredicado) {
+    public List<LibroDetalle> listarLibroDetallado(Function<? extends LibroDefinicion, SpeedmentPredicate<? extends Libro>> funcionPredicado) {
         return this.streamListado(LibroDaoImpl.predicado(funcionPredicado))
-                .map(p -> new LibroReferencia(p))
+                .map(p -> new LibroDetalle(p))
                 .collect(Collectors.toList());
     }
     @Override
-    public Optional<LibroReferencia> encontrarDetallado(Integer id) {
+    public Optional<LibroDetalle> encontrarDetallado(Integer id) {
         return this.streamEncontrar(id)
-                .map(p -> new LibroReferencia(p))
+                .map(p -> new LibroDetalle(p))
                 .findAny();
     }
     

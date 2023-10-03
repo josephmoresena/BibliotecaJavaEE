@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.rxmxnx.bibliotecajavaee.dominio;
+package com.rxmxnx.bibliotecajavaee.dominio.detalle;
 
+import com.rxmxnx.bibliotecajavaee.dominio.*;
 import java.io.*;
 import javax.persistence.*;
 import javax.xml.bind.annotation.*;
@@ -16,19 +17,19 @@ import javax.xml.bind.annotation.*;
 @MappedSuperclass
 @XmlRootElement
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-public class PrestamoReferencia extends Prestamo implements Serializable {
+public class PrestamoDetalle extends Prestamo implements Serializable {
     private static final long serialVersionUID = ENTIDAD_VERSION;
     
     private Libro libro;
     private Usuario usuario;
     
-    public PrestamoReferencia(){
+    public PrestamoDetalle(){
         super();
     }
-    public PrestamoReferencia(Prestamo prestamo){
+    public PrestamoDetalle(Prestamo prestamo){
         super(prestamo);
-        if (prestamo instanceof PrestamoReferencia) {
-            PrestamoReferencia referencia = (PrestamoReferencia)prestamo;
+        if (prestamo instanceof PrestamoDetalle) {
+            PrestamoDetalle referencia = (PrestamoDetalle)prestamo;
             this.libro = referencia.getLibro();
             this.usuario = referencia.getUsuario();
         }
@@ -46,14 +47,14 @@ public class PrestamoReferencia extends Prestamo implements Serializable {
     protected void setLibro(Libro libro) {
         this.libro = libro;
         if (libro != null)
-            super.setLibroId(libro.getId());
+            super.setLibroId(libro.getLibroId());
         else
             super.setLibroId(null);
     }
     protected void setUsuario(Usuario usuario) {
         this.usuario = usuario;
         if (usuario != null)
-            super.setUsuarioId(usuario.getId());
+            super.setUsuarioId(usuario.getUsuarioId());
         else
             super.setUsuarioId(null);
     }
@@ -62,7 +63,7 @@ public class PrestamoReferencia extends Prestamo implements Serializable {
     public void setLibroId(Integer libroId) {
         if (libroId == null)
             this.libro = null;
-        else if (this.libro != null && !libroId.equals(this.libro.getId()))
+        else if (this.libro != null && !libroId.equals(this.libro.getLibroId()))
             this.libro = null;
         super.setLibroId(libroId);
     }
@@ -70,7 +71,7 @@ public class PrestamoReferencia extends Prestamo implements Serializable {
     public void setUsuarioId(Integer usuarioId) {
         if (usuarioId == null)
             this.usuario = null;
-        else if (this.usuario != null && !usuarioId.equals(this.usuario.getId()))
+        else if (this.usuario != null && !usuarioId.equals(this.usuario.getUsuarioId()))
             this.usuario = null;
         super.setUsuarioId(usuarioId);
     }

@@ -3,8 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.rxmxnx.bibliotecajavaee.dominio;
+package com.rxmxnx.bibliotecajavaee.dominio.detalle;
 
+import com.rxmxnx.bibliotecajavaee.dominio.Prestamo;
+import com.rxmxnx.bibliotecajavaee.dominio.Usuario;
 import java.io.*;
 import java.util.*;
 import javax.persistence.*;
@@ -17,18 +19,18 @@ import javax.xml.bind.annotation.*;
 @MappedSuperclass
 @XmlRootElement
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-public class UsuarioReferencia extends Usuario implements Serializable {
+public class UsuarioDetalle extends Usuario implements Serializable {
     private static final long serialVersionUID = ENTIDAD_VERSION;
     
     private Set<? extends Prestamo> prestamoSet;
     
-    public UsuarioReferencia() {
+    public UsuarioDetalle() {
         super();
     }
-    public UsuarioReferencia(Usuario usuario) {
+    public UsuarioDetalle(Usuario usuario) {
         super(usuario);
-        if (usuario instanceof UsuarioReferencia) {
-            UsuarioReferencia referencia = (UsuarioReferencia)usuario;
+        if (usuario instanceof UsuarioDetalle) {
+            UsuarioDetalle referencia = (UsuarioDetalle)usuario;
             this.prestamoSet = referencia.getPrestamoSet();
         }
     }

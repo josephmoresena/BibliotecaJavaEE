@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.rxmxnx.bibliotecajavaee.dominio;
+package com.rxmxnx.bibliotecajavaee.datos.definiciones;
 
+import com.rxmxnx.bibliotecajavaee.dominio.*;
 import com.speedment.jpastreamer.field.*;
 import java.util.Set;
 

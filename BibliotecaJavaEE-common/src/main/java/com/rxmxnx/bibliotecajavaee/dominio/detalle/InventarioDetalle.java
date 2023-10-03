@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.rxmxnx.bibliotecajavaee.dominio;
+package com.rxmxnx.bibliotecajavaee.dominio.detalle;
 
+import com.rxmxnx.bibliotecajavaee.dominio.*;
 import java.io.*;
 import javax.persistence.*;
 import javax.xml.bind.annotation.*;
@@ -16,18 +17,18 @@ import javax.xml.bind.annotation.*;
 @MappedSuperclass
 @XmlRootElement
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-public class InventarioReferencia extends Inventario implements Serializable {
+public class InventarioDetalle extends Inventario implements Serializable {
     private static final long serialVersionUID = ENTIDAD_VERSION;
     
     private Libro libro;
     
-    public InventarioReferencia() {
+    public InventarioDetalle() {
         super();
     }
-    public InventarioReferencia(Inventario inventario) {
+    public InventarioDetalle(Inventario inventario) {
         super(inventario);
-        if (inventario instanceof InventarioReferencia) {
-            InventarioReferencia referencia = (InventarioReferencia)inventario;
+        if (inventario instanceof InventarioDetalle) {
+            InventarioDetalle referencia = (InventarioDetalle)inventario;
             this.libro = referencia.getLibro();
         }
     }
@@ -41,7 +42,7 @@ public class InventarioReferencia extends Inventario implements Serializable {
     protected void setLibro(Libro libro) {
         this.libro = libro;
         if (libro != null)
-            super.setLibroId(libro.getId());
+            super.setLibroId(libro.getLibroId());
         else
             super.setLibroId(null);
     }
@@ -50,7 +51,7 @@ public class InventarioReferencia extends Inventario implements Serializable {
     public void setLibroId(Integer libroId) {
         if (libroId == null)
             this.libro = null;
-        else if (this.libro != null && !libroId.equals(this.libro.getId()))
+        else if (this.libro != null && !libroId.equals(this.libro.getLibroId()))
             this.libro = null;
         super.setLibroId(libroId);
     }

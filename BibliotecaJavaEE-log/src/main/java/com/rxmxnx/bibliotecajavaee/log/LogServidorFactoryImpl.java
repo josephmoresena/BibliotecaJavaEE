@@ -11,7 +11,6 @@ import javax.ejb.*;
  *
  * @author atem94
  */
-//@EJB(beanName="com.rxmxnx.bibliotecajavaee.log.LogServidorFactory")
 @Stateless
 public class LogServidorFactoryImpl implements LogServidorFactory {
 

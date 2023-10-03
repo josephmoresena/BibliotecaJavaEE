@@ -19,16 +19,39 @@
             <groupId>${project.groupId}</groupId>
             <artifactId>BibliotecaJavaEE-server</artifactId>
             <version>${project.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.speedment.jpastreamer</groupId>
+                    <artifactId>field</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.speedment.common</groupId>
+                    <artifactId>function</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.speedment.common</groupId>
+                    <artifactId>invariant</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>javax.persistence</groupId>
+                    <artifactId>javax.persistence-api</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.speedment.runtime</groupId>
+                    <artifactId>runtime-compute</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-api</artifactId>
             <version>2.12.0</version>
+            <type>jar</type>
         </dependency>
         <dependency>
-            <groupId>javax</groupId>
-            <artifactId>javaee-api</artifactId>
-            <version>8.0</version>
+            <groupId>javax.ejb</groupId>
+            <artifactId>javax.ejb-api</artifactId>
+            <version>3.2.2</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>

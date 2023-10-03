@@ -16,14 +16,33 @@
         </dependency>
         <dependency>
             <groupId>com.speedment.jpastreamer</groupId>
-            <artifactId>jpastreamer-core</artifactId>
+            <artifactId>field</artifactId>
             <version>1.1.4</version>
+            <type>jar</type>
         </dependency>
         <dependency>
-            <groupId>javax</groupId>
-            <artifactId>javaee-api</artifactId>
-            <version>8.0</version>
-            <scope>provided</scope>
+            <groupId>com.speedment.common</groupId>
+            <artifactId>function</artifactId>
+            <version>3.2.10</version>
+            <type>jar</type>
+        </dependency>
+        <dependency>
+            <groupId>com.speedment.common</groupId>
+            <artifactId>invariant</artifactId>
+            <version>3.2.10</version>
+            <type>jar</type>
+        </dependency>
+        <dependency>
+            <groupId>com.speedment.runtime</groupId>
+            <artifactId>runtime-compute</artifactId>
+            <version>3.2.10</version>
+            <type>jar</type>
+        </dependency>
+        <dependency>
+            <groupId>javax.ejb</groupId>
+            <artifactId>javax.ejb-api</artifactId>
+            <version>3.2.2</version>
+            <type>jar</type>
         </dependency>
     </dependencies>
     <properties>

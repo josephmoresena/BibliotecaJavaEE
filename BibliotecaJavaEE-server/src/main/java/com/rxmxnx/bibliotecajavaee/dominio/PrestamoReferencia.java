@@ -19,11 +19,7 @@ import javax.xml.bind.annotation.*;
 public class PrestamoReferencia extends Prestamo implements Serializable {
     private static final long serialVersionUID = ENTIDAD_VERSION;
     
-    @JoinColumn(name = "id_libro", referencedColumnName = "id")
-    @ManyToOne
     private Libro libro;
-    @JoinColumn(name = "id_usuario", referencedColumnName = "id")
-    @ManyToOne
     private Usuario usuario;
     
     public PrestamoReferencia(){
@@ -38,6 +34,8 @@ public class PrestamoReferencia extends Prestamo implements Serializable {
         }
     }
     
+    @JoinColumn(name = "id_libro", referencedColumnName = "id", insertable = false, updatable = false)
+    @ManyToOne
     public Libro getLibro() {
         return libro;
     }

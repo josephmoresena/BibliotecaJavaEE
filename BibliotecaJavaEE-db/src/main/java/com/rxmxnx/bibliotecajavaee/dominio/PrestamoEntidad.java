@@ -32,6 +32,12 @@ public class PrestamoEntidad extends PrestamoReferencia implements Serializable 
     public UsuarioEntidad getUsuario() {
         return (UsuarioEntidad)super.getUsuario();
     }
+    public void setLibro(LibroEntidad libro) {
+        super.setLibro(libro);
+    }
+    public void setUsuario(UsuarioEntidad usuario) {
+        super.setUsuario(usuario);
+    }
     
     public static PrestamoEntidad crearEntidad(Prestamo prestamo) {
         if (prestamo instanceof PrestamoEntidad)

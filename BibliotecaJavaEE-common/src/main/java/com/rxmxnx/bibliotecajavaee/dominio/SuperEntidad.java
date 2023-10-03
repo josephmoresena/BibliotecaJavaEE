@@ -15,14 +15,14 @@ import javax.persistence.*;
 @MappedSuperclass
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public abstract class SuperEntidad<T extends Number & Comparable<T>> {
-    @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
-    @Basic(optional = false)
     private T id;
     
     protected SuperEntidad() { }
     protected SuperEntidad(T id) { this.id = id; }
     
+    @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @Basic(optional = false)
     protected T getId() {
         return this.id;
     }

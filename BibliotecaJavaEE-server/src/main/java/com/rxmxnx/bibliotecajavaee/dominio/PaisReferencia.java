@@ -20,9 +20,7 @@ import javax.xml.bind.annotation.*;
 public class PaisReferencia extends Pais implements Serializable {
     private static final long serialVersionUID = ENTIDAD_VERSION;
     
-    @OneToMany(mappedBy = "pais")
     private Set<? extends Autor> autorSet;
-    @OneToMany(mappedBy = "pais")
     private Set<? extends Libro> libroSet;
     
     public PaisReferencia(){
@@ -38,9 +36,11 @@ public class PaisReferencia extends Pais implements Serializable {
     }
 
     @XmlTransient
+    @OneToMany(mappedBy = "pais")
     public Set<? extends Autor> getAutorSet() {
         return autorSet;
     }
+    @OneToMany(mappedBy = "pais")
     @XmlTransient
     public Set<? extends Libro> getLibroSet() {
         return libroSet;

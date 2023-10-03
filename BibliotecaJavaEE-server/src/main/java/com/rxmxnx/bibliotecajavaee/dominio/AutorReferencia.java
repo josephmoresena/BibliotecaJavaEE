@@ -20,11 +20,7 @@ import javax.xml.bind.annotation.*;
 public class AutorReferencia extends Autor implements Serializable {
     private static final long serialVersionUID = ENTIDAD_VERSION;
     
-    @JoinColumn(name = "id_pais", referencedColumnName = "id", insertable = false, updatable = false)
-    @ManyToOne
     private Pais pais;
-    
-    @OneToMany(mappedBy = "autor")
     private Set<? extends Libro> libroSet;
     
     public AutorReferencia() {
@@ -39,10 +35,13 @@ public class AutorReferencia extends Autor implements Serializable {
         }
     }
     
+    @JoinColumn(name = "id_pais", referencedColumnName = "id", insertable = false, updatable = false)
+    @ManyToOne
     public Pais getPais() {
         return this.pais;
     }
 
+    @OneToMany(mappedBy = "autor")
     @XmlTransient
     public Set<? extends Libro> getLibroSet() {
         return this.libroSet;

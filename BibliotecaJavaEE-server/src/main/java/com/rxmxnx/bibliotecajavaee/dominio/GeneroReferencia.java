@@ -20,7 +20,6 @@ import javax.xml.bind.annotation.*;
 public class GeneroReferencia extends Genero implements Serializable {
     private static final long serialVersionUID = ENTIDAD_VERSION;
     
-    @OneToMany(mappedBy = "genero")
     private Set<? extends Libro> libroSet;
     
     public GeneroReferencia() {
@@ -34,6 +33,7 @@ public class GeneroReferencia extends Genero implements Serializable {
     }
     
     @XmlTransient
+    @OneToMany(mappedBy = "genero")
     public Set<? extends Libro> getLibroSet() {
         return this.libroSet;
     }

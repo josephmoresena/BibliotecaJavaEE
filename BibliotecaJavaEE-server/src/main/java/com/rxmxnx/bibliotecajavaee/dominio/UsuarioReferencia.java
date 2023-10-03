@@ -20,7 +20,6 @@ import javax.xml.bind.annotation.*;
 public class UsuarioReferencia extends Usuario implements Serializable {
     private static final long serialVersionUID = ENTIDAD_VERSION;
     
-    @OneToMany(mappedBy = "usuario")
     private Set<? extends Prestamo> prestamoSet;
     
     public UsuarioReferencia() {
@@ -35,6 +34,7 @@ public class UsuarioReferencia extends Usuario implements Serializable {
     }
 
     @XmlTransient
+    @OneToMany(mappedBy = "usuario")
     public Set<? extends Prestamo> getPrestamoSet() {
         return prestamoSet;
     }

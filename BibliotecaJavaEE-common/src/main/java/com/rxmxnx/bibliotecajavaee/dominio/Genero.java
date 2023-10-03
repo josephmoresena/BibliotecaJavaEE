@@ -20,7 +20,6 @@ public class Genero extends SuperEntidad<Short> implements Serializable {
     protected static final long ENTIDAD_VERSION = 1L;
     private static final long serialVersionUID = ENTIDAD_VERSION;
     
-    @Basic(optional = false)
     private String nombre;
 
     public Genero() {
@@ -39,6 +38,7 @@ public class Genero extends SuperEntidad<Short> implements Serializable {
     public Short getGeneroId() {
         return super.getId();
     }
+    @Basic(optional = false)
     public String getNombre() {
         return nombre;
     }

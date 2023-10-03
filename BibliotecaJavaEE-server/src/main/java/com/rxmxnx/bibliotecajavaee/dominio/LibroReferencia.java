@@ -14,21 +14,16 @@ import javax.xml.bind.annotation.*;
  *
  * @author atem94
  */
+@MappedSuperclass
+@XmlRootElement
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public class LibroReferencia extends Libro implements Serializable {
     private static final long serialVersionUID = ENTIDAD_VERSION;
     
-    @JoinColumn(name = "id_autor", referencedColumnName = "id", insertable = false, updatable = false)
-    @ManyToOne
     private Autor autor;
-    @JoinColumn(name = "id_genero", referencedColumnName = "id", insertable = false, updatable = false)
-    @ManyToOne
     private Genero genero;
-    @JoinColumn(name = "id_pais_publicacion", referencedColumnName = "id", insertable = false, updatable = false)
-    @ManyToOne
     private Pais pais;
-    @OneToMany(mappedBy = "libro")
     private Set<? extends Prestamo> prestamoSet;
-    @OneToMany(mappedBy = "libro")
     private Set<? extends Inventario> inventarioSet;
     
     public LibroReferencia() {
@@ -46,20 +41,28 @@ public class LibroReferencia extends Libro implements Serializable {
         }
     }
     
+    @JoinColumn(name = "id_autor", referencedColumnName = "id", insertable = false, updatable = false)
+    @ManyToOne
     public Autor getAutor() {
         return autor;
     }
+    @JoinColumn(name = "id_genero", referencedColumnName = "id", insertable = false, updatable = false)
+    @ManyToOne
     public Genero getGenero() {
         return genero;
     }
+    @JoinColumn(name = "id_pais_publicacion", referencedColumnName = "id", insertable = false, updatable = false)
+    @ManyToOne
     public Pais getPais() {
         return pais;
     }
 
+    @OneToMany(mappedBy = "libro")
     @XmlTransient
     protected Set<? extends Prestamo> getPrestamoSet() {
         return prestamoSet;
     }
+    @OneToMany(mappedBy = "libro")
     @XmlTransient
     protected Set<? extends Inventario> getInventarioSet() {
         return inventarioSet;

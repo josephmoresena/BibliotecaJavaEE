@@ -19,8 +19,6 @@ import javax.xml.bind.annotation.*;
 public class InventarioReferencia extends Inventario implements Serializable {
     private static final long serialVersionUID = ENTIDAD_VERSION;
     
-    @JoinColumn(name = "id_libro", referencedColumnName = "id", insertable = false, updatable = false)
-    @ManyToOne
     private Libro libro;
     
     public InventarioReferencia() {
@@ -34,6 +32,8 @@ public class InventarioReferencia extends Inventario implements Serializable {
         }
     }
     
+    @JoinColumn(name = "id_libro", referencedColumnName = "id", insertable = false, updatable = false)
+    @ManyToOne
     public Libro getLibro() {
         return this.libro;
     }

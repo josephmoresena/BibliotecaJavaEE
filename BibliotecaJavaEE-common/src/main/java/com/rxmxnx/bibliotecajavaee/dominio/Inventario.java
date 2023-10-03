@@ -20,10 +20,8 @@ public class Inventario extends SuperEntidad<Integer> implements Serializable {
     protected static final long ENTIDAD_VERSION = 1L;
     private static final long serialVersionUID = ENTIDAD_VERSION;
     
-    @Column(name = "cantidad_ejemplares")
     private Integer cantidadEjemplares;
     private String estante;
-    @Column(name="id_libro")
     private Integer libroId;
 
     public Inventario() {
@@ -40,12 +38,14 @@ public class Inventario extends SuperEntidad<Integer> implements Serializable {
         return super.getId();
     }
     
+    @Column(name = "cantidad_ejemplares")
     public Integer getCantidadEjemplares() {
         return cantidadEjemplares;
     }
     public String getEstante() {
         return estante;
     }
+    @Column(name="id_libro")
     public Integer getLibroId() {
         return this.libroId;
     }

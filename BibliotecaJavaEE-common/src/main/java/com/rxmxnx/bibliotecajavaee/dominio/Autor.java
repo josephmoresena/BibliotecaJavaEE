@@ -21,14 +21,9 @@ public class Autor extends SuperEntidad<Integer> implements Serializable {
     protected static final long ENTIDAD_VERSION = 1L;
     private static final long serialVersionUID = ENTIDAD_VERSION;
     
-    @Basic(optional = false)
     private String nombre;
-    @Basic(optional = false)
     private String apellido;
-    @Column(name = "fecha_nacimiento")
-    @Temporal(TemporalType.DATE)
     private Date fechaNacimiento;
-    @Column(name = "id_pais")
     private Short paisId;
 
     public Autor() {
@@ -51,15 +46,20 @@ public class Autor extends SuperEntidad<Integer> implements Serializable {
         return super.getId();
     }
 
+    @Basic(optional = false)
     public String getNombre() {
         return this.nombre;
     }
+    @Basic(optional = false)
     public String getApellido() {
         return this.apellido;
     }
+    @Column(name = "fecha_nacimiento")
+    @Temporal(TemporalType.DATE)
     public Date getFechaNacimiento() {
         return this.fechaNacimiento;
     }
+    @Column(name = "id_pais")
     public Short getPaisId() {
         return this.paisId;
     }

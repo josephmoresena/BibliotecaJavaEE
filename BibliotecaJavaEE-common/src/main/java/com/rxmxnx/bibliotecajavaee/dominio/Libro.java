@@ -21,19 +21,12 @@ public class Libro extends SuperEntidad<Integer> implements Serializable {
     protected static final long ENTIDAD_VERSION = 1L;
     private static final long serialVersionUID = ENTIDAD_VERSION;
     
-    @Basic(optional = false)
     private String titulo;
-    @Column(name = "fecha_publicacion")
-    @Temporal(TemporalType.DATE)
     private Date fechaPublicacion;
     private String isbn;
-    @Lob
     private String sinopsis;
-    @Column(name="id_autor")
     private Integer autorId;
-    @Column(name="id_genero")
     private Short generoId;
-    @Column(name="id_pais_publicacion")
     private Short paisId;
 
     public Libro() {
@@ -58,24 +51,31 @@ public class Libro extends SuperEntidad<Integer> implements Serializable {
     public Integer getLibroId() {
         return super.getId();
     }
+    @Basic(optional = false)
     public String getTitulo() {
         return titulo;
     }
+    @Column(name = "fecha_publicacion")
+    @Temporal(TemporalType.DATE)
     public Date getFechaPublicacion() {
         return fechaPublicacion;
     }
     public String getIsbn() {
         return isbn;
     }
+    @Lob
     public String getSinopsis() {
         return sinopsis;
     }
+    @Column(name="id_autor")
     public Integer getAutorId() {
         return this.autorId;
     }
+    @Column(name="id_genero")
     public Short getGeneroId() {
         return generoId;
     }
+    @Column(name="id_pais_publicacion")
     public Short getPaisId() {
         return paisId;
     }

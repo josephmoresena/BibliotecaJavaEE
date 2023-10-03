@@ -21,17 +21,10 @@ public class Prestamo extends SuperEntidad<Long> implements Serializable {
     protected static final long ENTIDAD_VERSION = 1L;
     private static final long serialVersionUID = ENTIDAD_VERSION;
     
-    @Basic(optional = false)
-    @Column(name = "fecha_prestamo")
-    @Temporal(TemporalType.DATE)
     private Date fechaPrestamo;
-    @Column(name = "fecha_devolucion")
-    @Temporal(TemporalType.DATE)
     private Date fechaDevolucion;
     private Boolean devuelto;
-    @Column(name="id_libro")
     private Integer libroId;
-    @Column(name="id_usuario")
     private Integer usuarioId;
 
     public Prestamo() {
@@ -54,18 +47,25 @@ public class Prestamo extends SuperEntidad<Long> implements Serializable {
     public Long getPrestamoId() {
         return super.getId();
     }
+    @Basic(optional = false)
+    @Column(name = "fecha_prestamo")
+    @Temporal(TemporalType.DATE)
     public Date getFechaPrestamo() {
         return fechaPrestamo;
     }
+    @Column(name = "fecha_devolucion")
+    @Temporal(TemporalType.DATE)
     public Date getFechaDevolucion() {
         return fechaDevolucion;
     }
     public Boolean getDevuelto() {
         return devuelto;
     }
+    @Column(name="id_libro")
     public Integer getLibroId() {
         return libroId;
     }
+    @Column(name="id_usuario")
     public Integer getUsuarioId() {
         return usuarioId;
     }

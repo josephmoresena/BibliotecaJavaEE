@@ -21,14 +21,9 @@ public class Usuario extends SuperEntidad<Integer> implements Serializable {
     protected static final long ENTIDAD_VERSION = 1L;
     private static final long serialVersionUID = ENTIDAD_VERSION;
     
-    @Basic(optional = false)
     private String nombre;
     private String apellido;
-    @Basic(optional = false)
-    @Column(name = "fecha_registro")
-    @Temporal(TemporalType.DATE)
     private Date fechaRegistro;
-    @Basic(optional = false)
     private String email;
 
     public Usuario() {
@@ -52,15 +47,20 @@ public class Usuario extends SuperEntidad<Integer> implements Serializable {
     public Integer getUsuarioId() {
         return super.getId();
     }
+    @Basic(optional = false)
     public String getNombre() {
         return nombre;
     }
     public String getApellido() {
         return apellido;
     }
+    @Basic(optional = false)
+    @Column(name = "fecha_registro")
+    @Temporal(TemporalType.DATE)
     public Date getFechaRegistro() {
         return fechaRegistro;
     }
+    @Basic(optional = false)
     public String getEmail() {
         return email;
     }

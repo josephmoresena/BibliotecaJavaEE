@@ -5,18 +5,23 @@
  */
 package com.rxmxnx.bibliotecajavaee.log;
 
+import javax.ejb.*;
 import org.apache.logging.log4j.*;
 
 /**
  *
  * @author atem94
- * @param <TClase>
  */
-public class LogServidorImpl<TClase> implements LogServidor {
+@Stateful
+public class LogServidorImpl implements LogServidor {
     private Logger log;
     
-    protected LogServidorImpl<TClase> init(Class<TClase> clase) {
+    protected LogServidorImpl init(Class<?> clase) {
         this.log = LogManager.getLogger(clase);
+        return this;
+    }
+    protected LogServidorImpl init(String nombreClase) {
+        this.log = LogManager.getLogger(nombreClase);
         return this;
     }
 

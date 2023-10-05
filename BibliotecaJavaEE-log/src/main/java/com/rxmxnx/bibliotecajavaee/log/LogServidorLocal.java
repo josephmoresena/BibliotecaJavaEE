@@ -5,15 +5,14 @@
  */
 package com.rxmxnx.bibliotecajavaee.log;
 
-import javax.ejb.*;
+import javax.ejb.Local;
 
 /**
  *
  * @author atem94
  */
-@Remote
-public interface LogServidor {
-    void info(String string, Object... os);
-    void error(String string, Object... os);
-    void error(String string, Throwable thrwbl);
+@Local
+public interface LogServidorLocal extends LogServidor {
+    LogServidorLocal init(String nombreClase);
+    LogServidorLocal init(Class<?> clase);
 }

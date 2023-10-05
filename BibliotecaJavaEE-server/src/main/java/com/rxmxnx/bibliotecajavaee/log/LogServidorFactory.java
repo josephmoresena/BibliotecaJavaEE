@@ -5,7 +5,7 @@
  */
 package com.rxmxnx.bibliotecajavaee.log;
 
-import javax.ejb.Remote;
+import javax.ejb.*;
 
 /**
  *
@@ -13,5 +13,6 @@ import javax.ejb.Remote;
  */
 @Remote
 public interface LogServidorFactory {
+    LogServidor createLog(String nombreClase);
     LogServidor createLog(Class<?> clase);
 }

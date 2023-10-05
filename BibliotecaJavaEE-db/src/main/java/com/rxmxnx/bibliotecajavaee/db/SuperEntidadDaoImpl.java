@@ -45,7 +45,7 @@ abstract class SuperEntidadDaoImpl<U extends Number & Comparable<U>, T extends S
     }
     protected final LogServidor log() {
         if (this.log == null) {
-            this.log = this.logFactory().createLog(this.getClass());
+            this.log = this.logFactory().createLog(this.getClass().getName());
         }
         return this.log;
     }

@@ -22,4 +22,9 @@ public class LogServidorFactoryImpl implements LogServidorFactory {
     public LogServidor createLog(Class<?> clase) {
         return new LogServidorImpl().init(clase);
     }
+
+    @Override
+    public LogServidor createLog(String nombreClase) {
+        return new LogServidorImpl().init(nombreClase);
+    }
 }

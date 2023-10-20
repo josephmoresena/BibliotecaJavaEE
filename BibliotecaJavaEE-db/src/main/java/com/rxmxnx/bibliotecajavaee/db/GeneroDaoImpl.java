@@ -27,7 +27,7 @@ import javax.transaction.Transactional.*;
 @Stateless
 public class GeneroDaoImpl extends SuperEntidadDaoImpl<Short, Genero, GeneroDetalle, GeneroEntidad> implements GeneroDao  {
     @EJB
-    private LogServidorFactory logFactory;
+    private LogLocal log;
     
     public GeneroDaoImpl() {
     }
@@ -41,8 +41,8 @@ public class GeneroDaoImpl extends SuperEntidadDaoImpl<Short, Genero, GeneroDeta
         return Definicion.INSTANCIA.id();
     }
     @Override
-    protected LogServidorFactory logFactory() {
-        return this.logFactory;
+    protected LogLocal log() {
+        return this.log;
     }
     
     @Override

@@ -12,30 +12,23 @@ import org.apache.logging.log4j.*;
  *
  * @author atem94
  */
-@Stateful
+@Stateless
+@Asynchronous
 public class LogServidorImpl implements LogServidor {
-    private Logger log;
-    
-    protected LogServidorImpl init(Class<?> clase) {
-        this.log = LogManager.getLogger(clase);
-        return this;
-    }
-    protected LogServidorImpl init(String nombreClase) {
-        this.log = LogManager.getLogger(nombreClase);
-        return this;
-    }
 
     @Override
-    public void info(String string, Object... os) {
-        this.log.info(string, os);
+    public void info(String className, String string, Object... os) {
+        Logger log = LogManager.getLogger(className);
+        log.info(string, os);
     }
     @Override
-    public void error(String string, Object... os) {
-        this.log.error(string, os);
+    public void error(String className, String string, Object... os) {
+        Logger log = LogManager.getLogger(className);
+        log.error(string, os);
     }
-
     @Override
-    public void error(String string, Throwable thrwbl) {
-        this.log.error(string, thrwbl);
+    public void error(String className, String string, Throwable thrwbl) {
+        Logger log = LogManager.getLogger(className);
+        log.error(string, thrwbl);
     }
 }

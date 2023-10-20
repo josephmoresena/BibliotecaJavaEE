@@ -27,7 +27,7 @@ import javax.transaction.Transactional.*;
 @Stateless
 public class PrestamoDaoImpl extends SuperEntidadDaoImpl<Long, Prestamo, PrestamoDetalle, PrestamoEntidad> implements PrestamoDao  {
     @EJB
-    private LogServidorFactory logFactory;
+    private LogLocal log;
     
     public PrestamoDaoImpl() {
     }
@@ -41,8 +41,8 @@ public class PrestamoDaoImpl extends SuperEntidadDaoImpl<Long, Prestamo, Prestam
         return Definicion.INSTANCIA.id();
     }
     @Override
-    protected LogServidorFactory logFactory() {
-        return this.logFactory;
+    protected LogLocal log() {
+        return this.log;
     }
     
     @Override

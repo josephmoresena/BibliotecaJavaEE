@@ -9,6 +9,8 @@
     <class>com.rxmxnx.bibliotecajavaee.db.entidades.UsuarioEntidad</class>
     <class>com.rxmxnx.bibliotecajavaee.db.entidades.PaisEntidad</class>
     <class>com.rxmxnx.bibliotecajavaee.db.entidades.PrestamoEntidad</class>
+    <class>com.rxmxnx.bibliotecajavaee.db.entidades.Pais</class>
+    <class>com.rxmxnx.bibliotecajavaee.db.entidades.SuperEntidad</class>
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
     <properties/>
   </persistence-unit>

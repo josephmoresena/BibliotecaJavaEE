@@ -27,7 +27,7 @@ import javax.transaction.Transactional.*;
 @Stateless
 public class UsuarioDaoImpl extends SuperEntidadDaoImpl<Integer, Usuario, UsuarioDetalle, UsuarioEntidad> implements UsuarioDao  {
     @EJB
-    private LogServidorFactory logFactory;
+    private LogLocal log;
     
     public UsuarioDaoImpl() {
     }
@@ -41,8 +41,8 @@ public class UsuarioDaoImpl extends SuperEntidadDaoImpl<Integer, Usuario, Usuari
         return Definicion.INSTANCIA.id();
     }
     @Override
-    protected LogServidorFactory logFactory() {
-        return this.logFactory;
+    protected LogLocal log() {
+        return this.log;
     }
     
     @Override

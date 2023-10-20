@@ -27,7 +27,7 @@ import javax.transaction.Transactional.*;
 @Stateless
 public class InventarioDaoImpl extends SuperEntidadDaoImpl<Integer, Inventario, InventarioDetalle, InventarioEntidad> implements InventarioDao  {
     @EJB
-    private LogServidorFactory logFactory;
+    private LogLocal log;
     
     public InventarioDaoImpl() {
     }
@@ -41,8 +41,8 @@ public class InventarioDaoImpl extends SuperEntidadDaoImpl<Integer, Inventario, 
         return Definicion.INSTANCIA.id();
     }
     @Override
-    protected LogServidorFactory logFactory() {
-        return this.logFactory;
+    protected LogLocal log() {
+        return this.log;
     }
     
     @Override

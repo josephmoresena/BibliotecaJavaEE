@@ -27,7 +27,7 @@ import javax.transaction.Transactional.*;
 @Stateless
 public class PaisDaoImpl extends SuperEntidadDaoImpl<Short, Pais, PaisDetalle, PaisEntidad> implements PaisDao  {
     @EJB
-    private LogServidorFactory logFactory;
+    private LogLocal log;
     
     public PaisDaoImpl() {
     }
@@ -41,8 +41,8 @@ public class PaisDaoImpl extends SuperEntidadDaoImpl<Short, Pais, PaisDetalle, P
         return Definicion.INSTANCIA.id();
     }
     @Override
-    protected LogServidorFactory logFactory() {
-        return this.logFactory;
+    protected LogLocal log() {
+        return this.log;
     }
     
     @Override

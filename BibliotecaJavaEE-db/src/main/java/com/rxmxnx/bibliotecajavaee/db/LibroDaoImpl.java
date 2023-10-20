@@ -27,7 +27,7 @@ import javax.transaction.Transactional.*;
 @Stateless
 public class LibroDaoImpl extends SuperEntidadDaoImpl<Integer, Libro, LibroDetalle, LibroEntidad> implements LibroDao  {
     @EJB
-    private LogServidorFactory logFactory;
+    private LogLocal log;
     
     public LibroDaoImpl() {
     }
@@ -41,8 +41,8 @@ public class LibroDaoImpl extends SuperEntidadDaoImpl<Integer, Libro, LibroDetal
         return Definicion.INSTANCIA.id();
     }
     @Override
-    protected LogServidorFactory logFactory() {
-        return this.logFactory;
+    protected LogLocal log() {
+        return this.log;
     }
     
     @Override

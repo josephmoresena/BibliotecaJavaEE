@@ -38,16 +38,10 @@ abstract class SuperEntidadDaoImpl<U extends Number & Comparable<U>, T extends S
     
     protected abstract Class<TEntidad> claseEntidad();
     protected abstract HasComparableOperators<TEntidad, U> campoId();
-    protected abstract LogServidorFactory logFactory();
+    protected abstract LogLocal log();
     
     protected final EntityManager entityManager() {
         return this.em;
-    }
-    protected final LogServidor log() {
-        if (this.log == null) {
-            this.log = this.logFactory().createLog(this.getClass().getName());
-        }
-        return this.log;
     }
     protected final JPAStreamer streamer() {
         return this.jpaStreamer;

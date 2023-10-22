@@ -28,12 +28,15 @@ public class AutorEntidad extends AutorDetalle implements Serializable {
     }
     
     @Override
+    @JoinColumn(name = "id_pais", referencedColumnName = "id", insertable = false, updatable = false)
+    @ManyToOne
     public PaisEntidad getPais() {
         return (PaisEntidad)super.getPais();
     }
     
     @Override
     @XmlTransient
+    @OneToMany(mappedBy = "autor")
     public Set<LibroEntidad> getLibroSet() {
         return (Set<LibroEntidad>)super.getLibroSet();
     }

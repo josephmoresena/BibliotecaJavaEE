@@ -33,8 +33,6 @@ public class InventarioDetalle extends Inventario implements Serializable {
         }
     }
     
-    @JoinColumn(name = "id_libro", referencedColumnName = "id", insertable = false, updatable = false)
-    @ManyToOne
     public Libro getLibro() {
         return this.libro;
     }

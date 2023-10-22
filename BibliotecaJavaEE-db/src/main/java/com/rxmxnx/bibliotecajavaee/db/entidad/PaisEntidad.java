@@ -30,11 +30,13 @@ public class PaisEntidad extends PaisDetalle implements Serializable {
     
     @Override
     @XmlTransient
+    @OneToMany(mappedBy = "pais")
     public Set<AutorEntidad> getAutorSet() {
         return super.getAutorSet().stream().map(a -> (AutorEntidad)a).collect(Collectors.toSet());
     }
     @Override
     @XmlTransient
+    @OneToMany(mappedBy = "pais")
     public Set<LibroEntidad> getLibroSet() {
         return super.getLibroSet().stream().map(l -> (LibroEntidad)l).collect(Collectors.toSet());
     }

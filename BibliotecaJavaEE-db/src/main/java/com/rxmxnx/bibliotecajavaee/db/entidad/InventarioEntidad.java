@@ -27,6 +27,8 @@ public class InventarioEntidad extends InventarioDetalle implements Serializable
     }
     
     @Override
+    @JoinColumn(name = "id_libro", referencedColumnName = "id", insertable = false, updatable = false)
+    @ManyToOne
     public LibroEntidad getLibro() {
         return (LibroEntidad)super.getLibro();
     }

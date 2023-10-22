@@ -37,11 +37,9 @@ public class PaisDetalle extends Pais implements Serializable {
     }
 
     @XmlTransient
-    @OneToMany(mappedBy = "pais")
     public Set<? extends Autor> getAutorSet() {
         return autorSet;
     }
-    @OneToMany(mappedBy = "pais")
     @XmlTransient
     public Set<? extends Libro> getLibroSet() {
         return libroSet;

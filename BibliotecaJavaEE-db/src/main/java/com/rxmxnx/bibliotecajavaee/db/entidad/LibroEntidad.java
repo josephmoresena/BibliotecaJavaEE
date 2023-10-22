@@ -28,25 +28,33 @@ public class LibroEntidad extends LibroDetalle implements Serializable {
     }
     
     @Override
+    @JoinColumn(name = "id_autor", referencedColumnName = "id", insertable = false, updatable = false)
+    @ManyToOne
     public AutorEntidad getAutor() {
         return (AutorEntidad)super.getAutor();
     }
     @Override
+    @JoinColumn(name = "id_genero", referencedColumnName = "id", insertable = false, updatable = false)
+    @ManyToOne
     public GeneroEntidad getGenero() {
         return (GeneroEntidad)super.getGenero();
     }
     @Override
+    @JoinColumn(name = "id_pais_publicacion", referencedColumnName = "id", insertable = false, updatable = false)
+    @ManyToOne
     public PaisEntidad getPais() {
         return (PaisEntidad)super.getPais();
     }
     
     @Override
     @XmlTransient
+    @OneToMany(mappedBy = "libro")
     public Set<PrestamoEntidad> getPrestamoSet() {
         return (Set<PrestamoEntidad>)super.getPrestamoSet();
     }
     @Override
     @XmlTransient
+    @OneToMany(mappedBy = "libro")
     public Set<InventarioEntidad> getInventarioSet() {
         return (Set<InventarioEntidad>)super.getInventarioSet();
     }

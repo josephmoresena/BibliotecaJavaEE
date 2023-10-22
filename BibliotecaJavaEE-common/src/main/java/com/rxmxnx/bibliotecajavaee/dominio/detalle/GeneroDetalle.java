@@ -34,7 +34,6 @@ public class GeneroDetalle extends Genero implements Serializable {
     }
     
     @XmlTransient
-    @OneToMany(mappedBy = "genero")
     public Set<? extends Libro> getLibroSet() {
         return this.libroSet;
     }

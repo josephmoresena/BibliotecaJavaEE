@@ -35,8 +35,6 @@ public class PrestamoDetalle extends Prestamo implements Serializable {
         }
     }
     
-    @JoinColumn(name = "id_libro", referencedColumnName = "id", insertable = false, updatable = false)
-    @ManyToOne
     public Libro getLibro() {
         return libro;
     }

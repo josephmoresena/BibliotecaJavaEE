@@ -42,28 +42,20 @@ public class LibroDetalle extends Libro implements Serializable {
         }
     }
     
-    @JoinColumn(name = "id_autor", referencedColumnName = "id", insertable = false, updatable = false)
-    @ManyToOne
     public Autor getAutor() {
         return autor;
     }
-    @JoinColumn(name = "id_genero", referencedColumnName = "id", insertable = false, updatable = false)
-    @ManyToOne
     public Genero getGenero() {
         return genero;
     }
-    @JoinColumn(name = "id_pais_publicacion", referencedColumnName = "id", insertable = false, updatable = false)
-    @ManyToOne
     public Pais getPais() {
         return pais;
     }
 
-    @OneToMany(mappedBy = "libro")
     @XmlTransient
     protected Set<? extends Prestamo> getPrestamoSet() {
         return prestamoSet;
     }
-    @OneToMany(mappedBy = "libro")
     @XmlTransient
     protected Set<? extends Inventario> getInventarioSet() {
         return inventarioSet;

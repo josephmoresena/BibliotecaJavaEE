@@ -29,6 +29,7 @@ public class GeneroEntidad extends GeneroDetalle implements Serializable {
     
     @Override
     @XmlTransient
+    @OneToMany(mappedBy = "genero")
     public Set<LibroEntidad> getLibroSet() {
         return (Set<LibroEntidad>)super.getLibroSet();
     }

@@ -29,6 +29,7 @@ public class UsuarioEntidad extends UsuarioDetalle implements Serializable {
     
     @Override
     @XmlTransient
+    @OneToMany(mappedBy = "usuario")
     public Set<PrestamoEntidad> getPrestamoSet() {
         return (Set<PrestamoEntidad>)super.getPrestamoSet();
     }

@@ -2,16 +2,29 @@
 <persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
   <persistence-unit name="BibliotecaJavaEE_PU" transaction-type="JTA">
     <jta-data-source>java:app/jdbc/BIBLIOTECA_JEE</jta-data-source>
-    <class>com.rxmxnx.bibliotecajavaee.db.entidades.InventarioEntidad</class>
-    <class>com.rxmxnx.bibliotecajavaee.db.entidades.GeneroEntidad</class>
-    <class>com.rxmxnx.bibliotecajavaee.db.entidades.LibroEntidad</class>
-    <class>com.rxmxnx.bibliotecajavaee.db.entidades.AutorEntidad</class>
-    <class>com.rxmxnx.bibliotecajavaee.db.entidades.UsuarioEntidad</class>
-    <class>com.rxmxnx.bibliotecajavaee.db.entidades.PaisEntidad</class>
-    <class>com.rxmxnx.bibliotecajavaee.db.entidades.PrestamoEntidad</class>
-    <class>com.rxmxnx.bibliotecajavaee.db.entidades.Pais</class>
-    <class>com.rxmxnx.bibliotecajavaee.db.entidades.SuperEntidad</class>
+    <!-- Super clase identidad -->
+    <class>com.rxmxnx.bibliotecajavaee.dominio.SuperEntidad</class>
+    <!-- Super clase campos -->
+    <class>com.rxmxnx.bibliotecajavaee.dominio.Autor</class>
+    <class>com.rxmxnx.bibliotecajavaee.dominio.Genero</class>
+    <class>com.rxmxnx.bibliotecajavaee.dominio.Inventario</class>
+    <class>com.rxmxnx.bibliotecajavaee.dominio.Libro</class>
+    <class>com.rxmxnx.bibliotecajavaee.dominio.Pais</class>
+    <class>com.rxmxnx.bibliotecajavaee.dominio.Prestamo</class>
+    <class>com.rxmxnx.bibliotecajavaee.dominio.Usuario</class>
+    <!-- Clase entidad -->
+    <class>com.rxmxnx.bibliotecajavaee.db.entidad.AutorEntidad</class>
+    <class>com.rxmxnx.bibliotecajavaee.db.entidad.GeneroEntidad</class>
+    <class>com.rxmxnx.bibliotecajavaee.db.entidad.InventarioEntidad</class>
+    <class>com.rxmxnx.bibliotecajavaee.db.entidad.LibroEntidad</class>
+    <class>com.rxmxnx.bibliotecajavaee.db.entidad.PaisEntidad</class>
+    <class>com.rxmxnx.bibliotecajavaee.db.entidad.PrestamoEntidad</class>
+    <class>com.rxmxnx.bibliotecajavaee.db.entidad.UsuarioEntidad</class>
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
-    <properties/>
+    <properties>
+      <property name="eclipselink.logging.level" value="FINE"/>
+      <property name="eclipselink.loggin.parameters" value="true"/>
+      <property name="eclipselink.target-database" value="MySQL"/>
+    </properties>
   </persistence-unit>
 </persistence>

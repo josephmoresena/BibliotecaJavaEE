@@ -36,13 +36,10 @@ public class AutorDetalle extends Autor implements Serializable {
         }
     }
     
-    @JoinColumn(name = "id_pais", referencedColumnName = "id", insertable = false, updatable = false)
-    @ManyToOne
     public Pais getPais() {
         return this.pais;
     }
 
-    @OneToMany(mappedBy = "autor")
     @XmlTransient
     public Set<? extends Libro> getLibroSet() {
         return this.libroSet;

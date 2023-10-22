@@ -36,7 +36,6 @@ public class UsuarioDetalle extends Usuario implements Serializable {
     }
 
     @XmlTransient
-    @OneToMany(mappedBy = "usuario")
     public Set<? extends Prestamo> getPrestamoSet() {
         return prestamoSet;
     }

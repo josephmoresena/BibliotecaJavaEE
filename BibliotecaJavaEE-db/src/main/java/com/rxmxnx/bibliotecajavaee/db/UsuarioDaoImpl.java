@@ -27,6 +27,8 @@ import javax.transaction.Transactional.*;
  */
 @Stateless
 public class UsuarioDaoImpl extends SuperEntidadDaoImpl<Integer, Usuario, UsuarioDetalle, UsuarioEntidad> implements UsuarioDao  {
+    @EJB
+    private LogServidor logServidor;
     @Inject
     private LogLocal log;
     
@@ -43,7 +45,7 @@ public class UsuarioDaoImpl extends SuperEntidadDaoImpl<Integer, Usuario, Usuari
     }
     @Override
     protected LogLocal log() {
-        return this.log;
+        return this.log.utilizando(this.logServidor);
     }
     
     @Override

@@ -5,8 +5,9 @@
  */
 package com.rxmxnx.bibliotecajavaee.log;
 
-import javax.ejb.*;
 import javax.enterprise.context.*;
+import javax.enterprise.inject.spi.*;
+import javax.inject.Inject;
 
 /**
  *
@@ -14,10 +15,18 @@ import javax.enterprise.context.*;
  */
 @Dependent
 public class LogLocal {
-    @EJB
+    private final Class<?> clase;
     private LogServidor log;
-    @EJB
-    private EJBContext ejbContext;
+    
+    @Inject
+    public LogLocal(InjectionPoint inyeccion) {
+        this.clase = inyeccion.getMember().getDeclaringClass();
+    }
+    
+    public LogLocal utilizando(LogServidor log) {
+        this.log = log;
+        return this;
+    }
     
     public void info(String string) {
         this.log.info(this.nombreClase(), string);
@@ -36,6 +45,6 @@ public class LogLocal {
     }
     
     private String nombreClase() {
-        return this.ejbContext.getCallerPrincipal().getName();
+        return this.clase.getName();
     }
 }

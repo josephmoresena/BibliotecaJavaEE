@@ -27,6 +27,8 @@ import javax.transaction.Transactional.*;
  */
 @Stateless
 public class PrestamoDaoImpl extends SuperEntidadDaoImpl<Long, Prestamo, PrestamoDetalle, PrestamoEntidad> implements PrestamoDao  {
+    @EJB
+    private LogServidor logServidor;
     @Inject
     private LogLocal log;
     
@@ -43,7 +45,7 @@ public class PrestamoDaoImpl extends SuperEntidadDaoImpl<Long, Prestamo, Prestam
     }
     @Override
     protected LogLocal log() {
-        return this.log;
+        return this.log.utilizando(this.logServidor);
     }
     
     @Override

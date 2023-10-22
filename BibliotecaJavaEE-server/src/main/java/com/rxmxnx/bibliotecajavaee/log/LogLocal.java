@@ -5,15 +5,14 @@
  */
 package com.rxmxnx.bibliotecajavaee.log;
 
-import javax.ejb.EJB;
-import javax.ejb.EJBContext;
-import javax.enterprise.inject.Default;
+import javax.ejb.*;
+import javax.enterprise.context.*;
 
 /**
  *
  * @author atem94
  */
-@Default
+@Dependent
 public class LogLocal {
     @EJB
     private LogServidor log;

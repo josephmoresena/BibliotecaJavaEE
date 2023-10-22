@@ -7,15 +7,13 @@ package com.rxmxnx.bibliotecajavaee.log;
 
 import javax.ejb.EJB;
 import javax.ejb.EJBContext;
-import javax.ejb.LocalBean;
-import javax.ejb.Stateless;
+import javax.enterprise.inject.Default;
 
 /**
  *
  * @author atem94
  */
-@LocalBean
-@Stateless
+@Default
 public class LogLocal {
     @EJB
     private LogServidor log;

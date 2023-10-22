@@ -17,7 +17,6 @@ import java.util.*;
 import java.util.function.*;
 import java.util.stream.*;
 import javax.ejb.*;
-import javax.inject.*;
 import javax.transaction.*;
 import javax.transaction.Transactional.*;
 
@@ -27,8 +26,8 @@ import javax.transaction.Transactional.*;
  */
 @Stateless
 public class AutorDaoImpl extends SuperEntidadDaoImpl<Integer, Autor, AutorDetalle, AutorEntidad> implements AutorDao  {
-    @Inject
-    private LogLocal log;
+    @EJB
+    private LogServidor log;
     
     public AutorDaoImpl() {
     }
@@ -42,7 +41,7 @@ public class AutorDaoImpl extends SuperEntidadDaoImpl<Integer, Autor, AutorDetal
         return Definicion.INSTANCIA.id();
     }
     @Override
-    protected LogLocal log() {
+    protected LogServidor log() {
         return this.log;
     }
     

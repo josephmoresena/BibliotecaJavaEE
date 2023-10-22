@@ -17,6 +17,7 @@ import java.util.*;
 import java.util.function.*;
 import java.util.stream.*;
 import javax.ejb.*;
+import javax.inject.*;
 import javax.transaction.*;
 import javax.transaction.Transactional.*;
 
@@ -26,8 +27,8 @@ import javax.transaction.Transactional.*;
  */
 @Stateless
 public class PaisDaoImpl extends SuperEntidadDaoImpl<Short, Pais, PaisDetalle, PaisEntidad> implements PaisDao  {
-    @EJB
-    private LogServidor log;
+    @Inject
+    private LogLocal log;
     
     public PaisDaoImpl() {
     }
@@ -41,7 +42,7 @@ public class PaisDaoImpl extends SuperEntidadDaoImpl<Short, Pais, PaisDetalle, P
         return Definicion.INSTANCIA.id();
     }
     @Override
-    protected LogServidor log() {
+    protected LogLocal log() {
         return this.log;
     }
     

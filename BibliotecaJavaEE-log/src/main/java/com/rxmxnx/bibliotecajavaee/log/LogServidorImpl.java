@@ -5,7 +5,6 @@
  */
 package com.rxmxnx.bibliotecajavaee.log;
 
-import javax.annotation.*;
 import javax.ejb.*;
 import org.apache.logging.log4j.*;
 
@@ -16,26 +15,20 @@ import org.apache.logging.log4j.*;
 @Stateless
 @Asynchronous
 public class LogServidorImpl implements LogServidor {
-    @Resource
-    private SessionContext context;
 
     @Override
-    public void info(String string, Object... os) {
-        Logger log = LogManager.getLogger(this.nombreClase());
+    public void info(String className, String string, Object... os) {
+        Logger log = LogManager.getLogger(className);
         log.info(string, os);
     }
     @Override
-    public void error(String string, Object... os) {
-        Logger log = LogManager.getLogger(this.nombreClase());
+    public void error(String className, String string, Object... os) {
+        Logger log = LogManager.getLogger(className);
         log.error(string, os);
     }
     @Override
-    public void error(String string, Throwable thrwbl) {
-        Logger log = LogManager.getLogger(this.nombreClase());
+    public void error(String className, String string, Throwable thrwbl) {
+        Logger log = LogManager.getLogger(className);
         log.error(string, thrwbl);
-    }
-    
-    private String nombreClase() {
-        return this.context.getCallerPrincipal().getName();
     }
 }

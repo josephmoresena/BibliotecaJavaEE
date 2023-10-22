@@ -13,7 +13,7 @@ import javax.ejb.*;
  */
 @Remote
 public interface LogServidor {
-    void info(String string, Object... os);
-    void error(String string, Object... os);
-    void error(String string, Throwable thrwbl);
+    void info(String className, String string, Object... os);
+    void error(String className, String string, Object... os);
+    void error(String className, String string, Throwable thrwbl);
 }

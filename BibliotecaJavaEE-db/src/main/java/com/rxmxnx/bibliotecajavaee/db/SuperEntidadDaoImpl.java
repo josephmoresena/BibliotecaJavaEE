@@ -38,7 +38,7 @@ abstract class SuperEntidadDaoImpl<U extends Number & Comparable<U>, T extends S
     
     protected abstract Class<TEntidad> claseEntidad();
     protected abstract HasComparableOperators<TEntidad, U> campoId();
-    protected abstract LogServidor log();
+    protected abstract LogLocal log();
     
     protected final EntityManager entityManager() {
         return this.em;

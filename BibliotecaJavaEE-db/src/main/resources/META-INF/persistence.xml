@@ -22,9 +22,9 @@
     <class>com.rxmxnx.bibliotecajavaee.db.entidad.UsuarioEntidad</class>
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
     <properties>
-      <property name="eclipselink.logging.level" value="FINE"/>
-      <property name="eclipselink.loggin.parameters" value="true"/>
-      <property name="eclipselink.target-database" value="MySQL"/>
+        <property name="eclipselink.logging.level" value="FINE"/>
+        <property name="eclipselink.logging.parameters" value="true"/>
+        <property name="eclipselink.target-database" value="MySQL"/>
     </properties>
   </persistence-unit>
 </persistence>

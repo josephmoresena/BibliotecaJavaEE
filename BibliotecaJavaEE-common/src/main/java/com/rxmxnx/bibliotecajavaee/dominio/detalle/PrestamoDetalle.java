@@ -30,8 +30,8 @@ public class PrestamoDetalle extends Prestamo implements Serializable {
         super(prestamo);
         if (prestamo instanceof PrestamoDetalle) {
             PrestamoDetalle referencia = (PrestamoDetalle)prestamo;
-            this.libro = referencia.getLibro();
-            this.usuario = referencia.getUsuario();
+            this.libro = new LibroDetalle(referencia.getLibro());
+            this.usuario = new UsuarioDetalle(referencia.getUsuario());
         }
     }
     

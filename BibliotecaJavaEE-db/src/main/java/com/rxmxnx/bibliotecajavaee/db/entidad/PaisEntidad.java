@@ -21,24 +21,50 @@ import javax.xml.bind.annotation.*;
 @Table(name = "PAISES", catalog = "BIBLIOTECA_JEE", schema = "")
 @XmlRootElement
 public class PaisEntidad extends PaisDetalle implements Serializable {
+    private Set<AutorEntidad> autorSet;
+    private Set<LibroEntidad> libroSet;
+    
     public PaisEntidad() {
         super();
     }
     private PaisEntidad(Pais pais) {
         super(pais);
+        if (pais instanceof PaisEntidad) {
+            PaisEntidad referencia = (PaisEntidad)pais;
+            this.autorSet = referencia.getAutorSet();
+            this.libroSet = referencia.getLibroSet();
+        }
     }
     
     @Override
+    public Set<Integer> getAutores() {
+        return this.getAutorSet().stream()
+                .map(a -> a.getAutorId())
+                .collect(Collectors.toSet());
+    }
+    @Override
+    public Set<Integer> getLibros() {
+        return this.getLibroSet().stream()
+                .map(l -> l.getLibroId())
+                .collect(Collectors.toSet());
+    }
+    
     @XmlTransient
     @OneToMany(mappedBy = "pais")
     public Set<AutorEntidad> getAutorSet() {
-        return super.getAutorSet().stream().map(a -> (AutorEntidad)a).collect(Collectors.toSet());
+        return this.autorSet;
     }
-    @Override
     @XmlTransient
     @OneToMany(mappedBy = "pais")
     public Set<LibroEntidad> getLibroSet() {
-        return super.getLibroSet().stream().map(l -> (LibroEntidad)l).collect(Collectors.toSet());
+        return this.libroSet;
+    }
+    
+    public void setAutorSet(Set<AutorEntidad> autorSet) {
+        this.autorSet = autorSet;
+    }
+    public void setLibroSet(Set<LibroEntidad> libroSet) {
+        this.libroSet = libroSet;
     }
     
     public static PaisEntidad crearEntidad(Pais pais) {

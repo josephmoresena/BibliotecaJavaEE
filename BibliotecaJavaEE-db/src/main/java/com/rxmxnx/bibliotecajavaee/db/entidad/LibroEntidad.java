@@ -9,6 +9,7 @@ import com.rxmxnx.bibliotecajavaee.dominio.*;
 import com.rxmxnx.bibliotecajavaee.dominio.detalle.*;
 import java.io.*;
 import java.util.*;
+import java.util.stream.*;
 import javax.persistence.*;
 import javax.xml.bind.annotation.*;
 
@@ -20,11 +21,19 @@ import javax.xml.bind.annotation.*;
 @Table(name = "LIBROS", catalog = "BIBLIOTECA_JEE", schema = "")
 @XmlRootElement
 public class LibroEntidad extends LibroDetalle implements Serializable {
+    private Set<PrestamoEntidad> prestamoSet;
+    private Set<InventarioEntidad> inventarioSet;
+    
     public LibroEntidad() {
         super();
     }
     public LibroEntidad(Libro libro) {
         super(libro);
+        if (libro instanceof LibroEntidad) {
+            LibroEntidad referencia = (LibroEntidad)libro;
+            this.inventarioSet = referencia.getInventarioSet();
+            this.prestamoSet = referencia.getPrestamoSet();
+        }
     }
     
     @Override
@@ -45,18 +54,28 @@ public class LibroEntidad extends LibroDetalle implements Serializable {
     public PaisEntidad getPais() {
         return (PaisEntidad)super.getPais();
     }
-    
     @Override
+    public Set<Long> getPrestamos() {
+        return this.getPrestamoSet().stream()
+                .map(p -> p.getPrestamoId())
+                .collect(Collectors.toSet());
+    }
+    @Override
+    public Set<Integer> getInventario() {
+        return this.getInventarioSet().stream()
+                .map(i -> i.getInventarioId())
+                .collect(Collectors.toSet());
+    }
+    
     @XmlTransient
     @OneToMany(mappedBy = "libro")
     public Set<PrestamoEntidad> getPrestamoSet() {
-        return (Set<PrestamoEntidad>)super.getPrestamoSet();
+        return this.prestamoSet;
     }
-    @Override
     @XmlTransient
     @OneToMany(mappedBy = "libro")
     public Set<InventarioEntidad> getInventarioSet() {
-        return (Set<InventarioEntidad>)super.getInventarioSet();
+        return this.inventarioSet;
     }
     
     public void setAutor(AutorEntidad autor) {
@@ -67,6 +86,12 @@ public class LibroEntidad extends LibroDetalle implements Serializable {
     }
     public void setPais(PaisEntidad pais) {
         super.setPais(pais);
+    }
+    public void setPrestamoSet(Set<PrestamoEntidad> prestamoSet) {
+        this.prestamoSet = prestamoSet;
+    }
+    public void setInventarioSet(Set<InventarioEntidad> inventarioSet) {
+        this.inventarioSet = inventarioSet;
     }
     
     public static LibroEntidad crearEntidad(Libro libro) {

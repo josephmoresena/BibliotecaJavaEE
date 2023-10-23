@@ -24,8 +24,8 @@ public class LibroDetalle extends Libro implements Serializable {
     private Autor autor;
     private Genero genero;
     private Pais pais;
-    private Set<? extends Prestamo> prestamoSet;
-    private Set<? extends Inventario> inventarioSet;
+    private Set<Integer> inventario;
+    private Set<Long> prestamos;
     
     public LibroDetalle() {
         super();
@@ -34,11 +34,11 @@ public class LibroDetalle extends Libro implements Serializable {
         super(libro);
         if (libro instanceof LibroDetalle) {
             LibroDetalle referencia = (LibroDetalle)libro;
-            this.autor = referencia.getAutor();
-            this.genero = referencia.getGenero();
-            this.pais = referencia.getPais();
-            this.inventarioSet = referencia.getInventarioSet();
-            this.prestamoSet = referencia.getPrestamoSet();
+            this.autor = new AutorDetalle(referencia.getAutor());
+            this.genero = new GeneroDetalle(referencia.getGenero());
+            this.pais = new PaisDetalle(referencia.getPais());
+            this.inventario = referencia.getInventario();
+            this.prestamos = referencia.getPrestamos();
         }
     }
     
@@ -52,13 +52,11 @@ public class LibroDetalle extends Libro implements Serializable {
         return pais;
     }
 
-    @XmlTransient
-    protected Set<? extends Prestamo> getPrestamoSet() {
-        return prestamoSet;
+    public Set<Long> getPrestamos() {
+        return prestamos;
     }
-    @XmlTransient
-    protected Set<? extends Inventario> getInventarioSet() {
-        return inventarioSet;
+    public Set<Integer> getInventario() {
+        return inventario;
     }
     
     protected void setAutor(Autor autor) {
@@ -106,12 +104,5 @@ public class LibroDetalle extends Libro implements Serializable {
         else if (this.pais != null && !paisId.equals(this.pais.getPaisId()))
             this.pais = null;
         super.setPaisId(paisId);
-    }
-
-    protected void setPrestamoSet(Set<Prestamo> prestamoSet) {
-        this.prestamoSet = prestamoSet;
-    }
-    protected void setInventarioSet(Set<Inventario> inventarioSet) {
-        this.inventarioSet = inventarioSet;
     }
 }

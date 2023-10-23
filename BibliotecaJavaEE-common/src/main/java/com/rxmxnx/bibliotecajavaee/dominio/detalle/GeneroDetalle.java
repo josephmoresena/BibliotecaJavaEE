@@ -21,7 +21,7 @@ import javax.xml.bind.annotation.*;
 public class GeneroDetalle extends Genero implements Serializable {
     private static final long serialVersionUID = ENTIDAD_VERSION;
     
-    private Set<? extends Libro> libroSet;
+    private Set<Integer> libros;
     
     public GeneroDetalle() {
     }
@@ -29,16 +29,11 @@ public class GeneroDetalle extends Genero implements Serializable {
         super(genero);
         if (genero instanceof GeneroDetalle) {
             GeneroDetalle referencia = (GeneroDetalle)genero;
-            this.libroSet = referencia.getLibroSet();
+            this.libros = referencia.getLibros();
         }
     }
     
-    @XmlTransient
-    public Set<? extends Libro> getLibroSet() {
-        return this.libroSet;
-    }
-    
-    protected void setLibroSet(Set<? extends Libro> libroSet) {
-        this.libroSet = libroSet;
+    public Set<Integer> getLibros() {
+        return this.libros;
     }
 }

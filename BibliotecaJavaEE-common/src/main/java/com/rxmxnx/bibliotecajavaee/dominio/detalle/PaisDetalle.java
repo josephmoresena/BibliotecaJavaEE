@@ -21,8 +21,8 @@ import javax.xml.bind.annotation.*;
 public class PaisDetalle extends Pais implements Serializable {
     private static final long serialVersionUID = ENTIDAD_VERSION;
     
-    private Set<? extends Autor> autorSet;
-    private Set<? extends Libro> libroSet;
+    private Set<Integer> autores;
+    private Set<Integer> libros;
     
     public PaisDetalle(){
         super();
@@ -31,24 +31,15 @@ public class PaisDetalle extends Pais implements Serializable {
         super(pais);
         if (pais instanceof PaisDetalle) {
             PaisDetalle referencia = (PaisDetalle)pais;
-            this.autorSet = referencia.getAutorSet();
-            this.libroSet = referencia.getLibroSet();
+            this.autores = referencia.getAutores();
+            this.libros = referencia.getLibros();
         }
     }
 
-    @XmlTransient
-    public Set<? extends Autor> getAutorSet() {
-        return autorSet;
+    public Set<Integer> getAutores() {
+        return autores;
     }
-    @XmlTransient
-    public Set<? extends Libro> getLibroSet() {
-        return libroSet;
-    }
-    
-    protected void setAutorSet(Set<? extends Autor> autorSet) {
-        this.autorSet = autorSet;
-    }
-    protected void setLibroSet(Set<? extends Libro> libroSet) {
-        this.libroSet = libroSet;
+    public Set<Integer> getLibros() {
+        return libros;
     }
 }

@@ -22,7 +22,7 @@ import javax.xml.bind.annotation.*;
 public class UsuarioDetalle extends Usuario implements Serializable {
     private static final long serialVersionUID = ENTIDAD_VERSION;
     
-    private Set<? extends Prestamo> prestamoSet;
+    private Set<Long> prestamos;
     
     public UsuarioDetalle() {
         super();
@@ -31,16 +31,11 @@ public class UsuarioDetalle extends Usuario implements Serializable {
         super(usuario);
         if (usuario instanceof UsuarioDetalle) {
             UsuarioDetalle referencia = (UsuarioDetalle)usuario;
-            this.prestamoSet = referencia.getPrestamoSet();
+            this.prestamos = referencia.getPrestamos();
         }
     }
 
-    @XmlTransient
-    public Set<? extends Prestamo> getPrestamoSet() {
-        return prestamoSet;
-    }
-    
-    protected void setPrestamoSet(Set<? extends Prestamo> prestamoSet) {
-        this.prestamoSet = prestamoSet;
+    public Set<Long> getPrestamos() {
+        return prestamos;
     }
 }

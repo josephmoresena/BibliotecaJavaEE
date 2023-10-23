@@ -22,7 +22,7 @@ public class AutorDetalle extends Autor implements Serializable {
     private static final long serialVersionUID = ENTIDAD_VERSION;
     
     private Pais pais;
-    private Set<? extends Libro> libroSet;
+    private Set<Integer> libros;
     
     public AutorDetalle() {
         super();
@@ -31,18 +31,16 @@ public class AutorDetalle extends Autor implements Serializable {
         super(autor);
         if (autor instanceof AutorDetalle) {
             AutorDetalle referencia = (AutorDetalle)autor;
-            this.pais = referencia.getPais();
-            this.libroSet = referencia.getLibroSet();
+            this.pais = new PaisDetalle(referencia.getPais());
+            this.libros = referencia.getLibros();
         }
     }
     
     public Pais getPais() {
         return this.pais;
     }
-
-    @XmlTransient
-    public Set<? extends Libro> getLibroSet() {
-        return this.libroSet;
+    public Set<Integer> getLibros() {
+        return this.libros;
     }
     
     protected void setPais(Pais pais) {
@@ -60,9 +58,5 @@ public class AutorDetalle extends Autor implements Serializable {
         else if (this.pais != null && !paisId.equals(this.pais.getPaisId()))
             this.pais = null;
         super.setPaisId(paisId);
-    }
-    
-    protected void setLibroSet(Set<? extends Libro> libroSet) {
-        this.libroSet = libroSet;
     }
 }

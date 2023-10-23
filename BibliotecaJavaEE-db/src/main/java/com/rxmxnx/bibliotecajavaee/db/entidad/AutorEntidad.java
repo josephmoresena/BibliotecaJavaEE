@@ -9,6 +9,7 @@ import com.rxmxnx.bibliotecajavaee.dominio.*;
 import com.rxmxnx.bibliotecajavaee.dominio.detalle.*;
 import java.io.*;
 import java.util.*;
+import java.util.stream.*;
 import javax.persistence.*;
 import javax.xml.bind.annotation.*;
 
@@ -20,11 +21,17 @@ import javax.xml.bind.annotation.*;
 @Table(name = "AUTORES", catalog = "BIBLIOTECA_JEE", schema = "")
 @XmlRootElement
 public class AutorEntidad extends AutorDetalle implements Serializable {
+    private Set<LibroEntidad> libroSet;
+    
     public AutorEntidad() {
         super();
     }
     public AutorEntidad(Autor autor) {
         super(autor);
+        if (autor instanceof AutorEntidad) {
+            AutorEntidad referencia = (AutorEntidad)autor;
+            this.libroSet = referencia.getLibroSet();
+        }
     }
     
     @Override
@@ -33,16 +40,24 @@ public class AutorEntidad extends AutorDetalle implements Serializable {
     public PaisEntidad getPais() {
         return (PaisEntidad)super.getPais();
     }
-    
     @Override
+    public Set<Integer> getLibros() {
+        return this.getLibroSet().stream()
+                .map(l -> l.getLibroId())
+                .collect(Collectors.toSet());
+    }
+    
     @XmlTransient
     @OneToMany(mappedBy = "autor")
     public Set<LibroEntidad> getLibroSet() {
-        return (Set<LibroEntidad>)super.getLibroSet();
+        return this.libroSet;
     }
     
     public void setPais(PaisEntidad pais) {
         super.setPais(pais);
+    }
+    public void setLibroSet(Set<LibroEntidad> libroSet) {
+        this.libroSet = libroSet;
     }
     
     public static AutorEntidad crearEntidad(Autor autor) {

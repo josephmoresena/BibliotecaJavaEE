@@ -29,7 +29,7 @@ public class InventarioDetalle extends Inventario implements Serializable {
         super(inventario);
         if (inventario instanceof InventarioDetalle) {
             InventarioDetalle referencia = (InventarioDetalle)inventario;
-            this.libro = referencia.getLibro();
+            this.libro = new LibroDetalle(referencia.getLibro());
         }
     }
     

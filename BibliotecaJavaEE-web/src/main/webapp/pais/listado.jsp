@@ -34,8 +34,8 @@
                 <tr>
                     <td><a href="<%=uriServletPais + pais.getPaisId()%>">Editar</a></td>
                     <td><%=pais.getNombre()%></td>
-                    <td><%=pais.getLibroSet().size()%></td>
-                    <td><%=pais.getAutorSet().size()%></td>
+                    <td><%=pais.getLibros().size()%></td>
+                    <td><%=pais.getAutores().size()%></td>
                 </tr>
             <%}%></tbody>
         </table>

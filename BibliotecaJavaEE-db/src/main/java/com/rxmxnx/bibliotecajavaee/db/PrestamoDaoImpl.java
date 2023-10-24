@@ -21,7 +21,6 @@ import javax.inject.*;
 import javax.transaction.*;
 import javax.transaction.Transactional.*;
 import com.rxmxnx.bibliotecajavaee.db.funciones.*;
-import com.speedment.jpastreamer.streamconfiguration.*;
 
 /**
  *
@@ -48,12 +47,6 @@ public class PrestamoDaoImpl extends SuperEntidadDaoImpl<Long, Prestamo, Prestam
     @Override
     protected LogLocal log() {
         return this.log.utilizando(this.logServidor);
-    }
-    @Override
-    protected StreamConfiguration<PrestamoEntidad> configuracionDetalle() {
-        return StreamConfiguration.of(this.claseEntidad())
-                .joining(Definicion.INSTANCIA.libro())
-                .joining(Definicion.INSTANCIA.usuario());
     }
     
     @Override

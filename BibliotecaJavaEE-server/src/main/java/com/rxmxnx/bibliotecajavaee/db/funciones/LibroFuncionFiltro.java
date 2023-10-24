@@ -15,6 +15,6 @@ import com.rxmxnx.bibliotecajavaee.dominio.*;
  * @param <TDefinicion>
  */
 @FunctionalInterface
-public interface LibroFuncionFiltro<TLibro extends Libro, TDefinicion extends LibroDefinicion<TLibro, ? extends Autor, ? extends Pais, ? extends Genero, ? extends Prestamo>> 
+public interface LibroFuncionFiltro<TLibro extends Libro, TDefinicion extends LibroDefinicion<TLibro, ? extends Autor, ? extends Pais, ? extends Genero>> 
     extends SuperEntidadFuncionFiltro<Integer, TLibro, TDefinicion> {
 }

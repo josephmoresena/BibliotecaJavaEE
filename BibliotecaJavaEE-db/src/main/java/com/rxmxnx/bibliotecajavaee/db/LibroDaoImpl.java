@@ -21,7 +21,6 @@ import javax.inject.*;
 import javax.transaction.*;
 import javax.transaction.Transactional.*;
 import com.rxmxnx.bibliotecajavaee.db.funciones.*;
-import com.speedment.jpastreamer.streamconfiguration.*;
 
 /**
  *
@@ -48,14 +47,6 @@ public class LibroDaoImpl extends SuperEntidadDaoImpl<Integer, Libro, LibroDetal
     @Override
     protected LogLocal log() {
         return this.log.utilizando(this.logServidor);
-    }
-    @Override
-    protected StreamConfiguration<LibroEntidad> configuracionDetalle() {
-        return StreamConfiguration.of(this.claseEntidad())
-                .joining(Definicion.INSTANCIA.autor())
-                .joining(Definicion.INSTANCIA.genero())
-                .joining(Definicion.INSTANCIA.paisPublicacion())
-                .joining(Definicion.INSTANCIA.prestamoSet());
     }
     
     @Override
@@ -129,7 +120,7 @@ public class LibroDaoImpl extends SuperEntidadDaoImpl<Integer, Libro, LibroDetal
         return predicado.apply(Definicion.INSTANCIA);
     }
 
-    private static final class Definicion implements LibroDefinicion<LibroEntidad, AutorEntidad, PaisEntidad, GeneroEntidad, PrestamoEntidad> {
+    private static final class Definicion implements LibroDefinicion<LibroEntidad, AutorEntidad, PaisEntidad, GeneroEntidad> {
         private static final Definicion INSTANCIA = new Definicion();
         
         private static final IntField<LibroEntidad> ID = IntField.create(LibroEntidad.class, "id", LibroEntidad::getLibroId, true);
@@ -143,7 +134,6 @@ public class LibroDaoImpl extends SuperEntidadDaoImpl<Integer, Libro, LibroDetal
         private static final ReferenceField<LibroEntidad, PaisEntidad> PAIS = ReferenceField.create(LibroEntidad.class, "id_pais", LibroEntidad::getPais, false);
         private static final ReferenceField<LibroEntidad, AutorEntidad> AUTOR = ReferenceField.create(LibroEntidad.class, "id_autor", LibroEntidad::getAutor, false);
         private static final ReferenceField<LibroEntidad, GeneroEntidad> GENERO = ReferenceField.create(LibroEntidad.class, "id_genero", LibroEntidad::getGenero, false);
-        private static final ReferenceField<LibroEntidad, Set<PrestamoEntidad>> PRESTAMOS = ReferenceField.create(LibroEntidad.class, "prestamoSet", LibroEntidad::getPrestamoSet, false);
         
         
         private Definicion() {}
@@ -190,10 +180,6 @@ public class LibroDaoImpl extends SuperEntidadDaoImpl<Integer, Libro, LibroDetal
         @Override
         public ReferenceField<LibroEntidad, PaisEntidad> paisPublicacion() {
             return PAIS;
-        }
-        @Override
-        public ReferenceField<LibroEntidad, Set<PrestamoEntidad>> prestamoSet() {
-            return PRESTAMOS;
         }
     }
 }

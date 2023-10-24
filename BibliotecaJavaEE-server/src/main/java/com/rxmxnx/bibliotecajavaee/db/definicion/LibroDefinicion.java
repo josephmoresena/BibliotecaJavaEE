@@ -7,7 +7,6 @@ package com.rxmxnx.bibliotecajavaee.db.definicion;
 
 import com.rxmxnx.bibliotecajavaee.dominio.*;
 import com.speedment.jpastreamer.field.*;
-import java.util.*;
 
 /**
  *
@@ -16,9 +15,8 @@ import java.util.*;
  * @param <TAutor>
  * @param <TPais>
  * @param <TGenero>
- * @param <TPrestamo>
  */
-public interface LibroDefinicion<TLibro extends Libro, TAutor extends Autor, TPais extends Pais, TGenero extends Genero, TPrestamo extends Prestamo> extends SuperEntidadDefinicion<Integer, TLibro> {
+public interface LibroDefinicion<TLibro extends Libro, TAutor extends Autor, TPais extends Pais, TGenero extends Genero> extends SuperEntidadDefinicion<Integer, TLibro> {
     @Override
     IntField<TLibro> id();
     StringField<TLibro> titulo();
@@ -31,5 +29,4 @@ public interface LibroDefinicion<TLibro extends Libro, TAutor extends Autor, TPa
     ReferenceField<TLibro, TAutor> autor();
     ReferenceField<TLibro, TGenero> genero();
     ReferenceField<TLibro, TPais> paisPublicacion(); 
-    ReferenceField<TLibro, Set<TPrestamo>> prestamoSet(); 
 }

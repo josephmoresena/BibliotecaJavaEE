@@ -30,7 +30,7 @@ public interface PaisBo extends SuperEntidadBo<Short, Pais, PaisDetalle> {
     @Override
     Short crear(Pais entidad) throws RegistroExiste;
     @Override
-    void modificar(Pais entidad) throws RegistroNoEncontrado;
+    void modificar(Pais entidad) throws RegistroNoEncontrado, RegistroExiste;
     @Override
     void eliminar(Short id) throws RegistroNoEncontrado;
     

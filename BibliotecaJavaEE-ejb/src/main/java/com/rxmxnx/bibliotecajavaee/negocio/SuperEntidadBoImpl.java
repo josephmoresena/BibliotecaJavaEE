@@ -63,13 +63,14 @@ public abstract class SuperEntidadBoImpl<U extends Number & Comparable<U>, T ext
     }
 
     @Override
-    public void modificar(T entidad) throws RegistroNoEncontrado {
+    public void modificar(T entidad) throws RegistroNoEncontrado, RegistroExiste {
         U id = SuperEntidad.getId(entidad);
         if (id == null)
             throw new RegistroNoEncontrado(this.claseT);
-        SuperEntidadFuncionFiltro filtro = this.crearFiltroId(id);
+        SuperEntidadFuncionFiltro filtro = this.crearFiltroId(new FuncionFiltroId(id));
         if (this.getDao().listar(filtro).isEmpty())
             throw new RegistroNoEncontrado(this.claseT, id);
+        this.validarUnicidad(entidad);
         this.getDao().guardar(entidad);
     }
 
@@ -77,7 +78,7 @@ public abstract class SuperEntidadBoImpl<U extends Number & Comparable<U>, T ext
     public void eliminar(U id) throws RegistroNoEncontrado {
         if (id == null)
             throw new RegistroNoEncontrado(this.claseT);
-        SuperEntidadFuncionFiltro filtro = this.crearFiltroId(id);
+        SuperEntidadFuncionFiltro filtro = this.crearFiltroId(new FuncionFiltroId(id));
         if (this.getDao().listar(filtro).isEmpty())
             throw new RegistroNoEncontrado(this.claseT, id);
         this.getDao().eliminar(id);
@@ -85,21 +86,30 @@ public abstract class SuperEntidadBoImpl<U extends Number & Comparable<U>, T ext
     
     protected abstract SuperEntidadDao<U, T, TDetalle> getDao();
     protected abstract void validarUnicidad(T entidad) throws RegistroExiste;
-    protected abstract SuperEntidadFuncionFiltro<U, T, ? extends SuperEntidadDefinicion<U, ? extends T>> crearFiltroId(U id);
+    protected abstract SuperEntidadFuncionFiltro<U, T, ? extends SuperEntidadDefinicion<U, ? extends T>> crearFiltroId(FuncionFiltroId<U, T> funcion);
     
     protected static class FuncionFiltroId<U extends Number & Comparable<U>, T extends SuperEntidad<U>>  implements SuperEntidadFuncionFiltro<U, T, SuperEntidadDefinicion<U, ? extends T>> {
-        private final List<U> ids = new ArrayList<>();
-
+        private final boolean exclusion;
+        private final List<U> identificadores = new ArrayList<>();
+        
         public FuncionFiltroId(U id) {
-            this.ids.add(id);
+            this(false, id);
         }
-        public FuncionFiltroId(U... ids) {
-            this.ids.addAll(this.ids);
+        public FuncionFiltroId(U... identificadores) {
+            this(false, identificadores);
+        }
+        public FuncionFiltroId(boolean exclusion, U id) {
+            this.exclusion = exclusion;
+            this.identificadores.add(id);
+        }
+        public FuncionFiltroId(boolean exclusion, U... identificadores) {
+            this.exclusion = exclusion;
+            this.identificadores.addAll(this.identificadores);
         }
         
         @Override
         public SpeedmentPredicate<? extends T> apply(SuperEntidadDefinicion<U, ? extends T> d) {
-            return d.id().in(this.ids);
+            return !this.exclusion ? d.id().in(this.identificadores) : d.id().notIn(this.identificadores);
         }
     }
 }

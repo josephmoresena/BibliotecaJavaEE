@@ -24,6 +24,6 @@ public interface SuperEntidadBo<U extends Number & Comparable<U>, T extends Supe
     TDetalle encontrarDetallado(U id) throws RegistroNoEncontrado;
     
     U crear(T entidad) throws RegistroExiste;
-    void modificar(T entidad) throws RegistroNoEncontrado;
+    void modificar(T entidad) throws RegistroNoEncontrado, RegistroExiste;
     void eliminar(U id) throws RegistroNoEncontrado;
 }

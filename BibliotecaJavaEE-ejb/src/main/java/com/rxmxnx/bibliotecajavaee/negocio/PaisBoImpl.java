@@ -33,45 +33,52 @@ public class PaisBoImpl extends SuperEntidadBoImpl<Short, Pais, PaisDetalle> imp
         return this.dao;
     }
     @Override
-    protected void validarUnicidad(Pais entidad) throws RegistroExiste {
-        FuncionFiltroNombre filtro = new FuncionFiltroNombre(true, entidad.getNombre());
-        Optional<Pais> paisExistente = this.dao.listarPais(filtro).stream().findFirst();
-        if (paisExistente != null)
+    protected void validarUnicidad(Pais entidad) throws RegistroExiste, RegistroExiste {
+        FuncionFiltroNombre filtro = new FuncionFiltroNombre(entidad);
+        Optional<Pais> paisExistente = this.dao.listarPais(filtro).stream().findAny();
+        if (paisExistente.isPresent())
             throw new RegistroExiste("Nombre: " + entidad.getNombre(), Pais.class, paisExistente.get().getPaisId());
     }
     @Override
-    protected PaisFuncionFiltro crearFiltroId(Short id) {
-        return new FuncionFiltroPaisId(id);
+    protected PaisFuncionFiltro crearFiltroId(FuncionFiltroId<Short, Pais> funcion) {
+        return new FuncionFiltroPaisId(funcion);
     }
     
     @Override
     public List<PaisDetalle> buscarPorNombre(String nombre) {
-        FuncionFiltroNombre filtro = new FuncionFiltroNombre(false, nombre);
+        FuncionFiltroNombre filtro = new FuncionFiltroNombre(nombre);
         return this.dao.listarPaisDetallado(filtro);
     }
     
     private static class FuncionFiltroNombre<TPais extends Pais, TDefinicion extends PaisDefinicion<TPais, ?, ?>> implements PaisFuncionFiltro<TPais, TDefinicion> {
         private final boolean igual;
         private final String nombre;
+        private final FuncionFiltroId funcionExcluir;
 
-        public FuncionFiltroNombre(boolean igual,  String nombre) {
-            this.igual = igual;
+        public FuncionFiltroNombre(String nombre) {
+            this.igual = false;
+            this.funcionExcluir = null;
             this.nombre = nombre;
+        }
+        public FuncionFiltroNombre(Pais pais) {
+            this.igual = true;
+            this.nombre = pais.getNombre();
+            this.funcionExcluir = pais.getPaisId() != null ? new FuncionFiltroId(true, pais.getPaisId()) : null;
         }
         
         @Override
         public SpeedmentPredicate<TPais> apply(TDefinicion d) {
-            return this.igual ? d.nombre().equal(this.nombre) : d.nombre().contains(this.nombre);
+            SpeedmentPredicate<TPais> filtro = this.igual ? d.nombre().equal(this.nombre) : d.nombre().contains(this.nombre);
+            if (this.funcionExcluir != null)
+                filtro = filtro.and(this.funcionExcluir.apply(d));
+            return filtro;
         }
     }
     private static class FuncionFiltroPaisId<TPais extends Pais, TDefinicion extends PaisDefinicion<TPais, ?, ?>> implements PaisFuncionFiltro<TPais, TDefinicion> {
         private final FuncionFiltroId funcion;
         
-        public FuncionFiltroPaisId(Short id) {
-            this.funcion = new SuperEntidadBoImpl.FuncionFiltroId(id);
-        }
-        public FuncionFiltroPaisId(Short... ids) {
-            this.funcion = new SuperEntidadBoImpl.FuncionFiltroId(ids);
+        public FuncionFiltroPaisId(FuncionFiltroId<Short, Pais> funcion) {
+            this.funcion = funcion;
         }
         
         @Override

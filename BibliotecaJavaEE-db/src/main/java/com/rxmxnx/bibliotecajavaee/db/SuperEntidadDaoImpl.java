@@ -21,9 +21,6 @@ import java.util.stream.*;
  */
 abstract class SuperEntidadDaoImpl<U extends Number & Comparable<U>, T extends SuperEntidad<U>, TDetallado extends T, TEntidad extends TDetallado> {
     private static final String UNIDAD_BASE_DATOS = "BibliotecaJavaEE_PU";
-    
-    private LogServidor log;
-    
     @PersistenceUnit
     private final EntityManagerFactory emf;
 

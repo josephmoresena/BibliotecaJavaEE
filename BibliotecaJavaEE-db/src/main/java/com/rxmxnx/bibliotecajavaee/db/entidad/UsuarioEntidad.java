@@ -42,7 +42,7 @@ public class UsuarioEntidad extends UsuarioDetalle implements Serializable {
     }
     
     @XmlTransient
-    @OneToMany(mappedBy = "usuario")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "usuario")
     public Set<PrestamoEntidad> getPrestamoSet() {
         return this.prestamoSet;
     }

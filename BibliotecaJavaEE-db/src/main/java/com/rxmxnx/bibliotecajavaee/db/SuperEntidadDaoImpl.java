@@ -5,6 +5,7 @@
  */
 package com.rxmxnx.bibliotecajavaee.db;
 
+import com.rxmxnx.bibliotecajavaee.db.entidad.*;
 import com.rxmxnx.bibliotecajavaee.dominio.*;
 import com.rxmxnx.bibliotecajavaee.log.*;
 import com.speedment.jpastreamer.application.*;
@@ -68,7 +69,10 @@ abstract class SuperEntidadDaoImpl<U extends Number & Comparable<U>, T extends S
         try 
         {
             this.em.clear();
-            this.jpaStreamer.resetStreamer(this.claseEntidad());
+            this.jpaStreamer.resetStreamer(
+                    AutorEntidad.class, GeneroEntidad.class, InventarioEntidad.class, 
+                    LibroEntidad.class, PaisEntidad.class, PrestamoEntidad.class, 
+                    UsuarioEntidad.class);
             if (readOnly)
                 this.log().info("Transaccion de solo lectura.");
             else {

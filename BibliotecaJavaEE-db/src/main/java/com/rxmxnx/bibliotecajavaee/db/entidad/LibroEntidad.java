@@ -38,19 +38,19 @@ public class LibroEntidad extends LibroDetalle implements Serializable {
     
     @Override
     @JoinColumn(name = "id_autor", referencedColumnName = "id", insertable = false, updatable = false)
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     public AutorEntidad getAutor() {
         return (AutorEntidad)super.getAutor();
     }
     @Override
     @JoinColumn(name = "id_genero", referencedColumnName = "id", insertable = false, updatable = false)
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     public GeneroEntidad getGenero() {
         return (GeneroEntidad)super.getGenero();
     }
     @Override
     @JoinColumn(name = "id_pais_publicacion", referencedColumnName = "id", insertable = false, updatable = false)
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     public PaisEntidad getPais() {
         return (PaisEntidad)super.getPais();
     }
@@ -68,12 +68,12 @@ public class LibroEntidad extends LibroDetalle implements Serializable {
     }
     
     @XmlTransient
-    @OneToMany(mappedBy = "libro")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "libro")
     public Set<PrestamoEntidad> getPrestamoSet() {
         return this.prestamoSet;
     }
     @XmlTransient
-    @OneToMany(mappedBy = "libro")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "libro")
     public Set<InventarioEntidad> getInventarioSet() {
         return this.inventarioSet;
     }

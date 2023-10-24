@@ -42,7 +42,7 @@ public class GeneroEntidad extends GeneroDetalle implements Serializable {
     }
     
     @XmlTransient
-    @OneToMany(mappedBy = "genero")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "genero")
     public Set<LibroEntidad> getLibroSet() {
         return this.libroSet;
     }

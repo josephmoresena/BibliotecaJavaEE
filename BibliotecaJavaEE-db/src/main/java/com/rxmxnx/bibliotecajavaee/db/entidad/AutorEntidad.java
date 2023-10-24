@@ -36,7 +36,7 @@ public class AutorEntidad extends AutorDetalle implements Serializable {
     
     @Override
     @JoinColumn(name = "id_pais", referencedColumnName = "id", insertable = false, updatable = false)
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     public PaisEntidad getPais() {
         return (PaisEntidad)super.getPais();
     }
@@ -48,7 +48,7 @@ public class AutorEntidad extends AutorDetalle implements Serializable {
     }
     
     @XmlTransient
-    @OneToMany(mappedBy = "autor")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "autor")
     public Set<LibroEntidad> getLibroSet() {
         return this.libroSet;
     }

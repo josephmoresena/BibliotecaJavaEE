@@ -50,12 +50,12 @@ public class PaisEntidad extends PaisDetalle implements Serializable {
     }
     
     @XmlTransient
-    @OneToMany(mappedBy = "pais")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "pais")
     public Set<AutorEntidad> getAutorSet() {
         return this.autorSet;
     }
     @XmlTransient
-    @OneToMany(mappedBy = "pais")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "pais")
     public Set<LibroEntidad> getLibroSet() {
         return this.libroSet;
     }

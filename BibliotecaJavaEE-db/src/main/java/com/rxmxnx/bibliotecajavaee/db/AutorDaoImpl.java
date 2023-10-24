@@ -20,6 +20,7 @@ import javax.ejb.*;
 import javax.inject.*;
 import javax.transaction.*;
 import javax.transaction.Transactional.*;
+import com.rxmxnx.bibliotecajavaee.db.funciones.*;
 
 /**
  *
@@ -57,7 +58,7 @@ public class AutorDaoImpl extends SuperEntidadDaoImpl<Integer, Autor, AutorDetal
     }
     @Override
     @Transactional(TxType.SUPPORTS)
-    public List<Autor> listarAutor(Function<? extends AutorDefinicion, SpeedmentPredicate<? extends Autor>> funcionPredicado) {
+    public List<Autor> listarAutor(AutorFuncionFiltro funcionPredicado) {
         return this.streamListado(AutorDaoImpl.predicado(funcionPredicado))
                 .map(p -> new Autor(p))
                 .collect(Collectors.toList());
@@ -102,7 +103,7 @@ public class AutorDaoImpl extends SuperEntidadDaoImpl<Integer, Autor, AutorDetal
                 .collect(Collectors.toList());
     }
     @Override
-    public List<AutorDetalle> listarAutorDetallado(Function<? extends AutorDefinicion, SpeedmentPredicate<? extends Autor>> funcionPredicado) {
+    public List<AutorDetalle> listarAutorDetallado(AutorFuncionFiltro funcionPredicado) {
         return this.streamListado(AutorDaoImpl.predicado(funcionPredicado))
                 .map(p -> new AutorDetalle(p))
                 .collect(Collectors.toList());
@@ -114,7 +115,7 @@ public class AutorDaoImpl extends SuperEntidadDaoImpl<Integer, Autor, AutorDetal
                 .findAny();
     }
     
-    private static SpeedmentPredicate<AutorEntidad> predicado(Function<? extends AutorDefinicion, SpeedmentPredicate<? extends Autor>> funcionPredicado) {
+    private static SpeedmentPredicate<AutorEntidad> predicado(AutorFuncionFiltro funcionPredicado) {
         Function<Definicion, SpeedmentPredicate<AutorEntidad>> predicado = (Function)funcionPredicado;
         return predicado.apply(Definicion.INSTANCIA);
     }

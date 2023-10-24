@@ -16,7 +16,7 @@ import java.util.*;
  * @param <TLibro>
  * @param <TPais>
  */
-public interface PrestamoDefinicion<TPrestamo extends Prestamo, TLibro extends Libro, TPais extends Usuario> extends SuperDefinicion<Long, TPrestamo> {
+public interface PrestamoDefinicion<TPrestamo extends Prestamo, TLibro extends Libro, TPais extends Usuario> extends SuperEntidadDefinicion<Long, TPrestamo> {
     @Override
     LongField<TPrestamo> id();
     ComparableField<TPrestamo, Date> fechaPrestamo();

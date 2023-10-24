@@ -16,7 +16,7 @@ import java.util.*;
  * @param <TLibro>
  * @param <TAutor>
  */
-public interface PaisDefinicion<TPais extends Pais, TLibro extends Libro, TAutor extends Autor> extends SuperDefinicion<Short, TPais> {
+public interface PaisDefinicion<TPais extends Pais, TLibro extends Libro, TAutor extends Autor> extends SuperEntidadDefinicion<Short, TPais> {
     @Override
     ShortField<TPais> id();
     StringField<TPais> nombre();

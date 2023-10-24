@@ -10,6 +10,8 @@ package com.rxmxnx.bibliotecajavaee.web;
  * @author atem94
  */
 public class InfoRedireccion {
+    public static final String NOMBRE_REDIRECCION = "redireccion";
+    
     private final String titulo;
     private final String mensaje;
     private final String url;

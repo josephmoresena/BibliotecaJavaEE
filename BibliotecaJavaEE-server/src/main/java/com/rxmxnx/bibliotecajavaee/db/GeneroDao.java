@@ -8,10 +8,9 @@ package com.rxmxnx.bibliotecajavaee.db;
 import com.rxmxnx.bibliotecajavaee.db.definicion.*;
 import com.rxmxnx.bibliotecajavaee.dominio.detalle.*;
 import com.rxmxnx.bibliotecajavaee.dominio.*;
-import com.speedment.jpastreamer.field.predicate.*;
 import java.util.*;
-import java.util.function.*;
 import javax.ejb.*;
+import com.rxmxnx.bibliotecajavaee.db.funciones.*;
 
 /**
  *
@@ -21,7 +20,7 @@ import javax.ejb.*;
 public interface GeneroDao extends SuperEntidadDao<Short, Genero, GeneroDetalle> {
     @Override
     List<Genero> listar();
-    List<Genero> listarGenero(Function<? extends GeneroDefinicion, SpeedmentPredicate<? extends Genero>> funcionPredicado);
+    List<Genero> listarGenero(GeneroFuncionFiltro funcionPredicado);
     @Override
     Optional<Genero> encontrar(Short id);
     @Override
@@ -31,18 +30,18 @@ public interface GeneroDao extends SuperEntidadDao<Short, Genero, GeneroDetalle>
     
     @Override
     List<GeneroDetalle> listarDetallado();
-    List<GeneroDetalle> listarGeneroDetallado(Function<? extends GeneroDefinicion, SpeedmentPredicate<? extends Genero>> funcionPredicado);
+    List<GeneroDetalle> listarGeneroDetallado(GeneroFuncionFiltro funcionPredicado);
     @Override
     Optional<GeneroDetalle> encontrarDetallado(Short id);
     
     @Override
-    default List<Genero> listar(Function<? extends SuperDefinicion<Short, ? extends Genero>, SpeedmentPredicate<? extends Genero>> funcionPredicado) {
-        Function<? extends GeneroDefinicion, SpeedmentPredicate<? extends Genero>> funcion = (Function)funcionPredicado;
+    default List<Genero> listar(SuperEntidadFuncionFiltro<Short, ? extends Genero, ? extends SuperEntidadDefinicion<Short, ? extends Genero>> funcionPredicado) {
+        GeneroFuncionFiltro funcion = (GeneroFuncionFiltro)funcionPredicado;
         return this.listarGenero(funcion);
     }
     @Override
-    default List<GeneroDetalle> listarDetallado(Function<? extends SuperDefinicion<Short, ? extends Genero>, SpeedmentPredicate<? extends Genero>> funcionPredicado) {
-        Function<? extends GeneroDefinicion, SpeedmentPredicate<? extends Genero>> funcion = (Function)funcionPredicado;
+    default List<GeneroDetalle> listarDetallado(SuperEntidadFuncionFiltro<Short, ? extends Genero, ? extends SuperEntidadDefinicion<Short, ? extends Genero>> funcionPredicado) {
+        GeneroFuncionFiltro funcion = (GeneroFuncionFiltro)funcionPredicado;
         return this.listarGeneroDetallado(funcion);
     }
 }

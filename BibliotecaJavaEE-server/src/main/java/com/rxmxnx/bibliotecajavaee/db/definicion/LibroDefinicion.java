@@ -16,7 +16,7 @@ import com.speedment.jpastreamer.field.*;
  * @param <TPais>
  * @param <TGenero>
  */
-public interface LibroDefinicion<TLibro extends Libro, TAutor extends Autor, TPais extends Pais, TGenero extends Genero> extends SuperDefinicion<Integer, TLibro> {
+public interface LibroDefinicion<TLibro extends Libro, TAutor extends Autor, TPais extends Pais, TGenero extends Genero> extends SuperEntidadDefinicion<Integer, TLibro> {
     @Override
     IntField<TLibro> id();
     StringField<TLibro> titulo();

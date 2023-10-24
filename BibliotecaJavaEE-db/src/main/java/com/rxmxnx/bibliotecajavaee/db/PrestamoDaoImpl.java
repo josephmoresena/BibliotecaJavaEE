@@ -20,6 +20,7 @@ import javax.ejb.*;
 import javax.inject.*;
 import javax.transaction.*;
 import javax.transaction.Transactional.*;
+import com.rxmxnx.bibliotecajavaee.db.funciones.*;
 
 /**
  *
@@ -57,7 +58,7 @@ public class PrestamoDaoImpl extends SuperEntidadDaoImpl<Long, Prestamo, Prestam
     }
     @Override
     @Transactional(TxType.SUPPORTS)
-    public List<Prestamo> listarPrestamo(Function<? extends PrestamoDefinicion, SpeedmentPredicate<? extends Prestamo>> funcionPredicado) {
+    public List<Prestamo> listarPrestamo(PrestamoFuncionFiltro funcionPredicado) {
         return this.streamListado(PrestamoDaoImpl.predicado(funcionPredicado))
                 .map(p -> new Prestamo(p))
                 .collect(Collectors.toList());
@@ -102,7 +103,7 @@ public class PrestamoDaoImpl extends SuperEntidadDaoImpl<Long, Prestamo, Prestam
                 .collect(Collectors.toList());
     }
     @Override
-    public List<PrestamoDetalle> listarPrestamoDetallado(Function<? extends PrestamoDefinicion, SpeedmentPredicate<? extends Prestamo>> funcionPredicado) {
+    public List<PrestamoDetalle> listarPrestamoDetallado(PrestamoFuncionFiltro funcionPredicado) {
         return this.streamListado(PrestamoDaoImpl.predicado(funcionPredicado))
                 .map(p -> new PrestamoDetalle(p))
                 .collect(Collectors.toList());
@@ -114,7 +115,7 @@ public class PrestamoDaoImpl extends SuperEntidadDaoImpl<Long, Prestamo, Prestam
                 .findAny();
     }
     
-    private static SpeedmentPredicate<PrestamoEntidad> predicado(Function<? extends PrestamoDefinicion, SpeedmentPredicate<? extends Prestamo>> funcionPredicado) {
+    private static SpeedmentPredicate<PrestamoEntidad> predicado(PrestamoFuncionFiltro funcionPredicado) {
         Function<Definicion, SpeedmentPredicate<PrestamoEntidad>> predicado = (Function)funcionPredicado;
         return predicado.apply(Definicion.INSTANCIA);
     }

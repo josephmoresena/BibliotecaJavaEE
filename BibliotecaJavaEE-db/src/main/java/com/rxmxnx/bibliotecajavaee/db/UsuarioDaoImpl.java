@@ -20,6 +20,7 @@ import javax.ejb.*;
 import javax.inject.*;
 import javax.transaction.*;
 import javax.transaction.Transactional.*;
+import com.rxmxnx.bibliotecajavaee.db.funciones.*;
 
 /**
  *
@@ -57,7 +58,7 @@ public class UsuarioDaoImpl extends SuperEntidadDaoImpl<Integer, Usuario, Usuari
     }
     @Override
     @Transactional(TxType.SUPPORTS)
-    public List<Usuario> listarUsuario(Function<? extends UsuarioDefinicion, SpeedmentPredicate<? extends Usuario>> funcionPredicado) {
+    public List<Usuario> listarUsuario(UsuarioFuncionFiltro funcionPredicado) {
         return this.streamListado(UsuarioDaoImpl.predicado(funcionPredicado))
                 .map(p -> new Usuario(p))
                 .collect(Collectors.toList());
@@ -102,7 +103,7 @@ public class UsuarioDaoImpl extends SuperEntidadDaoImpl<Integer, Usuario, Usuari
                 .collect(Collectors.toList());
     }
     @Override
-    public List<UsuarioDetalle> listarUsuarioDetallado(Function<? extends UsuarioDefinicion, SpeedmentPredicate<? extends Usuario>> funcionPredicado) {
+    public List<UsuarioDetalle> listarUsuarioDetallado(UsuarioFuncionFiltro funcionPredicado) {
         return this.streamListado(UsuarioDaoImpl.predicado(funcionPredicado))
                 .map(p -> new UsuarioDetalle(p))
                 .collect(Collectors.toList());
@@ -114,7 +115,7 @@ public class UsuarioDaoImpl extends SuperEntidadDaoImpl<Integer, Usuario, Usuari
                 .findAny();
     }
     
-    private static SpeedmentPredicate<UsuarioEntidad> predicado(Function<? extends UsuarioDefinicion, SpeedmentPredicate<? extends Usuario>> funcionPredicado) {
+    private static SpeedmentPredicate<UsuarioEntidad> predicado(UsuarioFuncionFiltro funcionPredicado) {
         Function<Definicion, SpeedmentPredicate<UsuarioEntidad>> predicado = (Function)funcionPredicado;
         return predicado.apply(Definicion.INSTANCIA);
     }

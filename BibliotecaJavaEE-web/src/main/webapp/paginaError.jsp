@@ -1,9 +1,5 @@
-<%-- 
-    Document   : paginaError
-    Created on : Oct 22, 2023, 11:29:47 PM
-    Author     : atem94
---%><%@page contentType="text/html" pageEncoding="UTF-8" import="com.rxmxnx.bibliotecajavaee.web.*"%><%
-    AtributoPagina<InfoRedireccion> info = UtilidadesWeb.traerAtributo(pageContext, "redireccion");
+<%@page contentType="text/html" pageEncoding="UTF-8" import="com.rxmxnx.bibliotecajavaee.web.*"%><%
+    AtributoPagina<InfoRedireccion> info = UtilidadesWeb.traerAtributo(pageContext, InfoRedireccion.NOMBRE_REDIRECCION);
     InfoRedireccion redireccion = null;
     try {
         redireccion = info.getObjeto();

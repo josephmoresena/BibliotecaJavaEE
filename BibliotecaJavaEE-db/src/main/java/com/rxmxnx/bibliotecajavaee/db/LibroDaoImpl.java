@@ -20,6 +20,7 @@ import javax.ejb.*;
 import javax.inject.*;
 import javax.transaction.*;
 import javax.transaction.Transactional.*;
+import com.rxmxnx.bibliotecajavaee.db.funciones.*;
 
 /**
  *
@@ -57,7 +58,7 @@ public class LibroDaoImpl extends SuperEntidadDaoImpl<Integer, Libro, LibroDetal
     }
     @Override
     @Transactional(TxType.SUPPORTS)
-    public List<Libro> listarLibro(Function<? extends LibroDefinicion, SpeedmentPredicate<? extends Libro>> funcionPredicado) {
+    public List<Libro> listarLibro(LibroFuncionFiltro funcionPredicado) {
         return this.streamListado(LibroDaoImpl.predicado(funcionPredicado))
                 .map(p -> new Libro(p))
                 .collect(Collectors.toList());
@@ -102,7 +103,7 @@ public class LibroDaoImpl extends SuperEntidadDaoImpl<Integer, Libro, LibroDetal
                 .collect(Collectors.toList());
     }
     @Override
-    public List<LibroDetalle> listarLibroDetallado(Function<? extends LibroDefinicion, SpeedmentPredicate<? extends Libro>> funcionPredicado) {
+    public List<LibroDetalle> listarLibroDetallado(LibroFuncionFiltro funcionPredicado) {
         return this.streamListado(LibroDaoImpl.predicado(funcionPredicado))
                 .map(p -> new LibroDetalle(p))
                 .collect(Collectors.toList());
@@ -114,7 +115,7 @@ public class LibroDaoImpl extends SuperEntidadDaoImpl<Integer, Libro, LibroDetal
                 .findAny();
     }
     
-    private static SpeedmentPredicate<LibroEntidad> predicado(Function<? extends LibroDefinicion, SpeedmentPredicate<? extends Libro>> funcionPredicado) {
+    private static SpeedmentPredicate<LibroEntidad> predicado(LibroFuncionFiltro funcionPredicado) {
         Function<Definicion, SpeedmentPredicate<LibroEntidad>> predicado = (Function)funcionPredicado;
         return predicado.apply(Definicion.INSTANCIA);
     }

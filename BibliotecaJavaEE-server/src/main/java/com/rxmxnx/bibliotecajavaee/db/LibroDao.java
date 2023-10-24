@@ -8,10 +8,9 @@ package com.rxmxnx.bibliotecajavaee.db;
 import com.rxmxnx.bibliotecajavaee.db.definicion.*;
 import com.rxmxnx.bibliotecajavaee.dominio.detalle.*;
 import com.rxmxnx.bibliotecajavaee.dominio.*;
-import com.speedment.jpastreamer.field.predicate.*;
 import java.util.*;
-import java.util.function.*;
 import javax.ejb.*;
+import com.rxmxnx.bibliotecajavaee.db.funciones.*;
 
 /**
  *
@@ -21,7 +20,7 @@ import javax.ejb.*;
 public interface LibroDao extends SuperEntidadDao<Integer, Libro, LibroDetalle> {
     @Override
     List<Libro> listar();
-    List<Libro> listarLibro(Function<? extends LibroDefinicion, SpeedmentPredicate<? extends Libro>> funcionPredicado);
+    List<Libro> listarLibro(LibroFuncionFiltro funcionPredicado);
     @Override
     Optional<Libro> encontrar(Integer id);
     @Override
@@ -31,18 +30,18 @@ public interface LibroDao extends SuperEntidadDao<Integer, Libro, LibroDetalle> 
     
     @Override
     List<LibroDetalle> listarDetallado();
-    List<LibroDetalle> listarLibroDetallado(Function<? extends LibroDefinicion, SpeedmentPredicate<? extends Libro>> funcionPredicado);
+    List<LibroDetalle> listarLibroDetallado(LibroFuncionFiltro funcionPredicado);
     @Override
     Optional<LibroDetalle> encontrarDetallado(Integer id);
     
     @Override
-    default List<Libro> listar(Function<? extends SuperDefinicion<Integer, ? extends Libro>, SpeedmentPredicate<? extends Libro>> funcionPredicado) {
-        Function<? extends LibroDefinicion, SpeedmentPredicate<? extends Libro>> funcion = (Function)funcionPredicado;
+    default List<Libro> listar(SuperEntidadFuncionFiltro<Integer, ? extends Libro, ? extends SuperEntidadDefinicion<Integer, ? extends Libro>> funcionPredicado) {
+        LibroFuncionFiltro funcion = (LibroFuncionFiltro)funcionPredicado;
         return this.listarLibro(funcion);
     }
     @Override
-    default List<LibroDetalle> listarDetallado(Function<? extends SuperDefinicion<Integer, ? extends Libro>, SpeedmentPredicate<? extends Libro>> funcionPredicado) {
-        Function<? extends LibroDefinicion, SpeedmentPredicate<? extends Libro>> funcion = (Function)funcionPredicado;
+    default List<LibroDetalle> listarDetallado(SuperEntidadFuncionFiltro<Integer, ? extends Libro, ? extends SuperEntidadDefinicion<Integer, ? extends Libro>> funcionPredicado) {
+        LibroFuncionFiltro funcion = (LibroFuncionFiltro)funcionPredicado;
         return this.listarLibroDetallado(funcion);
     }
 }

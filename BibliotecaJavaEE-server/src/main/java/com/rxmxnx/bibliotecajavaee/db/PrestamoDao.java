@@ -8,10 +8,9 @@ package com.rxmxnx.bibliotecajavaee.db;
 import com.rxmxnx.bibliotecajavaee.db.definicion.*;
 import com.rxmxnx.bibliotecajavaee.dominio.detalle.*;
 import com.rxmxnx.bibliotecajavaee.dominio.*;
-import com.speedment.jpastreamer.field.predicate.*;
 import java.util.*;
-import java.util.function.*;
 import javax.ejb.*;
+import com.rxmxnx.bibliotecajavaee.db.funciones.*;
 
 /**
  *
@@ -21,7 +20,7 @@ import javax.ejb.*;
 public interface PrestamoDao extends SuperEntidadDao<Long, Prestamo, PrestamoDetalle> {
     @Override
     List<Prestamo> listar();
-    List<Prestamo> listarPrestamo(Function<? extends PrestamoDefinicion, SpeedmentPredicate<? extends Prestamo>> funcionPredicado);
+    List<Prestamo> listarPrestamo(PrestamoFuncionFiltro funcionPredicado);
     @Override
     Optional<Prestamo> encontrar(Long id);
     @Override
@@ -31,18 +30,18 @@ public interface PrestamoDao extends SuperEntidadDao<Long, Prestamo, PrestamoDet
     
     @Override
     List<PrestamoDetalle> listarDetallado();
-    List<PrestamoDetalle> listarPrestamoDetallado(Function<? extends PrestamoDefinicion, SpeedmentPredicate<? extends Prestamo>> funcionPredicado);
+    List<PrestamoDetalle> listarPrestamoDetallado(PrestamoFuncionFiltro funcionPredicado);
     @Override
     Optional<PrestamoDetalle> encontrarDetallado(Long id);
     
     @Override
-    default List<Prestamo> listar(Function<? extends SuperDefinicion<Long, ? extends Prestamo>, SpeedmentPredicate<? extends Prestamo>> funcionPredicado) {
-        Function<? extends PrestamoDefinicion, SpeedmentPredicate<? extends Prestamo>> funcion = (Function)funcionPredicado;
+    default List<Prestamo> listar(SuperEntidadFuncionFiltro<Long, ? extends Prestamo, ? extends SuperEntidadDefinicion<Long, ? extends Prestamo>> funcionPredicado) {
+        PrestamoFuncionFiltro funcion = (PrestamoFuncionFiltro)funcionPredicado;
         return this.listarPrestamo(funcion);
     }
     @Override
-    default List<PrestamoDetalle> listarDetallado(Function<? extends SuperDefinicion<Long, ? extends Prestamo>, SpeedmentPredicate<? extends Prestamo>> funcionPredicado) {
-        Function<? extends PrestamoDefinicion, SpeedmentPredicate<? extends Prestamo>> funcion = (Function)funcionPredicado;
+    default List<PrestamoDetalle> listarDetallado(SuperEntidadFuncionFiltro<Long, ? extends Prestamo, ? extends SuperEntidadDefinicion<Long, ? extends Prestamo>> funcionPredicado) {
+        PrestamoFuncionFiltro funcion = (PrestamoFuncionFiltro)funcionPredicado;
         return this.listarPrestamoDetallado(funcion);
     }
 }

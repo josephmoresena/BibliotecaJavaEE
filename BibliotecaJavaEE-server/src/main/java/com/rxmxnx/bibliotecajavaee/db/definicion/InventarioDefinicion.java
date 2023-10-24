@@ -14,7 +14,7 @@ import com.speedment.jpastreamer.field.*;
  * @param <TInventario>
  * @param <TLibro>
  */
-public interface InventarioDefinicion<TInventario extends Inventario, TLibro extends Libro> extends SuperDefinicion<Integer, TInventario> {
+public interface InventarioDefinicion<TInventario extends Inventario, TLibro extends Libro> extends SuperEntidadDefinicion<Integer, TInventario> {
     @Override
     IntField<TInventario> id();
     StringField<TInventario> estante();

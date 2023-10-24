@@ -15,7 +15,7 @@ import java.util.Set;
  * @param <TGenero>
  * @param <TLibro>
  */
-public interface GeneroDefinicion<TGenero extends Genero, TLibro extends Libro> extends SuperDefinicion<Short, TGenero> {
+public interface GeneroDefinicion<TGenero extends Genero, TLibro extends Libro> extends SuperEntidadDefinicion<Short, TGenero> {
     @Override
     ShortField<TGenero> id();
     StringField<TGenero> nombre();

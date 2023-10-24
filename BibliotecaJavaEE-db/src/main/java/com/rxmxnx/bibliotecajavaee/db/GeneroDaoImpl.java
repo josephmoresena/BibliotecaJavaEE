@@ -20,6 +20,7 @@ import javax.ejb.*;
 import javax.inject.*;
 import javax.transaction.*;
 import javax.transaction.Transactional.*;
+import com.rxmxnx.bibliotecajavaee.db.funciones.*;
 
 /**
  *
@@ -57,7 +58,7 @@ public class GeneroDaoImpl extends SuperEntidadDaoImpl<Short, Genero, GeneroDeta
     }
     @Override
     @Transactional(TxType.SUPPORTS)
-    public List<Genero> listarGenero(Function<? extends GeneroDefinicion, SpeedmentPredicate<? extends Genero>> funcionPredicado) {
+    public List<Genero> listarGenero(GeneroFuncionFiltro funcionPredicado) {
         return this.streamListado(GeneroDaoImpl.predicado(funcionPredicado))
                 .map(p -> new Genero(p))
                 .collect(Collectors.toList());
@@ -102,7 +103,7 @@ public class GeneroDaoImpl extends SuperEntidadDaoImpl<Short, Genero, GeneroDeta
                 .collect(Collectors.toList());
     }
     @Override
-    public List<GeneroDetalle> listarGeneroDetallado(Function<? extends GeneroDefinicion, SpeedmentPredicate<? extends Genero>> funcionPredicado) {
+    public List<GeneroDetalle> listarGeneroDetallado(GeneroFuncionFiltro funcionPredicado) {
         return this.streamListado(GeneroDaoImpl.predicado(funcionPredicado))
                 .map(p -> new GeneroDetalle(p))
                 .collect(Collectors.toList());
@@ -114,7 +115,7 @@ public class GeneroDaoImpl extends SuperEntidadDaoImpl<Short, Genero, GeneroDeta
                 .findAny();
     }
     
-    private static SpeedmentPredicate<GeneroEntidad> predicado(Function<? extends GeneroDefinicion, SpeedmentPredicate<? extends Genero>> funcionPredicado) {
+    private static SpeedmentPredicate<GeneroEntidad> predicado(GeneroFuncionFiltro funcionPredicado) {
         Function<Definicion, SpeedmentPredicate<GeneroEntidad>> predicado = (Function)funcionPredicado;
         return predicado.apply(Definicion.INSTANCIA);
     }

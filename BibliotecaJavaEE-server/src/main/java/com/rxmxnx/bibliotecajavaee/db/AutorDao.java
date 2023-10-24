@@ -8,10 +8,9 @@ package com.rxmxnx.bibliotecajavaee.db;
 import com.rxmxnx.bibliotecajavaee.db.definicion.*;
 import com.rxmxnx.bibliotecajavaee.dominio.detalle.*;
 import com.rxmxnx.bibliotecajavaee.dominio.*;
-import com.speedment.jpastreamer.field.predicate.*;
 import java.util.*;
-import java.util.function.*;
 import javax.ejb.*;
+import com.rxmxnx.bibliotecajavaee.db.funciones.*;
 
 /**
  *
@@ -21,7 +20,7 @@ import javax.ejb.*;
 public interface AutorDao extends SuperEntidadDao<Integer, Autor, AutorDetalle> {
     @Override
     List<Autor> listar();
-    List<Autor> listarAutor(Function<? extends AutorDefinicion, SpeedmentPredicate<? extends Autor>> funcionPredicado);
+    List<Autor> listarAutor(AutorFuncionFiltro funcionPredicado);
     @Override
     Optional<Autor> encontrar(Integer id);
     @Override
@@ -31,18 +30,18 @@ public interface AutorDao extends SuperEntidadDao<Integer, Autor, AutorDetalle> 
     
     @Override
     List<AutorDetalle> listarDetallado();
-    List<AutorDetalle> listarAutorDetallado(Function<? extends AutorDefinicion, SpeedmentPredicate<? extends Autor>> funcionPredicado);
+    List<AutorDetalle> listarAutorDetallado(AutorFuncionFiltro funcionPredicado);
     @Override
     Optional<AutorDetalle> encontrarDetallado(Integer id);
-    
+
     @Override
-    default List<Autor> listar(Function<? extends SuperDefinicion<Integer, ? extends Autor>, SpeedmentPredicate<? extends Autor>> funcionPredicado) {
-        Function<? extends AutorDefinicion, SpeedmentPredicate<? extends Autor>> funcion = (Function)funcionPredicado;
+    default List<Autor> listar(SuperEntidadFuncionFiltro<Integer, ? extends Autor, ? extends SuperEntidadDefinicion<Integer, ? extends Autor>> funcionPredicado) {
+        AutorFuncionFiltro funcion = (AutorFuncionFiltro)funcionPredicado;
         return this.listarAutor(funcion);
     }
     @Override
-    default List<AutorDetalle> listarDetallado(Function<? extends SuperDefinicion<Integer, ? extends Autor>, SpeedmentPredicate<? extends Autor>> funcionPredicado) {
-        Function<? extends AutorDefinicion, SpeedmentPredicate<? extends Autor>> funcion = (Function)funcionPredicado;
+    default List<AutorDetalle> listarDetallado(SuperEntidadFuncionFiltro<Integer, ? extends Autor, ? extends SuperEntidadDefinicion<Integer, ? extends Autor>> funcionPredicado) {
+        AutorFuncionFiltro funcion = (AutorFuncionFiltro)funcionPredicado;
         return this.listarAutorDetallado(funcion);
     }
 }

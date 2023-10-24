@@ -15,7 +15,7 @@ import java.util.*;
  * @param <TUsuario>
  * @param <TPrestamo>
  */
-public interface UsuarioDefinicion<TUsuario extends Usuario, TPrestamo extends Prestamo> extends SuperDefinicion<Integer, TUsuario> {
+public interface UsuarioDefinicion<TUsuario extends Usuario, TPrestamo extends Prestamo> extends SuperEntidadDefinicion<Integer, TUsuario> {
     @Override
     IntField<TUsuario> id();
     StringField<TUsuario> nombre();

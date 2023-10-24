@@ -105,4 +105,11 @@ public class LibroDetalle extends Libro implements Serializable {
             this.pais = null;
         super.setPaisId(paisId);
     }
+    @Override
+    public String descripcion() {
+        if (this.getAutor() == null || this.getAutor().descripcion().equals(""))
+            return super.descripcion();
+        else
+            return super.descripcion() + " - " + this.getAutor().descripcion();
+    }
 }

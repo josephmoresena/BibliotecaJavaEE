@@ -20,6 +20,7 @@ import javax.ejb.*;
 import javax.inject.*;
 import javax.transaction.*;
 import javax.transaction.Transactional.*;
+import com.rxmxnx.bibliotecajavaee.db.funciones.*;
 
 /**
  *
@@ -57,7 +58,7 @@ public class InventarioDaoImpl extends SuperEntidadDaoImpl<Integer, Inventario, 
     }
     @Override
     @Transactional(TxType.SUPPORTS)
-    public List<Inventario> listarInventario(Function<? extends InventarioDefinicion, SpeedmentPredicate<? extends Inventario>> funcionPredicado) {
+    public List<Inventario> listarInventario(InventarioFuncionFiltro funcionPredicado) {
         return this.streamListado(InventarioDaoImpl.predicado(funcionPredicado))
                 .map(p -> new Inventario(p))
                 .collect(Collectors.toList());
@@ -102,7 +103,7 @@ public class InventarioDaoImpl extends SuperEntidadDaoImpl<Integer, Inventario, 
                 .collect(Collectors.toList());
     }
     @Override
-    public List<InventarioDetalle> listarInventarioDetallado(Function<? extends InventarioDefinicion, SpeedmentPredicate<? extends Inventario>> funcionPredicado) {
+    public List<InventarioDetalle> listarInventarioDetallado(InventarioFuncionFiltro funcionPredicado) {
         return this.streamListado(InventarioDaoImpl.predicado(funcionPredicado))
                 .map(p -> new InventarioDetalle(p))
                 .collect(Collectors.toList());
@@ -114,7 +115,7 @@ public class InventarioDaoImpl extends SuperEntidadDaoImpl<Integer, Inventario, 
                 .findAny();
     }
     
-    private static SpeedmentPredicate<InventarioEntidad> predicado(Function<? extends InventarioDefinicion, SpeedmentPredicate<? extends Inventario>> funcionPredicado) {
+    private static SpeedmentPredicate<InventarioEntidad> predicado(InventarioFuncionFiltro funcionPredicado) {
         Function<Definicion, SpeedmentPredicate<InventarioEntidad>> predicado = (Function)funcionPredicado;
         return predicado.apply(Definicion.INSTANCIA);
     }

@@ -5,6 +5,7 @@
  */
 package com.rxmxnx.bibliotecajavaee.dominio;
 
+import com.rxmxnx.bibliotecajavaee.util.*;
 import java.io.*;
 import java.util.*;
 import javax.persistence.*;
@@ -17,7 +18,7 @@ import javax.xml.bind.annotation.*;
 @MappedSuperclass
 @XmlRootElement
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-public class Usuario extends SuperEntidad<Integer> implements Serializable {
+public class Usuario extends SuperEntidad<Integer> implements Serializable, Registro {
     protected static final long ENTIDAD_VERSION = 1L;
     private static final long serialVersionUID = ENTIDAD_VERSION;
     
@@ -93,5 +94,16 @@ public class Usuario extends SuperEntidad<Integer> implements Serializable {
     @Override
     public String toString() {
         return "Usuario{" + "nombre=" + nombre + ", apellido=" + apellido + ", fechaRegistro=" + fechaRegistro + ", email=" + email + '}';
+    }
+
+    @Override
+    public String codigo() {
+        return Registro.obtenerCodigo(this);
+    }
+    @Override
+    public String descripcion() {
+        String nombreValor = Registro.limpiarTexto(this.getNombre());
+        String apellidoValor = Registro.limpiarTexto(this.getApellido());
+        return Registro.limpiarTexto(apellidoValor + " " + nombreValor);
     }
 }

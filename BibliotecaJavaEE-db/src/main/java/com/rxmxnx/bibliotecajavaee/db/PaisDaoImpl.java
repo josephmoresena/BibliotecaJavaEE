@@ -20,6 +20,7 @@ import javax.ejb.*;
 import javax.inject.*;
 import javax.transaction.*;
 import javax.transaction.Transactional.*;
+import com.rxmxnx.bibliotecajavaee.db.funciones.*;
 
 /**
  *
@@ -57,7 +58,7 @@ public class PaisDaoImpl extends SuperEntidadDaoImpl<Short, Pais, PaisDetalle, P
     }
     @Override
     @Transactional(TxType.SUPPORTS)
-    public List<Pais> listarPais(Function<? extends PaisDefinicion, SpeedmentPredicate<? extends Pais>> funcionPredicado) {
+    public List<Pais> listarPais(PaisFuncionFiltro funcionPredicado) {
         return this.streamListado(PaisDaoImpl.predicado(funcionPredicado))
                 .map(p -> new Pais(p))
                 .collect(Collectors.toList());
@@ -102,7 +103,7 @@ public class PaisDaoImpl extends SuperEntidadDaoImpl<Short, Pais, PaisDetalle, P
                 .collect(Collectors.toList());
     }
     @Override
-    public List<PaisDetalle> listarPaisDetallado(Function<? extends PaisDefinicion, SpeedmentPredicate<? extends Pais>> funcionPredicado) {
+    public List<PaisDetalle> listarPaisDetallado(PaisFuncionFiltro funcionPredicado) {
         return this.streamListado(PaisDaoImpl.predicado(funcionPredicado))
                 .map(p -> new PaisDetalle(p))
                 .collect(Collectors.toList());
@@ -114,7 +115,7 @@ public class PaisDaoImpl extends SuperEntidadDaoImpl<Short, Pais, PaisDetalle, P
                 .findAny();
     }
     
-    private static SpeedmentPredicate<PaisEntidad> predicado(Function<? extends PaisDefinicion, SpeedmentPredicate<? extends Pais>> funcionPredicado) {
+    private static SpeedmentPredicate<PaisEntidad> predicado(PaisFuncionFiltro funcionPredicado) {
         Function<Definicion, SpeedmentPredicate<PaisEntidad>> predicado = (Function)funcionPredicado;
         return predicado.apply(Definicion.INSTANCIA);
     }

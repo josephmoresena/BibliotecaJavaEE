@@ -8,10 +8,9 @@ package com.rxmxnx.bibliotecajavaee.db;
 import com.rxmxnx.bibliotecajavaee.db.definicion.*;
 import com.rxmxnx.bibliotecajavaee.dominio.detalle.*;
 import com.rxmxnx.bibliotecajavaee.dominio.*;
-import com.speedment.jpastreamer.field.predicate.*;
 import java.util.*;
-import java.util.function.*;
 import javax.ejb.*;
+import com.rxmxnx.bibliotecajavaee.db.funciones.*;
 
 /**
  *
@@ -21,7 +20,7 @@ import javax.ejb.*;
 public interface InventarioDao extends SuperEntidadDao<Integer, Inventario, InventarioDetalle> {
     @Override
     List<Inventario> listar();
-    List<Inventario> listarInventario(Function<? extends InventarioDefinicion, SpeedmentPredicate<? extends Inventario>> funcionPredicado);
+    List<Inventario> listarInventario(InventarioFuncionFiltro funcionPredicado);
     @Override
     Optional<Inventario> encontrar(Integer id);
     @Override
@@ -31,18 +30,18 @@ public interface InventarioDao extends SuperEntidadDao<Integer, Inventario, Inve
     
     @Override
     List<InventarioDetalle> listarDetallado();
-    List<InventarioDetalle> listarInventarioDetallado(Function<? extends InventarioDefinicion, SpeedmentPredicate<? extends Inventario>> funcionPredicado);
+    List<InventarioDetalle> listarInventarioDetallado(InventarioFuncionFiltro funcionPredicado);
     @Override
     Optional<InventarioDetalle> encontrarDetallado(Integer id);
     
     @Override
-    default List<Inventario> listar(Function<? extends SuperDefinicion<Integer, ? extends Inventario>, SpeedmentPredicate<? extends Inventario>> funcionPredicado) {
-        Function<? extends InventarioDefinicion, SpeedmentPredicate<? extends Inventario>> funcion = (Function)funcionPredicado;
+    default List<Inventario> listar(SuperEntidadFuncionFiltro<Integer, ? extends Inventario, ? extends SuperEntidadDefinicion<Integer, ? extends Inventario>> funcionPredicado) {
+        InventarioFuncionFiltro funcion = (InventarioFuncionFiltro)funcionPredicado;
         return this.listarInventario(funcion);
     }
     @Override
-    default List<InventarioDetalle> listarDetallado(Function<? extends SuperDefinicion<Integer, ? extends Inventario>, SpeedmentPredicate<? extends Inventario>> funcionPredicado) {
-        Function<? extends InventarioDefinicion, SpeedmentPredicate<? extends Inventario>> funcion = (Function)funcionPredicado;
+    default List<InventarioDetalle> listarDetallado(SuperEntidadFuncionFiltro<Integer, ? extends Inventario, ? extends SuperEntidadDefinicion<Integer, ? extends Inventario>> funcionPredicado) {
+        InventarioFuncionFiltro funcion = (InventarioFuncionFiltro)funcionPredicado;
         return this.listarInventarioDetallado(funcion);
     }
 }

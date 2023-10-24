@@ -5,6 +5,7 @@
  */
 package com.rxmxnx.bibliotecajavaee.dominio;
 
+import com.rxmxnx.bibliotecajavaee.util.*;
 import java.io.*;
 import javax.persistence.*;
 import javax.xml.bind.annotation.*;
@@ -16,7 +17,7 @@ import javax.xml.bind.annotation.*;
 @MappedSuperclass
 @XmlRootElement
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-public class Pais extends SuperEntidad<Short> implements Serializable {
+public class Pais extends SuperEntidad<Short> implements Serializable, Parametrica {
     protected static final long ENTIDAD_VERSION = 1L;
     private static final long serialVersionUID = ENTIDAD_VERSION;
     
@@ -62,5 +63,14 @@ public class Pais extends SuperEntidad<Short> implements Serializable {
     @Override
     public String toString() {
         return "Pais{" + "nombre=" + nombre + '}';
+    }
+
+    @Override
+    public String codigo() {
+        return Registro.obtenerCodigo(this);
+    }
+    @Override
+    public String nombre() {
+        return Registro.limpiarTexto(this.getNombre());
     }
 }

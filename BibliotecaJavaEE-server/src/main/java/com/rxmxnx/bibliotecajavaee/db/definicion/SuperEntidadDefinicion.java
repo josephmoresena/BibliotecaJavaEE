@@ -14,7 +14,7 @@ import com.speedment.jpastreamer.field.trait.*;
  * @param <U>
  * @param <TEntidad>
  */
-public interface SuperDefinicion<U extends Number & Comparable<U>, TEntidad extends SuperEntidad<U>> {
+public interface SuperEntidadDefinicion<U extends Number & Comparable<U>, TEntidad extends SuperEntidad<U>> {
     Class<? extends TEntidad> clase();
     HasComparableOperators<TEntidad, U> id();
 }

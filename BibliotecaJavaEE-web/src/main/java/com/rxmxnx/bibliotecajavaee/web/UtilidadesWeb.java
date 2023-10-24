@@ -5,7 +5,9 @@
  */
 package com.rxmxnx.bibliotecajavaee.web;
 
-import javax.servlet.http.HttpServletRequest;
+import com.rxmxnx.bibliotecajavaee.dominio.*;
+import com.rxmxnx.bibliotecajavaee.util.*;
+import javax.servlet.http.*;
 import javax.servlet.jsp.*;
 
 /**
@@ -30,5 +32,14 @@ public final class UtilidadesWeb {
         } catch(Exception ex) {
             return null;
         }
+    }
+    public static String accionFormulario(SuperEntidad entidad) {
+        return entidad == null || SuperEntidad.getId(entidad) == null ? "Creaci&oacute;n" : "Edici&oacute;n";
+    }
+    public static BotonFormulario botonFormulario(SuperEntidad entidad) {
+        return entidad == null || SuperEntidad.getId(entidad) == null ? BotonFormulario.CREAR : BotonFormulario.MODIFICAR;
+    }
+    public static String limpiarTexto(String texto) {
+        return Registro.limpiarTexto(texto);
     }
 }

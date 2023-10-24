@@ -7,10 +7,9 @@ package com.rxmxnx.bibliotecajavaee.db;
 
 import com.rxmxnx.bibliotecajavaee.db.definicion.*;
 import com.rxmxnx.bibliotecajavaee.dominio.*;
-import com.speedment.jpastreamer.field.predicate.*;
 import java.util.*;
-import java.util.function.Function;
-import javax.ejb.Remote;
+import javax.ejb.*;
+import com.rxmxnx.bibliotecajavaee.db.funciones.*;
 
 /**
  *
@@ -22,12 +21,12 @@ import javax.ejb.Remote;
 @Remote
 public interface SuperEntidadDao<U extends Number & Comparable<U>, T extends SuperEntidad<U>, TDetalle extends T> {
     List<T> listar();
-    List<T> listar(Function<? extends SuperDefinicion<U, ? extends T>, SpeedmentPredicate<? extends T>> funcionPredicado);
+    List<T> listar(SuperEntidadFuncionFiltro<U, ? extends T, ? extends SuperEntidadDefinicion<U, ? extends T>> funcionPredicado);
     Optional<T> encontrar(U id);
     T guardar(T entidad);
     boolean eliminar(U id);
     
     List<TDetalle> listarDetallado();
-    List<TDetalle> listarDetallado(Function<? extends SuperDefinicion<U, ? extends T>, SpeedmentPredicate<? extends T>> funcionPredicado);
+    List<TDetalle> listarDetallado(SuperEntidadFuncionFiltro<U, ? extends T, ? extends SuperEntidadDefinicion<U, ? extends T>> funcionPredicado);
     Optional<TDetalle> encontrarDetallado(U id);
 }

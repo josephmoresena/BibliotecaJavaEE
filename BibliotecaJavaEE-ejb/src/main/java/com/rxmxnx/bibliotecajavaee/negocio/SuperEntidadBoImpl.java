@@ -6,10 +6,12 @@
 package com.rxmxnx.bibliotecajavaee.negocio;
 
 import com.rxmxnx.bibliotecajavaee.db.*;
+import com.rxmxnx.bibliotecajavaee.db.definicion.*;
+import com.rxmxnx.bibliotecajavaee.db.funciones.*;
 import com.rxmxnx.bibliotecajavaee.dominio.*;
 import com.rxmxnx.bibliotecajavaee.excepciones.*;
-import java.util.List;
-import java.util.Optional;
+import com.speedment.jpastreamer.field.predicate.*;
+import java.util.*;
 
 /**
  *
@@ -19,7 +21,6 @@ import java.util.Optional;
  * @param <TDetalle>
  */
 public abstract class SuperEntidadBoImpl<U extends Number & Comparable<U>, T extends SuperEntidad<U>, TDetalle extends T> implements SuperEntidadBo<U, T, TDetalle>  {
-
     private final Class<T> claseT;
     
     public SuperEntidadBoImpl(Class<T> claseT) {
@@ -66,7 +67,8 @@ public abstract class SuperEntidadBoImpl<U extends Number & Comparable<U>, T ext
         U id = SuperEntidad.getId(entidad);
         if (id == null)
             throw new RegistroNoEncontrado(this.claseT);
-        if (this.getDao().listar(f -> f.id().equal(id)).isEmpty())
+        FuncionFiltroId<U, T> filtro = new FuncionFiltroId(id);
+        if (this.getDao().listar(filtro).isEmpty())
             throw new RegistroNoEncontrado(this.claseT, id);
         this.getDao().guardar(entidad);
     }
@@ -75,11 +77,28 @@ public abstract class SuperEntidadBoImpl<U extends Number & Comparable<U>, T ext
     public void eliminar(U id) throws RegistroNoEncontrado {
         if (id == null)
             throw new RegistroNoEncontrado(this.claseT);
-        if (this.getDao().listar(f -> f.id().equal(id)).isEmpty())
+        FuncionFiltroId<U, T> filtro = new FuncionFiltroId(id);
+        if (this.getDao().listar(filtro).isEmpty())
             throw new RegistroNoEncontrado(this.claseT, id);
         this.getDao().eliminar(id);
     }
     
     protected abstract SuperEntidadDao<U, T, TDetalle> getDao();
     protected abstract void validarUnicidad(T entidad) throws RegistroExiste;
+    
+    protected static class FuncionFiltroId<U extends Number & Comparable<U>, T extends SuperEntidad<U>>  implements SuperEntidadFuncionFiltro<U, T, SuperEntidadDefinicion<U, ? extends T>> {
+        private final List<U> ids = new ArrayList<>();
+
+        public FuncionFiltroId(U id) {
+            this.ids.add(id);
+        }
+        public FuncionFiltroId(U... ids) {
+            this.ids.addAll(this.ids);
+        }
+        
+        @Override
+        public SpeedmentPredicate<? extends T> apply(SuperEntidadDefinicion<U, ? extends T> d) {
+            return d.id().in(this.ids);
+        }
+    }
 }

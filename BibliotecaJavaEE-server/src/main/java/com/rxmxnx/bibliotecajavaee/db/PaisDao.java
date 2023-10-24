@@ -8,10 +8,9 @@ package com.rxmxnx.bibliotecajavaee.db;
 import com.rxmxnx.bibliotecajavaee.db.definicion.*;
 import com.rxmxnx.bibliotecajavaee.dominio.detalle.*;
 import com.rxmxnx.bibliotecajavaee.dominio.*;
-import com.speedment.jpastreamer.field.predicate.*;
 import java.util.*;
-import java.util.function.*;
 import javax.ejb.*;
+import com.rxmxnx.bibliotecajavaee.db.funciones.*;
 
 /**
  *
@@ -21,7 +20,7 @@ import javax.ejb.*;
 public interface PaisDao extends SuperEntidadDao<Short, Pais, PaisDetalle> {
     @Override
     List<Pais> listar();
-    List<Pais> listarPais(Function<? extends PaisDefinicion, SpeedmentPredicate<? extends Pais>> funcionPredicado);
+    List<Pais> listarPais(PaisFuncionFiltro funcionPredicado);
     @Override
     Optional<Pais> encontrar(Short id);
     @Override
@@ -31,18 +30,18 @@ public interface PaisDao extends SuperEntidadDao<Short, Pais, PaisDetalle> {
     
     @Override
     List<PaisDetalle> listarDetallado();
-    List<PaisDetalle> listarPaisDetallado(Function<? extends PaisDefinicion, SpeedmentPredicate<? extends Pais>> funcionPredicado);
+    List<PaisDetalle> listarPaisDetallado(PaisFuncionFiltro funcionPredicado);
     @Override
     Optional<PaisDetalle> encontrarDetallado(Short id);
     
     @Override
-    default List<Pais> listar(Function<? extends SuperDefinicion<Short, ? extends Pais>, SpeedmentPredicate<? extends Pais>> funcionPredicado) {
-        Function<? extends PaisDefinicion, SpeedmentPredicate<? extends Pais>> funcion = (Function)funcionPredicado;
+    default List<Pais> listar(SuperEntidadFuncionFiltro<Short, ? extends Pais, ? extends SuperEntidadDefinicion<Short, ? extends Pais>> funcionPredicado) {
+        PaisFuncionFiltro funcion = (PaisFuncionFiltro)funcionPredicado;
         return this.listarPais(funcion);
     }
     @Override
-    default List<PaisDetalle> listarDetallado(Function<? extends SuperDefinicion<Short, ? extends Pais>, SpeedmentPredicate<? extends Pais>> funcionPredicado) {
-        Function<? extends PaisDefinicion, SpeedmentPredicate<? extends Pais>> funcion = (Function)funcionPredicado;
+    default List<PaisDetalle> listarDetallado(SuperEntidadFuncionFiltro<Short, ? extends Pais, ? extends SuperEntidadDefinicion<Short, ? extends Pais>> funcionPredicado) {
+        PaisFuncionFiltro funcion = (PaisFuncionFiltro)funcionPredicado;
         return this.listarPaisDetallado(funcion);
     }
 }

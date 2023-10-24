@@ -29,7 +29,7 @@
             <input type="submit" name="<%=botonEliminar.getNombre()%>" value="<%=botonEliminar.getValor()%>"><%}%>
         </form>
         <br/>
-        <a href=".">Regresar</a>
+        <a href="<%=uriServlet%>">Regresar</a>
     </body>
 </html><%
     }%>

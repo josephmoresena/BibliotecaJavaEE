@@ -21,6 +21,7 @@ import javax.inject.*;
 import javax.transaction.*;
 import javax.transaction.Transactional.*;
 import com.rxmxnx.bibliotecajavaee.db.funciones.*;
+import com.speedment.jpastreamer.streamconfiguration.*;
 
 /**
  *
@@ -47,6 +48,12 @@ public class AutorDaoImpl extends SuperEntidadDaoImpl<Integer, Autor, AutorDetal
     @Override
     protected LogLocal log() {
         return this.log.utilizando(this.logServidor);
+    }
+    @Override
+    protected StreamConfiguration<AutorEntidad> configuracionDetalle() {
+        return StreamConfiguration.of(this.claseEntidad())
+                .joining(Definicion.INSTANCIA.pais())
+                .joining(Definicion.INSTANCIA.libroSet());
     }
     
     @Override

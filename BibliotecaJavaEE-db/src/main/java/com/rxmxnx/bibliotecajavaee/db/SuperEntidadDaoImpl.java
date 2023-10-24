@@ -11,6 +11,7 @@ import com.speedment.jpastreamer.application.*;
 import javax.persistence.*;
 import com.speedment.jpastreamer.field.predicate.*;
 import com.speedment.jpastreamer.field.trait.*;
+import com.speedment.jpastreamer.streamconfiguration.*;
 import java.util.stream.*;
 
 /**
@@ -36,6 +37,7 @@ abstract class SuperEntidadDaoImpl<U extends Number & Comparable<U>, T extends S
     protected abstract Class<TEntidad> claseEntidad();
     protected abstract HasComparableOperators<TEntidad, U> campoId();
     protected abstract LogLocal log();
+    protected abstract StreamConfiguration<TEntidad> configuracionDetalle();
     
     protected final EntityManager entityManager() {
         return this.em;

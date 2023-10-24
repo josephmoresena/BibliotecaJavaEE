@@ -7,6 +7,8 @@ package com.rxmxnx.bibliotecajavaee.web;
 
 import com.rxmxnx.bibliotecajavaee.dominio.*;
 import com.rxmxnx.bibliotecajavaee.util.*;
+import java.io.IOException;
+import javax.servlet.ServletException;
 import javax.servlet.http.*;
 import javax.servlet.jsp.*;
 
@@ -41,5 +43,21 @@ public final class UtilidadesWeb {
     }
     public static String limpiarTexto(String texto) {
         return Registro.limpiarTexto(texto);
+    }
+    public static void redirigir(InfoRedireccion info, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.setAttribute(InfoRedireccion.NOMBRE_REDIRECCION, info);
+        request.getRequestDispatcher("/redireccion.jsp").forward(request, response);
+    }
+    public static String mensajeFormulario(BotonFormulario boton) {
+        switch(boton) {
+            case ELIMINAR:
+                return "Registro eliminado satisfactoriamente.";
+            case MODIFICAR:
+                return "Registro modificado satisfactoriamente.";
+            case CREAR:
+                return "Registro creado satisfactoriamente.";
+            default:
+                return "";
+        }
     }
 }

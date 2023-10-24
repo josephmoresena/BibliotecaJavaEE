@@ -66,12 +66,11 @@ public class PaisServlet extends HttpServlet {
                     actualizarPais(pais, request);
                     this.bo.crear(pais);
                     break;
-
+                
             }
-            this.mostrarListado(request, response);
+            UtilidadesWeb.redirigir(new InfoRedireccion("Cambios realizados", UtilidadesWeb.mensajeFormulario(boton), URL), request, response);
         } catch(Exception ex) {
-            request.setAttribute(InfoRedireccion.NOMBRE_REDIRECCION, new InfoRedireccion(ex, URL));
-            request.getRequestDispatcher("/paginaError.jsp").forward(request, response);
+            UtilidadesWeb.redirigir(new InfoRedireccion(ex, URL), request, response);
         }
     }
     

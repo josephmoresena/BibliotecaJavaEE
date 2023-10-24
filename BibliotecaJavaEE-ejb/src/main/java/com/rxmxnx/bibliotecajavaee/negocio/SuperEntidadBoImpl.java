@@ -67,7 +67,7 @@ public abstract class SuperEntidadBoImpl<U extends Number & Comparable<U>, T ext
         U id = SuperEntidad.getId(entidad);
         if (id == null)
             throw new RegistroNoEncontrado(this.claseT);
-        FuncionFiltroId<U, T> filtro = new FuncionFiltroId(id);
+        SuperEntidadFuncionFiltro filtro = this.crearFiltroId(id);
         if (this.getDao().listar(filtro).isEmpty())
             throw new RegistroNoEncontrado(this.claseT, id);
         this.getDao().guardar(entidad);
@@ -77,7 +77,7 @@ public abstract class SuperEntidadBoImpl<U extends Number & Comparable<U>, T ext
     public void eliminar(U id) throws RegistroNoEncontrado {
         if (id == null)
             throw new RegistroNoEncontrado(this.claseT);
-        FuncionFiltroId<U, T> filtro = new FuncionFiltroId(id);
+        SuperEntidadFuncionFiltro filtro = this.crearFiltroId(id);
         if (this.getDao().listar(filtro).isEmpty())
             throw new RegistroNoEncontrado(this.claseT, id);
         this.getDao().eliminar(id);
@@ -85,6 +85,7 @@ public abstract class SuperEntidadBoImpl<U extends Number & Comparable<U>, T ext
     
     protected abstract SuperEntidadDao<U, T, TDetalle> getDao();
     protected abstract void validarUnicidad(T entidad) throws RegistroExiste;
+    protected abstract SuperEntidadFuncionFiltro<U, T, ? extends SuperEntidadDefinicion<U, ? extends T>> crearFiltroId(U id);
     
     protected static class FuncionFiltroId<U extends Number & Comparable<U>, T extends SuperEntidad<U>>  implements SuperEntidadFuncionFiltro<U, T, SuperEntidadDefinicion<U, ? extends T>> {
         private final List<U> ids = new ArrayList<>();

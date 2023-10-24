@@ -22,7 +22,7 @@ public class InfoRedireccion {
         this.url = url;
     }
     public InfoRedireccion(Exception ex, String url) {
-        this.titulo = ex.getClass().getSimpleName();
+        this.titulo = ex.getClass().getName();
         this.mensaje = ex.getMessage();
         this.url = url;
     }

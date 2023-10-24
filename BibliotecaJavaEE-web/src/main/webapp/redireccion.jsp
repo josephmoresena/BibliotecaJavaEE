@@ -4,7 +4,7 @@
     try {
         redireccion = info.getObjeto();
     } catch(Exception ex) {
-        redireccion = new InfoRedireccion(ex, "./");
+        redireccion = new InfoRedireccion(ex, "/");
     }
     if (redireccion == null) { 
         pageContext.forward("./");
@@ -18,7 +18,7 @@
     <body>
         <script type="text/javascript">
             alert('<%=redireccion.getMensaje()%>');
-            window.location.href = '<%=redireccion.getUrl()%>';
+            window.location.href = '.<%=redireccion.getUrl()%>';
         </script>
     </body>
 </html><%

@@ -22,8 +22,8 @@ public class InfoRedireccion {
         this.url = url;
     }
     public InfoRedireccion(Exception ex, String url) {
-        this.titulo = ex.getClass().getName();
-        this.mensaje = ex.getMessage();
+        this.titulo = ex.getClass().getSimpleName();
+        this.mensaje = getMessage(ex);
         this.url = url;
     }
     
@@ -35,5 +35,16 @@ public class InfoRedireccion {
     }
     public String getUrl() {
         return url;
+    }
+    
+    public static String getMessage(Exception ex) {
+        String resultado = ex.getMessage();
+        if (resultado == null && ex.getCause() != null) {
+            resultado = ex.getCause().getMessage();
+            if (resultado == null)
+                resultado = ex.getCause().toString();
+        } else if(resultado == null)
+            resultado = ex.toString();
+        return resultado;
     }
 }

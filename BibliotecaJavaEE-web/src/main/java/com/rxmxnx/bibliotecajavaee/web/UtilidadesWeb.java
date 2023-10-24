@@ -11,6 +11,7 @@ import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.*;
 import javax.servlet.jsp.*;
+import org.apache.commons.lang.*;
 
 /**
  *
@@ -41,8 +42,11 @@ public final class UtilidadesWeb {
     public static BotonFormulario botonFormulario(SuperEntidad entidad) {
         return entidad == null || SuperEntidad.getId(entidad) == null ? BotonFormulario.CREAR : BotonFormulario.MODIFICAR;
     }
-    public static String limpiarTexto(String texto) {
-        return Registro.limpiarTexto(texto);
+    public static String textoHtml(String texto) {
+        return StringEscapeUtils.escapeHtml(Registro.limpiarTexto(texto));
+    }
+    public static String textoJavaScript(String texto) {
+        return StringEscapeUtils.escapeJavaScript(Registro.limpiarTexto(texto));
     }
     public static void redirigir(InfoRedireccion info, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setAttribute(InfoRedireccion.NOMBRE_REDIRECCION, info);

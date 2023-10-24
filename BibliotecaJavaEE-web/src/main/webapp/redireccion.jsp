@@ -13,12 +13,12 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title><%=redireccion.getTitulo()%></title>
+        <title><%=UtilidadesWeb.textoHtml(redireccion.getTitulo())%></title>
     </head>
     <body>
         <script type="text/javascript">
-            alert('<%=redireccion.getMensaje()%>');
-            window.location.href = '.<%=redireccion.getUrl()%>';
+            alert("<%=UtilidadesWeb.textoJavaScript(redireccion.getMensaje())%>");
+            window.location.href = ".<%=UtilidadesWeb.textoJavaScript(redireccion.getUrl())%>";
         </script>
     </body>
 </html><%

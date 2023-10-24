@@ -7,7 +7,7 @@
     <body>
         <h1>Biblioteca JavaEE</h1>
         <ul>
-            <li><a href="./pais">Listado Paises</a></li>
+            <li><a href="./pais">Listado Pa&iacute;ses</a></li>
         </ul>
     </body>
 </html>

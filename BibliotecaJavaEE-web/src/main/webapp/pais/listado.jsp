@@ -8,7 +8,7 @@
     final String uriServletPais = uriServlet + "?" + PaisServlet.PARAMETRO_ID + "=";
     final BotonFormulario botonBuscar = BotonFormulario.BUSCAR;
     AtributoPagina<List<PaisDetalle>> info = UtilidadesWeb.traerAtributo(pageContext, nombreLista);
-    final String filtroNombre = UtilidadesWeb.limpiarTexto(request.getParameter(PaisServlet.PARAMETRO_NOMBRE));
+    final String filtroNombre = UtilidadesWeb.textoHtml(request.getParameter(PaisServlet.PARAMETRO_NOMBRE));
     final String uriServletCreacion = uriServlet + "?" + PaisServlet.PARAMETRO_CREAR + "=true";
     if (info.getObjeto() == null) {
         pageContext.forward("./");
@@ -61,7 +61,7 @@
             <tbody><%for(PaisDetalle pais : info.getObjeto()) {%>
                 <tr>
                     <td><a href="<%=uriServletPais + pais.getPaisId()%>">Ver</a></td>
-                    <td><%=pais.getNombre()%></td>
+                    <td><%=UtilidadesWeb.textoHtml(pais.getNombre())%></td>
                     <td><%=pais.getLibros().size()%></td>
                     <td><%=pais.getAutores().size()%></td>
                 </tr>

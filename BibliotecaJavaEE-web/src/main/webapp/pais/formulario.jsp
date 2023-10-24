@@ -24,7 +24,7 @@
         <h1><%=accion%> Pais</h1>
         <form name="mainForm" method="POST" action="<%=uriServlet%>"><%if (!creacion) {%>
             <input type="hidden" name="<%=PaisServlet.PARAMETRO_ID%>" value="<%=pais.getPaisId()%>"><%}%>
-            Nombre: <input type="text" name="nombre" value="<%=UtilidadesWeb.limpiarTexto(pais.getNombre())%>"><br>
+            Nombre: <input type="text" name="nombre" value="<%=UtilidadesWeb.textoHtml(pais.getNombre())%>"><br>
             <input type="submit" name="<%=boton.getNombre()%>" value="<%=boton.getValor()%>"><%if (!creacion) {%>
             <input type="submit" name="<%=botonEliminar.getNombre()%>" value="<%=botonEliminar.getValor()%>"><%}%>
         </form>

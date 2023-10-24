@@ -14,41 +14,75 @@
         pageContext.forward("./");
     } else {
 %><!DOCTYPE html>
-<html>
+<html lang="es">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Listado Pa&iacute;ses</title>
         <style>
+            body {
+                font-family: Arial, sans-serif;
+                background-color: #f2f2f2;
+                margin: 0;
+                padding: 0;
+            }
+            h1 {
+                background-color: #333;
+                color: #fff;
+                padding: 10px;
+                text-align: center;
+            }
             table {
                 width: 80%;
-                border-collapse: collapse;
                 margin: 20px auto;
+                border-collapse: collapse;
+                border: 1px solid #ccc;
             }
             th, td {
-                border: 1px solid #ccc;
                 padding: 10px;
                 text-align: left;
+                border: 1px solid #ccc;
             }
             th {
-                background-color: #f2f2f2;
-            }
-            tr:nth-child(even) {
-                background-color: #f2f2f2;
-            }
-            tr:nth-child(odd) {
-                background-color: #fff;
+                background-color: #333;
+                color: #fff;
             }
             a {
                 text-decoration: none;
-                color: #0074D9;
+                background-color: #333;
+                color: #fff;
+                padding: 5px 10px;
+                border-radius: 5px;
             }
             a:hover {
-                text-decoration: underline;
+                background-color: #555;
+            }
+            form {
+                text-align: center;
+                margin: 20px auto;
+            }
+            label {
+                font-weight: bold;
+            }
+            input[type="text"] {
+                padding: 5px;
+                border: 1px solid #ccc;
+                border-radius: 5px;
+            }
+            input[type="submit"] {
+                background-color: #333;
+                color: #fff;
+                padding: 5px 10px;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+            }
+            input[type="submit"]:hover {
+                background-color: #555;
             }
         </style>
     </head>
     <body>
-        <h1>Paises</h1>
+        <h1>Pa&iacute;ses</h1>
         <table>
             <thead>
                 <tr>
